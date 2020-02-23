@@ -14,9 +14,15 @@ const Underline = styled.span`
 
 export default () => (
   <Footer>
-    Made with <Underline>Gatsby</Underline>. Hosted on{" "}
+    Made with{" "}
     <Underline>
-      <Link href="https://netlify.com" nocolour={true}>
+      <Link href="https://github.com/mikeesto/mikeesto.com" nocolour>
+        Gatsby
+      </Link>
+    </Underline>
+    . Hosted on{" "}
+    <Underline>
+      <Link href="https://netlify.com" nocolour>
         Netlify
       </Link>
     </Underline>
