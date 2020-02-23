@@ -10,7 +10,8 @@ import { ToggleContext } from "../../context/toggle"
 
 const Header = styled.header`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 `
 
 const Avatar = styled.img`
@@ -18,6 +19,8 @@ const Avatar = styled.img`
 `
 
 const IconRow = styled.div`
+  margin-top: 20px;
+
   a:not(:first-child) {
     margin-left: 15px;
   }
