@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components"
 const GlobalStyle = createGlobalStyle`
 :root {
   --bg-color: ${props => (props.toggle ? "#ffffff" : "#141414")};
-  --title-color: ${props => (props.toggle ? "#c62828" : "#eedec4")};
+  --text-color: ${props => (props.toggle ? "#c62828" : "#eedec4")};
   --icon-color: ${props => (props.toggle ? "#141414" : "#ffffff")};
   --box-color: ${props => (props.toggle ? "#ffffff" : "#eedec4")};
   --box-border: ${props => (props.toggle ? "2px dashed #141414" : null)};

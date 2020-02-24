@@ -21,6 +21,13 @@ const Avatar = styled.img`
   transform: ${props => (props.toggle ? "rotate(180deg)" : null)};
 `
 
+const Byline = styled.div`
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  color: var(--text-color);
+`
+
 const IconRow = styled.div`
   margin-top: 20px;
 
@@ -39,6 +46,11 @@ export default () => {
         alt="Photo of Michael"
         toggle={toggle}
       ></Avatar>
+      <Byline>
+        programming in the world of human–computer interaction <br /> JavaScript
+        + IoT <br />
+        or eating hot chips
+      </Byline>
       <IconRow>
         <Link href="https://github.com/mikeesto" noline>
           <GithubIcon className="icon" />

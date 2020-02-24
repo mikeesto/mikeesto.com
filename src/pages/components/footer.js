@@ -5,7 +5,7 @@ import { ToggleContext } from "../../context/toggle"
 
 const Footer = styled.div`
   text-align: center;
-  color: var(--title-color);
+  color: var(--text-color);
   font-size: 14px;
 `
 
