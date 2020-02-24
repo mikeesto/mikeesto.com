@@ -11,7 +11,7 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /svg/, // See below to configure properly
+          include: /svg/,
         },
       },
     },
@@ -22,5 +22,6 @@ module.exports = {
         display: "swap",
       },
     },
+    `gatsby-plugin-react-helmet`,
   ],
 }

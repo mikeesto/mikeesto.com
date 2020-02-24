@@ -1,31 +1,37 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import Link from "./link"
+import { ToggleContext } from "../../context/toggle"
 
 const Footer = styled.div`
   text-align: center;
-  color: #eedec4;
+  color: var(--title-color);
   font-size: 14px;
 `
 
 const Underline = styled.span`
-  border-bottom: 1px dotted #eedec4;
+  border-bottom: ${props =>
+    props.toggle ? "1px dotted black" : "1px dotted #eedec4"};
 `
 
-export default () => (
-  <Footer>
-    Made with{" "}
-    <Underline>
-      <Link href="https://github.com/mikeesto/mikeesto.com" nocolour>
-        Gatsby
-      </Link>
-    </Underline>
-    . Hosted on{" "}
-    <Underline>
-      <Link href="https://netlify.com" nocolour>
-        Netlify
-      </Link>
-    </Underline>
-    .
-  </Footer>
-)
+export default () => {
+  const [toggle] = useContext(ToggleContext)
+
+  return (
+    <Footer>
+      Made with{" "}
+      <Underline toggle={toggle}>
+        <Link href="https://github.com/mikeesto/mikeesto.com" nocolour>
+          Gatsby
+        </Link>
+      </Underline>
+      . Hosted on{" "}
+      <Underline toggle={toggle}>
+        <Link href="https://netlify.com" nocolour>
+          Netlify
+        </Link>
+      </Underline>
+      .
+    </Footer>
+  )
+}

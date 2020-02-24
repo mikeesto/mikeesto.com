@@ -1,16 +1,22 @@
 import { createGlobalStyle } from "styled-components"
 
-// TODO: create some :root colours and then modify based on whether toggle is true/false
-
 const GlobalStyle = createGlobalStyle`
+:root {
+  --bg-color: ${props => (props.toggle ? "#ffffff" : "#141414")};
+  --title-color: ${props => (props.toggle ? "#c62828" : "#eedec4")};
+  --icon-color: ${props => (props.toggle ? "#141414" : "#ffffff")};
+  --box-color: ${props => (props.toggle ? "#ffffff" : "#eedec4")};
+  --box-border: ${props => (props.toggle ? "2px dashed #141414" : null)};
+}
+
 html {
-  background-color: ${props => (props.toggle ? "white" : "#141414")};
+  background-color: var(--bg-color);
   font-size: 18px;
   font-family: "Faustina", serif;
 }
 
 .icon {
-  stroke: #ffff;
+  stroke: var(--icon-color);
   height: 100%;
   vertical-align: middle;
   cursor: pointer;
@@ -20,7 +26,7 @@ html {
   stroke: #1565c0;
 }
 
-.sun {
+.sun, .moon {
   margin-left: 15px;
 }
 
@@ -28,9 +34,14 @@ html {
   stroke: #ffff00;
 }
 
+.moon:hover {
+  stroke: #c9c9c9;
+}
+
 .cat {
   height: 25px;
   width: 25px;
+  transform: ${props => (props.toggle ? "rotate(180deg)" : null)};
 }
 `
 
