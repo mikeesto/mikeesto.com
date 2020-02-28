@@ -47,9 +47,9 @@ export default () => {
         toggle={toggle}
       ></Avatar>
       <Byline>
-        programming in the world of human–computer interaction <br /> JavaScript
-        + IoT <br />
-        or eating hot chips
+        + programming in the world of human–computer interaction <br /> +
+        JavaScript & IoT <br />+ standing up for pineapple’s rightful place on
+        pizza
       </Byline>
       <IconRow>
         <Link href="https://github.com/mikeesto" noline>

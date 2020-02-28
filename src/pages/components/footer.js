@@ -7,6 +7,7 @@ const Footer = styled.div`
   text-align: center;
   color: var(--text-color);
   font-size: 14px;
+  margin-top: 30px;
 `
 
 const Underline = styled.span`
