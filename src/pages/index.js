@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import Helmet from "react-helmet"
+import useIsMounted from "../helpers/isMounted"
 import Wrapper from "./components/wrapper"
 import Header from "./components/header"
 import Year from "./components/year"
@@ -12,13 +13,15 @@ import favicon from "../../static/favicon.ico"
 
 const Index = () => {
   const [toggle] = useContext(ToggleContext)
+  const isMounted = useIsMounted()
   return (
     <>
       <Helmet>
         <title>Michael Esteban</title>
         <link rel="icon" href={favicon} />
       </Helmet>
-      <GlobalStyles toggle={toggle} />
+      {/* Pass mounted prop to only add transition styling once the page has loaded */}
+      <GlobalStyles mounted={isMounted.current} toggle={toggle} />
       <Wrapper>
         <Header />
         <Year value="2020" />

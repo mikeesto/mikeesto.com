@@ -13,7 +13,7 @@ html {
   background-color: var(--bg-color);
   font-size: 20px;
   font-family: "Faustina", serif;
-  /* TODO: transition: all 0.3s ease;  */
+  ${props => (props.mounted ? "transition: all 0.3s ease" : null)};
 }
 
 .icon {
