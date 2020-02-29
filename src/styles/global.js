@@ -11,8 +11,9 @@ const GlobalStyle = createGlobalStyle`
 
 html {
   background-color: var(--bg-color);
-  font-size: 18px;
+  font-size: 20px;
   font-family: "Faustina", serif;
+  /* TODO: transition: all 0.3s ease;  */
 }
 
 .icon {

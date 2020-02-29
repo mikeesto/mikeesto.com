@@ -23,7 +23,7 @@ const Avatar = styled.img`
 
 const Byline = styled.div`
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 20px;
   color: var(--text-color);
 `
