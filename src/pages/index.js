@@ -27,6 +27,11 @@ const Index = () => {
         <Year value="2020" />
         <Box>
           <Project
+            titleValue="Sparkledown"
+            descriptionValue="Convert * emphasis * to ✨emphasis✨ in markdown documents"
+            url="https://www.npmjs.com/package/sparkledown"
+          />
+          <Project
             titleValue="Headless Wordpress with Next.js"
             descriptionValue="A rewrite of Netlify's Headless WordPress JAMstack Template from Nuxt.js to Next.js"
             url="https://github.com/mikeesto/headless-wp-next"
