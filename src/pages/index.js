@@ -28,7 +28,7 @@ const Index = () => {
         <Box>
           <Project
             titleValue="Sparkledown"
-            descriptionValue="Convert * emphasis * to ✨emphasis✨ in markdown documents"
+            descriptionValue="Convert *emphasis* to ✨emphasis✨ in markdown documents"
             url="https://www.npmjs.com/package/sparkledown"
           />
           <Project

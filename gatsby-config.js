@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`faustina`],
+        fonts: [`raleway`],
         display: "swap",
       },
     },

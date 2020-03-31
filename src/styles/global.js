@@ -11,8 +11,9 @@ const GlobalStyle = createGlobalStyle`
 
 html {
   background-color: var(--bg-color);
-  font-size: 20px;
-  font-family: "Faustina", serif;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "Raleway", sans-serif;
   ${props => (props.mounted ? "transition: all 0.3s ease" : null)};
 }
 
