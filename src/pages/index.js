@@ -17,8 +17,14 @@ const Index = () => {
   return (
     <>
       <Helmet>
+        <html lang="en" />
         <title>Michael Esteban</title>
         <link rel="icon" href={favicon} />
+        <meta charset="UTF-8" />
+        <meta
+          name="description"
+          content="Michael Esteban's small slice of the internet"
+        />
       </Helmet>
       {/* Pass mounted prop to only add transition styling once the page has loaded */}
       <GlobalStyles mounted={isMounted.current} toggle={toggle} />
