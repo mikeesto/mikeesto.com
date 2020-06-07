@@ -27,14 +27,29 @@ const Index = () => {
         <Year value="2020" />
         <Box>
           <Project
+            titleValue="The Playful Tingtibi Community Birdhouse"
+            descriptionValue="Investigating connecting people in remote communities through nature to foster stewardship and conservation of endangered species"
+            url="https://dl.acm.org/doi/pdf/10.1145/3313831.3376713"
+          />
+          <Project
             titleValue="Sparkledown"
             descriptionValue="Convert *emphasis* to ✨emphasis✨ in markdown documents"
             url="https://www.npmjs.com/package/sparkledown"
           />
           <Project
+            titleValue="Coding on Country"
+            descriptionValue="Preliminary explorations with a format to engage young indigenous students from remote communities in design and making"
+            url="https://dl.acm.org/doi/pdf/10.1145/3334480.3382992"
+          />
+          <Project
             titleValue="Headless Wordpress with Next.js"
             descriptionValue="A rewrite of Netlify's Headless WordPress JAMstack Template from Nuxt.js to Next.js"
             url="https://github.com/mikeesto/headless-wp-next"
+          />
+          <Project
+            titleValue="Crocodile Language Friend: Tangibles to Foster Children's Language Use"
+            descriptionValue="Encouraging language use in individual and social activities beyond the affordances of screen-based systems"
+            url="https://dl.acm.org/doi/pdf/10.1145/3334480.3383031"
           />
         </Box>
 
