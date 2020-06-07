@@ -17,16 +17,20 @@ const Description = styled.p`
   font-size: 16px;
 `
 
+const ContentWrapper = styled.div`
+  margin: 0 10px;
+`
+
 export default ({ titleValue, descriptionValue, url }) => (
   <Project>
     <div>
       <Cat className="cat" />
     </div>
-    <div style={{ marginLeft: "10px" }}>
+    <ContentWrapper>
       <Title>
         <Link href={url}>{titleValue}</Link>
       </Title>
       <Description>{descriptionValue}</Description>
-    </div>
+    </ContentWrapper>
   </Project>
 )
