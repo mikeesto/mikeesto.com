@@ -57,6 +57,11 @@ const Index = () => {
             descriptionValue="Encouraging language use in individual and social activities beyond the affordances of screen-based systems"
             url="https://dl.acm.org/doi/pdf/10.1145/3334480.3383031"
           />
+          <Project
+            titleValue="Junior Developer Jobs"
+            descriptionValue="A collation of recent tweets advertising junior developer positions"
+            url="https://juniordevjobs.netlify.app/"
+          />
         </Box>
 
         <Year value="2019" />
