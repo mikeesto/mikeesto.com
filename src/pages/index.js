@@ -33,6 +33,11 @@ const Index = () => {
         <Year value="2020" />
         <Box>
           <Project
+            titleValue="Incrementally building the web"
+            descriptionValue="A discussion on using Gatsby, Netlify Build Hooks and GitHub Actions to build static, dynamic data driven websites"
+            url="https://dev.to/mikeesto/incrementally-building-the-web-lc1"
+          />
+          <Project
             titleValue="The Playful Tingtibi Community Birdhouse"
             descriptionValue="Investigating connecting people in remote communities through nature to foster stewardship and conservation of endangered species"
             url="https://dl.acm.org/doi/pdf/10.1145/3313831.3376713"
