@@ -33,6 +33,11 @@ const Index = () => {
         <Year value="2020" />
         <Box>
           <Project
+            titleValue="useWakeLock"
+            descriptionValue="A custom React hook for the Screen Wake Lock API"
+            url="https://www.npmjs.com/package/use-wake-lock"
+          />
+          <Project
             titleValue="Incrementally building the web"
             descriptionValue="A discussion on using Gatsby, Netlify Build Hooks and GitHub Actions to build static, dynamic data driven websites"
             url="https://dev.to/mikeesto/incrementally-building-the-web-lc1"
