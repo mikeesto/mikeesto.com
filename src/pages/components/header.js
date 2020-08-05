@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import Link from "./link"
 import myface_grey from "../../../static/myface_grey.jpeg"
@@ -9,8 +9,9 @@ import MailIcon from "../../../svg/mail.svg"
 import SunIcon from "../../../svg/sun.svg"
 import MoonIcon from "../../../svg/moon.svg"
 import { ToggleContext } from "../../context/toggle"
+import { SHORT_BIO, LONG_BIO } from "../../data/bio"
 
-const Header = styled.header`
+const HeaderStyled = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,11 +22,41 @@ const Avatar = styled.img`
   transform: ${props => (props.toggle ? "rotate(180deg)" : null)};
 `
 
-const Byline = styled.div`
-  text-align: center;
+const Bio = styled.div`
   font-size: 18px;
   margin-top: 20px;
   color: var(--text-color);
+  white-space: pre-wrap;
+  position: relative;
+`
+
+const MoreButton = styled.button`
+  transform: rotate(-5deg);
+  position: absolute;
+  top: -50px;
+  left: -15%;
+  cursor: pointer;
+  background: yellow;
+  color: black;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid black;
+
+  @media (max-width: 600px) {
+    left: -3%;
+  }
+`
+
+const LessButton = styled(MoreButton)`
+  left: initial;
+  right: 20%;
+  transform: rotate(5deg);
+
+  @media (max-width: 600px) {
+    left: initial;
+    right: 4%;
+  }
 `
 
 const IconRow = styled.div`
@@ -36,21 +67,42 @@ const IconRow = styled.div`
   }
 `
 
-export default () => {
-  const [toggle, updateToggle] = useContext(ToggleContext)
+const Header = () => {
+  const [toggle, setToggle] = useContext(ToggleContext)
+  const [bioShort, setBioShort] = useState(true)
 
   return (
-    <Header>
+    <HeaderStyled>
       <Avatar
         src={toggle ? myface : myface_grey}
         alt="Photo of Michael"
         toggle={toggle}
       ></Avatar>
-      <Byline>
-        + programming in the world of human–computer interaction <br /> +
-        JavaScript & IoT <br />+ standing up for pineapple’s rightful place on
-        pizza
-      </Byline>
+      <Bio>
+        {bioShort ? (
+          <>
+            <MoreButton onClick={() => setBioShort(current => !current)}>
+              Tell me more!
+            </MoreButton>
+            {SHORT_BIO}
+          </>
+        ) : (
+          <>
+            <LessButton onClick={() => setBioShort(current => !current)}>
+              Too much!
+            </LessButton>
+            {LONG_BIO}
+            <p>
+              I believe in{" "}
+              <Link href="https://www.youtube.com/watch?v=c0bsKc4tiuY">
+                making useless things
+              </Link>
+              .
+            </p>
+          </>
+        )}
+      </Bio>
+
       <IconRow>
         <Link href="https://github.com/mikeesto" noline>
           <GithubIcon className="icon" />
@@ -64,12 +116,17 @@ export default () => {
         {toggle ? (
           <MoonIcon
             className="icon moon"
-            onClick={() => updateToggle(!toggle)}
+            onClick={() => setToggle(toggle => !toggle)}
           />
         ) : (
-          <SunIcon className="icon sun" onClick={() => updateToggle(!toggle)} />
+          <SunIcon
+            className="icon sun"
+            onClick={() => setToggle(toggle => !toggle)}
+          />
         )}
       </IconRow>
-    </Header>
+    </HeaderStyled>
   )
 }
+
+export default Header
