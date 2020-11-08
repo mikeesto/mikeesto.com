@@ -33,6 +33,21 @@ const Index = () => {
         <Year value="2020" />
         <Box>
           <Project
+            titleValue="Top Level Await in Node"
+            descriptionValue="A commonly requested feature is unlocked in Node v14.8.0"
+            url="https://dev.to/mikeesto/top-level-await-in-node-2jad"
+          />
+          <Project
+            titleValue="The Talking Box"
+            descriptionValue="Revealing strengths of adults with severe cognitive disabilities"
+            url="https://dl.acm.org/doi/abs/10.1145/3373625.3417025"
+          />
+          <Project
+            titleValue="Create React App Turns Four"
+            descriptionValue="A quick overview of what has changed in CRA v4"
+            url="https://dev.to/mikeesto/create-react-app-turns-four-3ace"
+          />
+          <Project
             titleValue="useWakeLock"
             descriptionValue="A custom React hook for the Screen Wake Lock API"
             url="https://www.npmjs.com/package/use-wake-lock"
