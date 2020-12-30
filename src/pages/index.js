@@ -33,8 +33,13 @@ const Index = () => {
         <Year value="2020" />
         <Box>
           <Project
+            titleValue="Safe Santa Pictures"
+            descriptionValue="A COVID safe photo opportunity"
+            url="https://safe-santa-pictures.netlify.app/"
+          />
+          <Project
             titleValue="Top Level Await in Node"
-            descriptionValue="A commonly requested feature is unlocked in Node v14.8.0"
+            descriptionValue="A commonly requested feature unlocked in Node v14.8.0"
             url="https://dev.to/mikeesto/top-level-await-in-node-2jad"
           />
           <Project
