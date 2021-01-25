@@ -34,7 +34,7 @@ const MoreButton = styled.button`
   transform: rotate(5deg);
   position: absolute;
   top: -50px;
-  right: -15%;
+  right: 0%;
   cursor: pointer;
   background: yellow;
   color: black;
