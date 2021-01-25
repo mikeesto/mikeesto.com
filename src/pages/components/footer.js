@@ -20,19 +20,11 @@ export default () => {
 
   return (
     <Footer>
-      Made with{" "}
       <Underline toggle={toggle}>
         <Link href="https://github.com/mikeesto/mikeesto.com" nocolour>
-          Gatsby
+          mikeesto.com
         </Link>
       </Underline>
-      . Hosted on{" "}
-      <Underline toggle={toggle}>
-        <Link href="https://netlify.com" nocolour>
-          Netlify
-        </Link>
-      </Underline>
-      .
     </Footer>
   )
 }
