@@ -31,10 +31,10 @@ const Bio = styled.div`
 `
 
 const MoreButton = styled.button`
-  transform: rotate(-5deg);
+  transform: rotate(5deg);
   position: absolute;
   top: -50px;
-  left: -15%;
+  right: -15%;
   cursor: pointer;
   background: yellow;
   color: black;
@@ -44,18 +44,18 @@ const MoreButton = styled.button`
   border: 1px solid black;
 
   @media (max-width: 600px) {
-    left: -3%;
+    right: -3%;
   }
 `
 
 const LessButton = styled(MoreButton)`
-  left: initial;
-  right: 20%;
-  transform: rotate(5deg);
+  right: initial;
+  left: 20%;
+  transform: rotate(-5deg);
 
   @media (max-width: 600px) {
-    left: initial;
-    right: 4%;
+    right: initial;
+    left: 4%;
   }
 `
 
