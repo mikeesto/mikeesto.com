@@ -30,6 +30,14 @@ const Index = () => {
       <GlobalStyles mounted={isMounted.current} toggle={toggle} />
       <Wrapper>
         <Header />
+        <Year value="2021" />
+        <Box>
+          <Project
+            titleValue="Temperature Blanket"
+            descriptionValue="Inspired by knitted/crocheted temperature blankets that have a coloured row for every day of the year"
+            url="https://temperature-blanket.netlify.app/"
+          />
+        </Box>
         <Year value="2020" />
         <Box>
           <Project
