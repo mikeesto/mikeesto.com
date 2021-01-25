@@ -1,7 +1,12 @@
-export const SHORT_BIO = "Hi, I’m Michael and I’m a software engineer."
+export const SHORT_BIO =
+  "Hi! I’m Michael and I’m a software engineer in Brisbane, Australia."
 
-export const LONG_BIO = `Hi, I’m Michael and I’m a software engineer. 
+export const LONG_BIO = `Hi! I’m Michael Esteban and I’m a software engineer in Brisbane, Australia. 
 
-I work at QUT within the human-computer interaction (HCI) discipline where I develop projects with React, Node and microcontrollers. I love teaching others how to code. Since 2016 I’ve regularly taught high school and university students web development. I’m also a tragic sports fan.
+I work at the Queensland University of Technology within the human-computer interaction (HCI) discipline. I spend my day-to-day developing projects with React, Node and microcontrollers. Since 2016 I’ve regularly taught programming to primary, high school and university students.
 
-This page is a collation of side projects, blog posts and papers that I have created or collaborated on.`
+I have a Bachelor of Computer Science / Bachelor of Laws.
+
+This page is a collation of side projects, blog posts and papers that I have created or collaborated on.
+
+Feel free to reach me via Twitter or email!`

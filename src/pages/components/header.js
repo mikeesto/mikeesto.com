@@ -92,13 +92,6 @@ const Header = () => {
               Too much!
             </LessButton>
             {LONG_BIO}
-            <p>
-              I believe in{" "}
-              <Link href="https://www.youtube.com/watch?v=c0bsKc4tiuY">
-                making useless things
-              </Link>
-              .
-            </p>
           </>
         )}
       </Bio>
