@@ -7,6 +7,7 @@ import Year from "./components/year"
 import Box from "./components/box.js"
 import Project from "./components/project"
 import Footer from "./components/footer"
+import FeaturedProjects from "./components/FeaturedProjects"
 import GlobalStyles from "../styles/global"
 import { ToggleContext } from "../context/toggle"
 import favicon from "../../static/favicon.ico"
@@ -30,6 +31,7 @@ const Index = () => {
       <GlobalStyles mounted={isMounted.current} toggle={toggle} />
       <Wrapper>
         <Header />
+        <FeaturedProjects />
         <Year value="2021" />
         <Box>
           <Project
