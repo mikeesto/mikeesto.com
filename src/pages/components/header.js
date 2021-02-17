@@ -28,6 +28,7 @@ const Bio = styled.div`
   color: var(--text-color);
   white-space: pre-wrap;
   position: relative;
+  text-align: center;
 `
 
 const MoreButton = styled.button`

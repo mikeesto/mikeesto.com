@@ -35,6 +35,11 @@ const Index = () => {
         <Year value="2021" />
         <Box>
           <Project
+            titleValue="Uploading files to the Raspberry Pi Pico without Thonny"
+            descriptionValue="Using a VSCode and CLI workflow"
+            url="https://mikeesto.medium.com/uploading-to-the-raspberry-pi-pico-without-thonny-53de1a10da30"
+          />
+          <Project
             titleValue="Temperature Blanket"
             descriptionValue="Inspired by knitted/crocheted temperature blankets that have a coloured row for every day of the year"
             url="https://temperature-blanket.netlify.app/"
