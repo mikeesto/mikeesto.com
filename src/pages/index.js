@@ -44,6 +44,11 @@ const Index = () => {
             descriptionValue="Inspired by knitted/crocheted temperature blankets that have a coloured row for every day of the year"
             url="https://temperature-blanket.netlify.app/"
           />
+          <Project
+            titleValue="Next.js & MDX w/ code highlighting"
+            descriptionValue="How to configure Next.js to render MDX files with code highlighting"
+            url="https://dev.to/mikeesto/next-js-mdx-w-code-highlighting-16fi"
+          />
         </Box>
         <Year value="2020" />
         <Box>
