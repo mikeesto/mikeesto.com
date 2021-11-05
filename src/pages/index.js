@@ -35,6 +35,11 @@ const Index = () => {
         <Year value="2021" />
         <Box>
           <Project
+            titleValue="Emoji Maker"
+            descriptionValue="Create custom emoji"
+            url="https://emojimakers.netlify.app/"
+          />
+          <Project
             titleValue="Uploading files to the Raspberry Pi Pico without Thonny"
             descriptionValue="Using a VSCode and CLI workflow"
             url="https://mikeesto.medium.com/uploading-to-the-raspberry-pi-pico-without-thonny-53de1a10da30"
@@ -48,6 +53,11 @@ const Index = () => {
             titleValue="Next.js & MDX w/ code highlighting"
             descriptionValue="How to configure Next.js to render MDX files with code highlighting"
             url="https://dev.to/mikeesto/next-js-mdx-w-code-highlighting-16fi"
+          />
+          <Project
+            titleValue="Guess the width"
+            descriptionValue="Can you drag the div to the right width?"
+            url="https://guessthewidth.netlify.app/"
           />
         </Box>
         <Year value="2020" />
