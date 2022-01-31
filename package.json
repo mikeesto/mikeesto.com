@@ -1,35 +1,15 @@
 {
   "name": "mikeesto.com",
+  "version": "0.0.1",
   "private": true,
-  "description": "Michael Esteban's place on the internet",
-  "version": "0.1.0",
-  "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
-  },
-  "dependencies": {
-    "babel-plugin-styled-components": "^1.10.7",
-    "gatsby": "^2.19.7",
-    "gatsby-plugin-google-fonts": "^1.0.1",
-    "gatsby-plugin-react-helmet": "^3.1.22",
-    "gatsby-plugin-react-svg": "^3.0.0",
-    "gatsby-plugin-styled-components": "^3.1.19",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1",
-    "styled-components": "^5.0.1"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "devDependencies": {
-    "prettier": "^1.19.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mikeesto/mikeesto.com"
+    "astro": "^0.21.13",
+    "prettier-plugin-astro": "^0.0.11"
   }
 }

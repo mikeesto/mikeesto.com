@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Safe Santa Pictures",
+    "description": "A COVID safe photo opportunity",
+    "url": "https://safe-santa-pictures.netlify.app/"
+  },
+  {
+    "title": "Top Level Await in Node",
+    "description": "A commonly requested feature unlocked in Node v14.8.0",
+    "url": "https://dev.to/mikeesto/top-level-await-in-node-2jad"
+  },
+  {
+    "title": "The Talking Box",
+    "description": "Revealing strengths of adults with severe cognitive disabilities",
+    "url": "https://dl.acm.org/doi/abs/10.1145/3373625.3417025"
+  },
+  {
+    "title": "Create React App Turns Four",
+    "description": "A quick overview of what has changed in CRA v4",
+    "url": "https://dev.to/mikeesto/create-react-app-turns-four-3ace"
+  },
+  {
+    "title": "useWakeLock",
+    "description": "A custom React hook for the Screen Wake Lock API",
+    "url": "https://www.npmjs.com/package/use-wake-lock"
+  },
+  {
+    "title": "Incrementally building the web",
+    "description": "A discussion on using Gatsby, Netlify Build Hooks and GitHub Actions to build static, dynamic data driven websites",
+    "url": "https://dev.to/mikeesto/incrementally-building-the-web-lc1"
+  },
+  {
+    "title": "The Playful Tingtibi Community Birdhouse",
+    "description": "Investigating connecting people in remote communities through nature to foster stewardship and conservation of endangered species",
+    "url": "https://dl.acm.org/doi/pdf/10.1145/3313831.3376713"
+  },
+  {
+    "title": "Sparkledown",
+    "description": "Convert *emphasis* to ✨emphasis✨ in markdown documents",
+    "url": "https://www.npmjs.com/package/sparkledown"
+  },
+  {
+    "title": "Coding on Country",
+    "description": "Preliminary explorations with a format to engage young indigenous students from remote communities in design and making",
+    "url": "https://dl.acm.org/doi/pdf/10.1145/3334480.3382992"
+  },
+  {
+    "title": "Headless Wordpress with Next.js",
+    "description": "A rewrite of Netlify's Headless WordPress JAMstack Template from Nuxt.js to Next.js",
+    "url": "https://github.com/mikeesto/headless-wp-next"
+  },
+  {
+    "title": "Crocodile Language Friend: Tangibles to Foster Children's Language Use",
+    "description": "Encouraging language use in individual and social activities beyond the affordances of screen-based systems",
+    "url": "https://dl.acm.org/doi/pdf/10.1145/3334480.3383031"
+  },
+  {
+    "title": "Crocodile Language Friend: Tangibles to Foster Children's Language Use",
+    "description": "Encouraging language use in individual and social activities beyond the affordances of screen-based systems",
+    "url": "https://dl.acm.org/doi/pdf/10.1145/3334480.3383031"
+  },
+  {
+    "title": "Junior Developer Jobs",
+    "description": "A collation of recent tweets advertising junior developer positions",
+    "url": "https://juniordevjobs.netlify.app/"
+  }
+]

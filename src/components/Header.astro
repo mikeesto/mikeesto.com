@@ -1,0 +1,114 @@
+<div class="wrapper">
+  <img src="/me-grey.jpeg" alt="A photo of Michael" id="photo" />
+
+  <div class="bio">
+    <button class="toggle_btn more">Tell me more!</button>
+    <div class="bio_short">
+      <p>Hi! I'm Michael and I'm a software engineer in Brisbane, Australia.</p>
+    </div>
+    <div class="bio_long">
+      <p>
+        Hi! I'm Michael Esteban and I'm a software engineer in Brisbane,
+        Australia.
+      </p>
+      <p>
+        I work at the Queensland University of Technology within the
+        human-computer interaction (HCI) discipline. I spend my day-to-day
+        developing projects with React, Node and microcontrollers. Since 2016,
+        I've regularly taught programming to primary, high school and university
+        students.
+      </p>
+      <p>I have a Bachelor of Computer Science / Bachelor of Laws.</p>
+      <p>
+        This page is a collation of side projects, blog posts and papers that I
+        have created or collaborated on. Feel free to reach me via Twitter or
+        email!
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const shortBio = document.querySelector(".bio_short");
+  const longBio = document.querySelector(".bio_long");
+  const button = document.querySelector(".toggle_btn");
+
+  button.addEventListener("click", () => {
+    if (shortBio.style.display !== "none") {
+      shortBio.style.display = "none";
+      longBio.style.display = "initial";
+      button.classList.add("less");
+      button.innerText = "Too much!";
+    } else {
+      shortBio.style.display = "initial";
+      longBio.style.display = "none";
+      button.classList.remove("less");
+      button.innerText = "Tell me more!";
+    }
+  });
+</script>
+
+<style>
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    border-radius: 50%;
+    transform: var(--rotate);
+  }
+
+  .bio {
+    margin-top: 20px;
+    color: var(--text-color);
+    position: relative;
+    text-align: center;
+  }
+
+  .bio_long {
+    display: none;
+  }
+
+  .bio_long,
+  .bio_short {
+    font-size: 1.1rem;
+  }
+
+  .bio_short p,
+  .bio_long p {
+    margin-top: 1rem;
+  }
+
+  .more {
+    transform: rotate(5deg);
+    position: absolute;
+    top: -50px;
+    right: 0%;
+    cursor: pointer;
+    background: yellow;
+    color: black;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid black;
+  }
+
+  .less {
+    right: initial;
+    left: 20%;
+    transform: rotate(-5deg);
+  }
+
+  @media (max-width: 600px) {
+    .less {
+      right: initial;
+      left: 4%;
+    }
+
+    .more {
+      right: -3%;
+    }
+  }
+</style>

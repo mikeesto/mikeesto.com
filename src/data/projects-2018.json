@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Guess the sketch",
+    "description": "Can you guess what Magenta's sketch-rnn model is drawing?",
+    "url": "https://guess-the-sketch.glitch.me/"
+  },
+  {
+    "title": "Prototype based programming ",
+    "description": "A discussion on prototype based programming (with a focus on JavaScript)",
+    "url": "https://github.com/mikeesto/prototype-programming/blob/master/README.md"
+  },
+  {
+    "title": "Twitch.tv chat",
+    "description": "An exploration into displaying twitch.tv chat unconventionally",
+    "url": "https://mikeesto.github.io/twitch-chat-art/"
+  },
+  {
+    "title": "Git branches",
+    "description": "An introductory guide on using branches",
+    "url": "https://github.com/mikeesto/git-branches/blob/master/README.md"
+  }
+]

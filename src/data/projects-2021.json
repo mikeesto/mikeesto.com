@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Emoji Maker",
+    "description": "Create custom emoji",
+    "url": "https://emojimakers.netlify.app/"
+  },
+  {
+    "title": "Uploading files to the Raspberry Pi Pico without Thonny",
+    "description": "Using a VSCode and CLI workflow",
+    "url": "https://mikeesto.medium.com/uploading-to-the-raspberry-pi-pico-without-thonny-53de1a10da30"
+  },
+  {
+    "title": "Temperature Blanket",
+    "description": "Inspired by knitted/crocheted temperature blankets that have a coloured row for every day of the year",
+    "url": "https://temperature-blanket.netlify.app/"
+  },
+  {
+    "title": "Next.js & MDX w/ code highlighting",
+    "description": "How to configure Next.js to render MDX files with code highlighting",
+    "url": "https://dev.to/mikeesto/next-js-mdx-w-code-highlighting-16fi"
+  },
+  {
+    "title": "Guess the width",
+    "description": "Can you drag the div to the right width?",
+    "url": "https://guessthewidth.netlify.app/"
+  }
+]

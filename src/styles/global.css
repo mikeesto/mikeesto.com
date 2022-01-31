@@ -1,0 +1,76 @@
+/* CSS Reset thanks to: https://www.joshwcomeau.com/css/custom-css-reset/  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* END CSS Reset */
+
+body {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 35px;
+}
+
+@media (max-width: 425px) {
+  body {
+    padding: 20px !important;
+  }
+}
+
+:root {
+  --bg-color: #141414;
+  --text-color: #eedec4;
+  --icon-color: #ffffff;
+  --projects-bg: #eedec4;
+}
+
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #c62828;
+  --rotate: rotate(180deg);
+  --icon-color: #141414;
+  --projects-bg: #ffffff;
+  --projects-border: 2px dashed #141414;
+}

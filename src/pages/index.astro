@@ -1,0 +1,71 @@
+---
+import Header from "../components/Header.astro";
+import Icons from "../components/Icons.astro";
+import Projects from "../components/Projects.astro";
+import Footer from "../components/Footer.astro";
+import Spacer from "../components/Spacer.astro";
+
+import projects2018 from "../data/projects-2018.json";
+import projects2019 from "../data/projects-2019.json";
+import projects2020 from "../data/projects-2020.json";
+import projects2021 from "../data/projects-2021.json";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Michael Esteban</title>
+    <meta
+      name="description"
+      content="Michael Esteban's small slice of the internet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href={Astro.resolve("../styles/global.css")}
+    />
+    <style>
+      ::selection {
+        background: #ffc;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        font-family: "Raleway", sans-serif;
+        transition: all 0.3s ease;
+        max-width: 700px;
+        margin: 0 auto;
+        transition: all 0.5s ease;
+      }
+
+      @media (max-width: 425px) {
+        body {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <Spacer space={20} />
+    <Icons />
+    <Projects year="2021" projects={projects2021} />
+    <Spacer space={10} />
+    <Projects year="2020" projects={projects2020} />
+    <Spacer space={10} />
+    <Projects year="2019" projects={projects2019} />
+    <Spacer space={10} />
+    <Projects year="2018" projects={projects2018} />
+    <Footer />
+  </body>
+</html>

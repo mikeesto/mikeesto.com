@@ -1,0 +1,47 @@
+[
+  {
+    "title": "CSS mechanical keyboard",
+    "description": "I postponed buying a mechanical keyboard by making a CSS one",
+    "url": "https://codepen.io/Mickel07/full/YdONYK"
+  },
+  {
+    "title": "Christmas e-cards",
+    "description": "A 2000s inspired Christmas e-card generator",
+    "url": "https://christmas-ecards.glitch.me/"
+  },
+  {
+    "title": "Firebase authentication",
+    "description": "An example app using Firebase authentication with React & Express",
+    "url": "https://github.com/mikeesto/firebase-auth-example"
+  },
+  {
+    "title": "Smile on five",
+    "description": "A smol facial expression recognition game",
+    "url": "https://smile-on-five.glitch.me/"
+  },
+  {
+    "title": "Gatsby e-commerce",
+    "description": "A Gatsby e-commerce site that uses Stripe integration & Netlify Functions",
+    "url": "https://github.com/mikeesto/ecommerce-gatsby"
+  },
+  {
+    "title": "Australia votes",
+    "description": "A collection of 67,284 public tweets published on the night of the 2019 Australian election",
+    "url": "https://github.com/mikeesto/ausvotes19"
+  },
+  {
+    "title": "Python-node-websocket",
+    "description": "A starter template for using Python with Node.js and Websocket",
+    "url": "https://github.com/mikeesto/python-node-websocket"
+  },
+  {
+    "title": "micro:bit demos",
+    "description": "A collection of demos for the micro:bit",
+    "url": "https://github.com/mikeesto/microbit-demos"
+  },
+  {
+    "title": "Split flap",
+    "description": "A fun project modelled on a split flap display",
+    "url": "https://split-flap.glitch.me/"
+  }
+]

@@ -1,0 +1,144 @@
+<div class="center">
+  <a href="https://github.com/mikeesto" target="__blank"
+    ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon"
+    >
+      <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+      ></path></svg
+    ></a
+  >
+
+  <a href="https://twitter.com/mikeesto"
+    ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon"
+    >
+      <path
+        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+      ></path></svg
+    ></a
+  >
+
+  <a href="mailto:hi.mikeesto@gmail.com"
+    ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon"
+    >
+      <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg
+    ></a
+  >
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="icon"
+    id="sun"
+  >
+    <circle cx="12" cy="12" r="5"></circle>
+    <path
+      d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+    ></path>
+  </svg>
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="icon"
+    id="moon"
+    ><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg
+  >
+</div>
+
+<script>
+  let checked = false;
+  const photo = document.querySelector("#photo");
+  const sun = document.querySelector("#sun");
+  const moon = document.querySelector("#moon");
+
+  function toggle() {
+    if (checked) {
+      document.documentElement.setAttribute("data-theme", "light");
+      photo.src = "me.jpeg";
+      sun.style.display = "none";
+      moon.style.display = "initial";
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      photo.src = "me-grey.jpeg";
+      sun.style.display = "initial";
+      moon.style.display = "none";
+    }
+    checked = !checked;
+  }
+
+  sun.addEventListener("click", toggle);
+  moon.addEventListener("click", toggle);
+</script>
+
+<style>
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+
+  a:not(:first-child) {
+    margin-left: 15px;
+  }
+
+  .icon {
+    stroke: var(--icon-color);
+    height: 100%;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .icon:hover {
+    stroke: #1565c0;
+  }
+
+  #sun,
+  #moon {
+    margin-left: 15px;
+  }
+
+  #moon {
+    display: none;
+  }
+
+  #moon:hover {
+    stroke: #c9c9c9;
+  }
+
+  #sun:hover {
+    stroke: #ffff00;
+  }
+</style>
