@@ -86,7 +86,7 @@
   const moon = document.querySelector("#moon");
 
   function toggle() {
-    if (checked) {
+    if (!checked) {
       document.documentElement.setAttribute("data-theme", "light");
       photo.src = "me.jpeg";
       sun.style.display = "none";
