@@ -9,7 +9,10 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "astro": "^0.21.13",
-    "prettier-plugin-astro": "^0.0.11"
+    "astro": "^0.22.20",
+    "date-fns": "^2.28.0",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
+    "prettier-plugin-astro": "^0.0.12"
   }
 }

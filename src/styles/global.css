@@ -61,6 +61,7 @@ body {
 
 :root {
   --bg-color: #141414;
+  --heading-color: #ffffff;
   --text-color: #eedec4;
   --icon-color: #ffffff;
   --projects-bg: #eedec4;
@@ -68,6 +69,7 @@ body {
 
 [data-theme="light"] {
   --bg-color: #ffffff;
+  --heading-color: #000;
   --text-color: #c62828;
   --rotate: rotate(180deg);
   --icon-color: #141414;
