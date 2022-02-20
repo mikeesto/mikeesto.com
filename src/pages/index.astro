@@ -11,6 +11,7 @@ import projects2018 from "../data/projects-2018.json";
 import projects2019 from "../data/projects-2019.json";
 import projects2020 from "../data/projects-2020.json";
 import projects2021 from "../data/projects-2021.json";
+import projects2022 from "../data/projects-2022.json";
 ---
 
 <Base>
@@ -23,6 +24,8 @@ import projects2021 from "../data/projects-2021.json";
   <Posts />
   <Spacer space={30} />
   <h2><span>🚧</span> Projects</h2>
+  <Spacer space={10} />
+  <Projects year="2021" projects={projects2022} />
   <Spacer space={10} />
   <Projects year="2021" projects={projects2021} />
   <Spacer space={10} />
