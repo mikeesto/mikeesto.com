@@ -5,19 +5,9 @@
     "url": "https://safe-santa-pictures.netlify.app/"
   },
   {
-    "title": "Top Level Await in Node",
-    "description": "A commonly requested feature unlocked in Node v14.8.0",
-    "url": "https://dev.to/mikeesto/top-level-await-in-node-2jad"
-  },
-  {
     "title": "The Talking Box",
     "description": "Revealing strengths of adults with severe cognitive disabilities",
     "url": "https://dl.acm.org/doi/abs/10.1145/3373625.3417025"
-  },
-  {
-    "title": "Create React App Turns Four",
-    "description": "A quick overview of what has changed in CRA v4",
-    "url": "https://dev.to/mikeesto/create-react-app-turns-four-3ace"
   },
   {
     "title": "useWakeLock",
@@ -48,11 +38,6 @@
     "title": "Headless Wordpress with Next.js",
     "description": "A rewrite of Netlify's Headless WordPress JAMstack Template from Nuxt.js to Next.js",
     "url": "https://github.com/mikeesto/headless-wp-next"
-  },
-  {
-    "title": "Crocodile Language Friend: Tangibles to Foster Children's Language Use",
-    "description": "Encouraging language use in individual and social activities beyond the affordances of screen-based systems",
-    "url": "https://dl.acm.org/doi/pdf/10.1145/3334480.3383031"
   },
   {
     "title": "Crocodile Language Friend: Tangibles to Foster Children's Language Use",
