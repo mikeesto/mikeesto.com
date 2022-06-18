@@ -8,5 +8,10 @@
     "title": "Kind Wordle",
     "description": "A kinder version of Wordle that gives you vowels to begin with",
     "url": "https://kindwordle.netlify.app/"
+  },
+  {
+    "title": "Networked Gardens",
+    "description": "Remediating Local Nature Data Through the Internet of Things",
+    "url": "https://dl.acm.org/doi/pdf/10.1145/3532106.3533497"
   }
 ]
