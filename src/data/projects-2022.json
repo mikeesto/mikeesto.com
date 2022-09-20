@@ -1,13 +1,13 @@
 [
   {
-    "title": "Ditto",
-    "description": "Pipe output from command line programs to a web page",
-    "url": "https://dittopi.herokuapp.com/"
-  },
-  {
     "title": "Kind Wordle",
     "description": "A kinder version of Wordle that gives you vowels to begin with",
     "url": "https://kindwordle.netlify.app/"
+  },
+  {
+    "title": "Ditto",
+    "description": "Pipe output from command line programs to a web page",
+    "url": "https://ditto-yjbb.onrender.com/"
   },
   {
     "title": "Networked Gardens",
