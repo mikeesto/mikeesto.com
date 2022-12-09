@@ -13,7 +13,7 @@ After researching a couple of different options, what I landed on was a package 
 
 Here is how you might go about using compressorjs with Supabase:
 
-```jsx
+```js
 import Compressor from "compressorjs";
 
 document.getElementById("file").addEventListener("change", (e) => {

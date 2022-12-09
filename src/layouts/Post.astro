@@ -1,16 +1,13 @@
 ---
-import { Markdown } from "astro/components";
 import Base from "../layouts/Base.astro";
-const { content } = Astro.props;
+const { frontmatter } = Astro.props;
 ---
 
-<Base title={content.title} codeStyles={true}>
+<Base title={frontmatter.title} codeStyles={true}>
   <a id="back" href="/">← Home</a>
-  <h1>{content.title}</h1>
-  <h4 id="date">{content.date}</h4>
-  <Markdown content={content.astro.source}>
-    <!-- Need to pass content via prop for now. When passing as a child, the indentation is lost -->
-  </Markdown>
+  <h1>{frontmatter.title}</h1>
+  <h2 id="date">{frontmatter.date}</h2>
+  <slot />
 </Base>
 
 <style>
@@ -28,18 +25,19 @@ const { content } = Astro.props;
   }
 
   h1,
-  h4,
-  p {
+  h2 {
     color: white;
   }
 
   #date {
     margin-bottom: 15px;
   }
-
+</style><style is:global>
+  /* Used to style slot */
   p {
     font-weight: 500;
     margin: 10px 0;
+    color: #dbdfdf;
   }
 
   a {
@@ -49,5 +47,12 @@ const { content } = Astro.props;
 
   a:hover {
     border-bottom: 1px dotted var(--posts-link);
+  }
+
+  .astro-code {
+    margin-top: 20px;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 16px;
   }
 </style>
