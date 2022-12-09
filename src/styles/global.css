@@ -53,6 +53,10 @@ body {
   padding: 30px;
 }
 
+p {
+  font-family: system-ui, sans-serif;
+}
+
 @media (max-width: 425px) {
   body {
     padding: 20px !important;
