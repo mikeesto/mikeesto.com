@@ -14,5 +14,8 @@
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "prettier-plugin-astro": "^0.0.12"
+  },
+  "dependencies": {
+    "@fontsource/rubik": "^4.5.11"
   }
 }
