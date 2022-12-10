@@ -47,13 +47,21 @@ h6 {
 
 /* END CSS Reset */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Rubik", sans-serif;
+}
+
+
 body {
   max-width: 700px;
   margin: 0 auto;
   padding: 30px;
-}
-
-p {
+  background-color: var(--bg-color);
   font-family: system-ui, sans-serif;
 }
 
