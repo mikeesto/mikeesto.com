@@ -2,6 +2,7 @@
 const { title } = Astro.props;
 import "@fontsource/rubik";
 import "../styles/global.css";
+import Footer from "../components/Footer.astro";
 ---
 
 <html lang="en">
@@ -18,4 +19,5 @@ import "../styles/global.css";
   <body>
     <slot />
   </body>
+  <Footer />
 </html>

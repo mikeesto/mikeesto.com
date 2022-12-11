@@ -9,9 +9,11 @@ const formatDate = format(parseDate, "PPP");
 
 <Base title={frontmatter.title} codeStyles={true}>
   <a class="home" href="/">← Home</a>
-  <h1>{frontmatter.title}</h1>
-  <h2 class="date">{formatDate}</h2>
-  <slot />
+  <article class="post">
+    <h1>{frontmatter.title}</h1>
+    <h2 class="date">{formatDate}</h2>
+    <slot />
+  </article>
 </Base>
 
 <style>
@@ -42,22 +44,23 @@ const formatDate = format(parseDate, "PPP");
   }
 </style><style is:global>
   /* Used to style slot */
-  p {
+
+  .post p {
     font-weight: 500;
     margin: 10px 0;
     color: var(--offwhite);
   }
 
-  a {
+  .post a {
     color: var(--post-link);
     text-decoration: none;
   }
 
-  a:hover {
+  .post a:hover {
     border-bottom: 1px dotted var(--post-link);
   }
 
-  .astro-code {
+  .post .astro-code {
     margin-top: 20px;
     padding: 10px;
     font-family: monospace;
