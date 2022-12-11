@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 const { frontmatter } = Astro.props;
 import { parse, format } from "date-fns";
+import "@fontsource/fira-code";
 
 const parseDate = parse(frontmatter.date, "dd-MM-yyyy", new Date());
 const formatDate = format(parseDate, "PPP");
@@ -63,7 +64,10 @@ const formatDate = format(parseDate, "PPP");
   .post .astro-code {
     margin-top: 20px;
     padding: 10px;
-    font-family: monospace;
-    font-size: 16px;
+  }
+
+  .post code {
+    font-family: "Fira Code", monospace;
+    font-size: 15px;
   }
 </style>

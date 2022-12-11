@@ -6,7 +6,7 @@ export default defineConfig({
     shikiConfig: {
       theme: "dracula",
       // Enable word wrap to prevent horizontal scrolling
-      // wrap: true,
+      wrap: true,
     },
   },
 });

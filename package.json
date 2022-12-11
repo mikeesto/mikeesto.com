@@ -16,6 +16,7 @@
     "prettier-plugin-astro": "^0.0.12"
   },
   "dependencies": {
+    "@fontsource/fira-code": "^4.5.12",
     "@fontsource/rubik": "^4.5.11"
   }
 }
