@@ -1,17 +1,21 @@
 ---
 import Base from "../layouts/Base.astro";
 const { frontmatter } = Astro.props;
+import { parse, format } from "date-fns";
+
+const parseDate = parse(frontmatter.date, "dd-MM-yyyy", new Date());
+const formatDate = format(parseDate, "PPP");
 ---
 
 <Base title={frontmatter.title} codeStyles={true}>
-  <a id="back" href="/">← Home</a>
+  <a class="back" href="/">← Home</a>
   <h1>{frontmatter.title}</h1>
-  <h2 id="date">{frontmatter.date}</h2>
+  <h2 class="date">{formatDate}</h2>
   <slot />
 </Base>
 
 <style>
-  #back {
+  .back {
     cursor: pointer;
     margin-bottom: 15px;
     padding: 4px 6px;
@@ -29,8 +33,10 @@ const { frontmatter } = Astro.props;
     color: white;
   }
 
-  #date {
+  .date {
+    margin-top: 10px;
     margin-bottom: 15px;
+    font-size: 18px;
   }
 </style><style is:global>
   /* Used to style slot */
