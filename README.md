@@ -1,14 +1,12 @@
 # mikeesto.com
 
-Built with Astro.
+[mikeesto.com](https://mikeesto.com)
 
-## 🏗
+The following directories and their contents are copyright. You may not use anything within:
 
-All commands are run from the root of the project:
+```
+/data
+/pages/posts
+```
 
-| Command            | Action                                      |
-| :----------------- | :------------------------------------------ |
-| `yarn install`     | Installs dependencies                       |
-| `yarn run dev`     | Starts local dev server at `localhost:3000` |
-| `yarn run build`   | Builds production site to `./dist/`         |
-| `yarn run preview` | Preview build locally, before deploying     |
+All other directories and files are MIT licensed (unless licensed otherwise).
