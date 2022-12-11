@@ -77,7 +77,7 @@ body {
   --text-color: #eedec4;
   --icon-color: #ffffff;
   --projects-bg: #eedec4;
-  --posts-link: #80b4e3;
+  --post-link: #80b4e3;
 }
 
 [data-theme="light"] {
@@ -88,5 +88,5 @@ body {
   --icon-color: #141414;
   --projects-bg: #ffffff;
   --projects-border: 2px dashed #141414;
-  --posts-link: #000;
+  --post-link: #1565c0;
 }
