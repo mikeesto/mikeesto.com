@@ -1,20 +1,33 @@
 ---
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 import "@fontsource/rubik";
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 ---
 
 <html lang="en">
-  <head
-    ><meta charset="utf-8" />
+  <head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title ? `${title} | Michael Esteban` : "Michael Esteban"}</title>
-    <meta
+    {title ? (
+      <title>`{title} | Michael Esteban`</title>
+      <meta content={title} property="og:title">
+      <meta content={title} name="twitter:title">
+      <meta content={description} name="description"> 
+      <meta name="twitter:card" content="summary_large_image"/>
+    
+    ) : (
+      <title>Michael Esteban</title>
+      <meta content="Michael Esteban" property="og:title">
+      <meta content="Michael Esteban" name="twitter:title">
+       <meta
       name="description"
-      content="Michael Esteban's small slice of the internet"
+      content="Michael Esteban's small place on the internet"
     />
+    )}
+    <meta content="https://mikeesto.com/me-grey.jpg" name="twitter:image" />
+    <meta content="https://mikeesto.com/me-grey.jpg" name="og:image" />
   </head>
   <body>
     <slot />

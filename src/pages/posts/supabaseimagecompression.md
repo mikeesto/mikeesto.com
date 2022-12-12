@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Client-side image compression with Supabase Storage
+description: Compressing images client-side with compressorjs before uploading them to Supabase Storage to reduce file sizes
 date: 09-12-2022
 draft: false
 ---
