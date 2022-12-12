@@ -15,19 +15,17 @@ import Footer from "../components/Footer.astro";
       <meta content={title} property="og:title">
       <meta content={title} name="twitter:title">
       <meta content={description} name="description"> 
-      <meta name="twitter:card" content="summary_large_image"/>
-    
+      <meta content={description} property="og:description"/>
     ) : (
       <title>Michael Esteban</title>
       <meta content="Michael Esteban" property="og:title">
       <meta content="Michael Esteban" name="twitter:title">
-       <meta
-      name="description"
-      content="Michael Esteban's small place on the internet"
-    />
+      <meta content="Michael Esteban's small place on the internet" name="description" />
+      <meta content="Michael Esteban's small place on the internet" property ="og:description" />
     )}
+    <meta content="summary" name="twitter:card" />
     <meta content="https://mikeesto.com/me-grey.jpg" name="twitter:image" />
-    <meta content="https://mikeesto.com/me-grey.jpg" name="og:image" />
+    <meta content="https://mikeesto.com/me-grey.jpg" property="og:image" />
   </head>
   <body>
     <slot />
