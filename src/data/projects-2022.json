@@ -1,5 +1,10 @@
 [
   {
+    "title": "Tailwind to CSS",
+    "description": "Convert tailwind utilities to CSS",
+    "url": "https://tailwindtocss.vercel.app/"
+  },
+  {
     "title": "Googly Eyes Generator",
     "description": "Generate googly eyes on objects with stable diffusion",
     "url": "https://googlyeye.netlify.app/"
