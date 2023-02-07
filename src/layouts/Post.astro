@@ -46,6 +46,11 @@ const formatDate = format(parseDate, "PPP");
 </style><style is:global>
   /* Used to style slot */
 
+  .post h3 {
+    color: lightblue;
+    margin-top: 20px;
+  }
+
   .post p {
     font-weight: 500;
     margin: 10px 0;
@@ -69,5 +74,11 @@ const formatDate = format(parseDate, "PPP");
   .post code {
     font-family: "Fira Code", monospace;
     font-size: 15px;
+  }
+
+  .post ol,
+  .post ul {
+    color: var(--offwhite);
+    font-weight: 500;
   }
 </style>
