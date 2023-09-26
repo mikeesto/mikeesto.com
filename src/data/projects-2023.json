@@ -8,5 +8,10 @@
     "title": "Animal Guesser",
     "description": "Exploring using GPT-3 as an AI for simple games",
     "url": "https://guess-animal.vercel.app/"
+  },
+  {
+    "title": "AI Horde Text UI",
+    "description": "A web UI for interacting with the AI Horde's text generation models",
+    "url": "https://ai-horde-text-ui.vercel.app/"
   }
 ]
