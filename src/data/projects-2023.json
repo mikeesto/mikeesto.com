@@ -1,5 +1,10 @@
 [
   {
+    "title": "YouTube Subtitle Transcript ",
+    "description": "A Typescript library for fetching transcripts of YouTube videos",
+    "url": "https://www.npmjs.com/package/youtube-subtitle-transcript"
+  },
+  {
     "title": "Namehive",
     "description": "Generate domain names with GPT-3 & logos with Stable Diffusion",
     "url": "https://namehive.store/"
