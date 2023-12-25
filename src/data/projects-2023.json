@@ -1,6 +1,11 @@
 [
   {
-    "title": "YouTube Subtitle Transcript ",
+    "title": "YouTube Summariser",
+    "description": "Summarise YouTube videos with AI",
+    "url": "https://yt-summary.vercel.app/"
+  },
+  {
+    "title": "YouTube Subtitle Transcript",
     "description": "A Typescript library for fetching transcripts of YouTube videos",
     "url": "https://www.npmjs.com/package/youtube-subtitle-transcript"
   },
