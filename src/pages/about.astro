@@ -1,12 +1,14 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import greyMichael from "/public/me-grey.jpg";
 ---
 
 <Base>
   <main>
-    <img
+    <Image
       class="rounded-sm mt-4 float-right ml-6"
-      src="me-grey.jpg"
+      src={greyMichael}
       id="portrait"
       alt="Portrait of Michael"
     />
@@ -59,10 +61,10 @@ import Base from "../layouts/Base.astro";
 
   const swapImage = () => {
     if (portrait.src.includes("grey")) {
-      portrait.src = "me.jpg";
+      portrait.src = "/me.jpg";
       portrait.style.transform = "rotate(180deg)";
     } else {
-      portrait.src = "me-grey.jpg";
+      portrait.src = "/me-grey.jpg";
       portrait.style.transform = "rotate(0deg)";
     }
   };
