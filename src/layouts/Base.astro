@@ -1,7 +1,9 @@
 ---
 const { title, description } = Astro.props;
-import "@fontsource/rubik";
-import "../styles/global.css";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 const titleContent = title ? `${title} | Michael Esteban` : "Michael Esteban";
@@ -39,7 +41,8 @@ const titleContent = title ? `${title} | Michael Esteban` : "Michael Esteban";
     <meta content="https://mikeesto.com/me-grey.jpg" name="twitter:image" />
     <meta content="https://mikeesto.com/me-grey.jpg" property="og:image" />
   </head>
-  <body>
+  <body class="p-4 max-w-[768px] mx-auto bg-[#f6f5f1]">
+    <Nav />
     <slot />
   </body>
   <Footer />

@@ -1,0 +1,27 @@
+---
+import Home from "./Home.astro";
+---
+
+<nav class="mt-2">
+  <ul class="flex gap-3">
+    <li><a href="/"><Home /></a></li>
+    <li class="ml-auto"><a href="/about">About</a></li>
+    <li><a href="https://github.com/mikeesto">GitHub</a></li>
+    <li><a href="/posts">Posts</a></li>
+    <li><a href="/projects">Projects</a></li>
+  </ul>
+</nav>
+
+<script type="module">
+  import { annotate } from "https://unpkg.com/rough-notation?module";
+  const listItems = document.querySelectorAll("nav ul li a");
+  listItems.forEach((item) => {
+    const annotation = annotate(item, {
+      type: "underline",
+      animate: false,
+      color: "#e10000",
+    });
+    item.addEventListener("mouseenter", () => annotation.show());
+    item.addEventListener("mouseleave", () => annotation.hide());
+  });
+</script>

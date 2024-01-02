@@ -58,7 +58,7 @@ I then used Python to read a text file. It’s a draft article I’ve been worki
 This model's maximum context length is 4097 tokens, however you requested 17748 tokens.
 ```
 
-😔 Building an AI assistant wasn’t going to be as easy as I thought.
+Building an AI assistant wasn’t going to be as easy as I thought.
 
 ### The context window
 
@@ -224,7 +224,5 @@ The OpenAI API is not free so I encourage you to check out their [pricing page](
 There’s a few things I would like to acknowledge as they helped solidify my understanding while working on this and perhaps they can do similarly for you.
 
 - [Build a GitHub support bot with GPT3, LangChain, and Python by Pete Hunt](https://dagster.io/blog/chatgpt-langchain#to-fine-tune-or-not-to-fine-tune).
-
 - [LangChain](https://langchain.readthedocs.io/en/latest/index.html). This was actually one of the first things I looked at as I had seen plenty praise for it. Personally, I found that it abstracted too much of what was going on for my liking. But, it is a cool library and I found the source code to be very readable.
-
 - [How to implement Q&A against your documentation with GPT3, embeddings and Datasette by Simon Willison](https://simonwillison.net/2023/Jan/13/semantic-search-answers/).

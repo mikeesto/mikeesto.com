@@ -2,7 +2,8 @@
   {
     "title": "YouTube Summariser",
     "description": "Summarise YouTube videos with AI",
-    "url": "https://yt-summary.vercel.app/"
+    "url": "https://yt-summary.vercel.app/",
+    "image": "youtube-summariser.png"
   },
   {
     "title": "YouTube Subtitle Transcript",
@@ -11,12 +12,12 @@
   },
   {
     "title": "Namehive",
-    "description": "Generate domain names with GPT-3 & logos with Stable Diffusion",
+    "description": "Generate domain names with GPT & logos with Stable Diffusion",
     "url": "https://namehive.store/"
   },
   {
     "title": "Animal Guesser",
-    "description": "Exploring using GPT-3 as an AI for simple games",
+    "description": "Exploring using GPT as an AI for simple games",
     "url": "https://guess-animal.vercel.app/"
   },
   {

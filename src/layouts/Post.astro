@@ -9,76 +9,54 @@ const formatDate = format(parseDate, "PPP");
 ---
 
 <Base title={frontmatter.title} codeStyles={true}>
-  <a class="home" href="/">← Home</a>
-  <article class="post">
-    <h1>{frontmatter.title}</h1>
-    <h2 class="date">{formatDate}</h2>
+  <article class="post mt-4">
+    <h1 class="uppercase text-xl inline-block font-bold">
+      {frontmatter.title}
+    </h1>
+    <h2 class="font-light mt-1 mb-4">{formatDate}</h2>
     <slot />
   </article>
 </Base>
 
-<style>
-  .home {
-    cursor: pointer;
-    margin-bottom: 15px;
-    background-color: #bfe3df;
-    text-decoration: none;
-    color: black;
-    display: inline-block;
-    border-radius: 3px;
-    padding: 5px 10px;
-  }
+<script type="module">
+  import { annotate } from "https://unpkg.com/rough-notation?module";
+  const heading = document.querySelector("h1");
+  const annotation = annotate(heading, {
+    type: "highlight",
+    animate: false,
+    color: "#ffd54f",
+  });
+  annotation.show();
+</script>
 
-  .home:hover {
-    border: 0;
-  }
-
-  h1 {
-    color: white;
-  }
-
-  .date {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: var(--offwhite);
-  }
-</style><style is:global>
+<style is:global>
   /* Used to style slot */
 
+  .post a {
+    @apply text-blue-500 hover:text-blue-600;
+  }
+
   .post h3 {
-    color: lightblue;
-    margin-top: 20px;
+    @apply font-bold uppercase my-4 text-lg;
   }
 
   .post p {
-    font-weight: 500;
-    margin: 10px 0;
-    color: var(--offwhite);
-  }
-
-  .post a {
-    color: var(--post-link);
-    text-decoration: none;
-  }
-
-  .post a:hover {
-    border-bottom: 1px dotted var(--post-link);
+    @apply my-2;
   }
 
   .post .astro-code {
-    margin-top: 20px;
-    padding: 10px;
+    @apply my-3 p-2;
   }
 
   .post code {
     font-family: "Fira Code", monospace;
-    font-size: 15px;
   }
 
-  .post ol,
   .post ul {
-    color: var(--offwhite);
-    font-weight: 500;
+    @apply list-disc list-inside my-2;
+  }
+
+  .post ol {
+    @apply list-decimal list-inside my-2;
   }
 </style>

@@ -2,7 +2,8 @@
   {
     "title": "Emoji Maker",
     "description": "Create custom emoji",
-    "url": "https://emojimakers.netlify.app/"
+    "url": "https://emojimakers.netlify.app/",
+    "image": "emoji-maker.jpg"
   },
   {
     "title": "Temperature Blanket",

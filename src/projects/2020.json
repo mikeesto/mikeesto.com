@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Safe Santa Pictures",
+    "description": "A COVID safe photo opportunity",
+    "url": "https://safe-santa-pictures.netlify.app/"
+  },
+  {
+    "title": "useWakeLock",
+    "description": "A custom React hook for the Screen Wake Lock API",
+    "url": "https://www.npmjs.com/package/use-wake-lock"
+  },
+  {
+    "title": "Sparkledown",
+    "description": "Convert *emphasis* to ✨emphasis✨ in markdown documents",
+    "url": "https://www.npmjs.com/package/sparkledown"
+  },
+  {
+    "title": "Headless Wordpress with Next.js",
+    "description": "A rewrite of Netlify's Headless WordPress JAMstack Template from Nuxt.js to Next.js",
+    "url": "https://github.com/mikeesto/headless-wp-next"
+  },
+  {
+    "title": "Junior Developer Jobs",
+    "description": "A collation of recent tweets advertising junior developer positions",
+    "url": "https://juniordevjobs.netlify.app/"
+  }
+]

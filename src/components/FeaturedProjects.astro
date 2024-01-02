@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import projects2018 from "../projects/2018.json";
+import projects2019 from "../projects/2019.json";
+import projects2020 from "../projects/2020.json";
+import projects2021 from "../projects/2021.json";
+import projects2022 from "../projects/2022.json";
+import projects2023 from "../projects/2023.json";
+
+interface Project {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+}
+
+const projects: Project[] = [
+  ...projects2023,
+  ...projects2022,
+  ...projects2021,
+  ...projects2020,
+  ...projects2019,
+  ...projects2018,
+];
+
+// Filter projects that have an image property to feature
+const featuredProjects = projects.filter((project) => project.image);
+
+const images = import.meta.glob("../projects/img/*");
+---
+
+<section>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {featuredProjects.map((project) => (
+      <div class="p-2 border group">
+        <a href={project.url}>
+          <Image
+            src={images[`../projects/img/${project.image}`]()}
+            alt={project.title}
+            class="w-[250px] h-auto mx-auto"
+          />
+          <h3 class="text-center mt-1 text-blue-500 group-hover:text-blue-600">
+            {project.title}
+          </h3>
+          <p class="mt-1 text-sm text-center">{project.description}</p>
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <a
+    id="link"
+    href="/projects"
+    class="mt-2 inline-block border-black border-2 px-2 py-1 text-slate-700 group"
+    >All projects <span
+      class="transition-transform transform group-hover:translate-x-1 inline-block"
+      >→</span
+    ></a
+  >
+</section>

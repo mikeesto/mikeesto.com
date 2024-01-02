@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import greyMichael from "/public/me-grey.jpg";
+---
+
+<Base>
+  <main>
+    <Image
+      class="rounded-sm mt-4 float-right ml-6"
+      src={greyMichael}
+      id="portrait"
+      alt="Portrait of Michael"
+    />
+
+    <h1 class="text-xl mt-4">About me</h1>
+
+    <div class="flex justify-between">
+      <h2 id="hi" class="text-lg mt-4 mb-4 inline-block">
+        Hi, I'm Michael Esteban!
+      </h2>
+    </div>
+    <p>
+      I currently work in the Human Computer Interaction lab at the Queensland
+      University of Technology. I'm a wearer of many hats and every day looks a
+      bit different for me. Most of my work involves creating small, interesting
+      websites that make messy datasets, like environmental observations, easier
+      to explore and share. Some of my projects also have a hardware component
+      where I put on my maker hat and write code that runs on a Raspberry Pi
+      with custom laser cut or 3D printed housing.
+    </p>
+
+    <p class="mt-2">
+      I degrees in Computer Science and Law. I love teaching others how to
+      program and regularly lead primary, high school, and university classes.
+      When I'm not being <span class="italic">very</span> online, you can usually
+      find me on a tennis court.
+    </p>
+
+    <p class="mt-2">
+      This website is primarily a collation of side projects, blog posts and
+      papers that I have created or collaborated on.
+    </p>
+  </main>
+</Base>
+
+<script type="module">
+  import { annotate } from "https://unpkg.com/rough-notation?module";
+
+  const heading = document.querySelector("#hi");
+  const annotation = annotate(heading, {
+    type: "highlight",
+    animate: false,
+    color: "#ffd54f",
+  });
+  annotation.show();
+</script>
+
+<script>
+  const portrait = document.getElementById("portrait");
+
+  const swapImage = () => {
+    if (portrait.src.includes("grey")) {
+      portrait.src = "me.jpg";
+      portrait.style.transform = "rotate(180deg)";
+    } else {
+      portrait.src = "me-grey.jpg";
+      portrait.style.transform = "rotate(0deg)";
+    }
+  };
+
+  portrait.addEventListener("mouseover", swapImage);
+  portrait.addEventListener("mouseout", swapImage);
+</script>

@@ -1,0 +1,115 @@
+---
+import { readdirSync, readFileSync } from "fs";
+import matter from "gray-matter";
+import { compareDesc, parse, format } from "date-fns";
+import yaml from "js-yaml";
+
+const posts = [];
+const files = readdirSync("src/pages/posts");
+
+for (const file of files) {
+  const data = readFileSync(`src/pages/posts/${file}`, "utf8");
+  const frontmatter = matter(data, {
+    engines: {
+      yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }),
+    },
+  });
+
+  // Exclude drafts
+  if (frontmatter.data.draft) {
+    continue;
+  }
+
+  // Parse frontmatter
+  const slug = file.split(".")[0];
+  const parsedDate = parse(frontmatter.data.date, "dd-MM-yyyy", new Date());
+  const formattedDate = format(parsedDate, "do MMMM, yyyy");
+
+  posts.push({ ...frontmatter.data, slug, formattedDate });
+}
+
+posts.sort((post1, post2) =>
+  compareDesc(
+    parse(post1.date, "dd-MM-yyyy", new Date()),
+    parse(post2.date, "dd-MM-yyyy", new Date())
+  )
+);
+---
+
+<main>
+  <ul>
+    {posts.map((post) => (
+      <li class="flex justify-between md:flex-row flex-col mb-2">
+        <a
+          class="text-blue-500 hover:text-blue-600"
+          href={`/posts/${post.slug}`}
+        >
+          {post.title}
+        </a>
+        <span class="text-gray-500">{post.formattedDate}</span>
+      </li>
+    ))}
+
+    <!-- Posts that live elsewhere -->
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://mikeesto.medium.com/pre-signed-urls-cors-on-cloudflare-r2-c90d43370dc4"
+        >Pre-signed URLs & CORS on Cloudflare R2</a
+      >
+      <span class="text-gray-500">3rd October, 2022</span>
+    </li>
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://dev.to/mikeesto/next-js-mdx-w-code-highlighting-16fi"
+        >Next.js & MDX with code highlighting</a
+      >
+      <span class="text-gray-500">16th July, 2021</span>
+    </li>
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://mikeesto.medium.com/uploading-to-the-raspberry-pi-pico-without-thonny-53de1a10da30"
+        >Uploading files to the Raspberry Pi Pico without Thonny</a
+      >
+      <span class="text-gray-500">17th February, 2021</span>
+    </li>
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://dev.to/mikeesto/top-level-await-in-node-2jad"
+      >
+        Create React App Turns Four</a
+      >
+      <span class="text-gray-500">29th October, 2020</span>
+    </li>
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://dev.to/mikeesto/create-react-app-turns-four-3ace"
+      >
+        Top Level Await in Node</a
+      >
+      <span class="text-gray-500">15th August, 2020</span>
+    </li>
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://dev.to/mikeesto/the-screen-wake-lock-api-51hp"
+      >
+        The Screen Wake Lock API</a
+      >
+      <span class="text-gray-500">23rd July, 2020</span>
+    </li>
+    <li class="flex justify-between mb-2 md:flex-row flex-col">
+      <a
+        class="text-blue-500 hover:text-blue-600"
+        href="https://dev.to/mikeesto/incrementally-building-the-web-lc1"
+      >
+        Incrementally building the web</a
+      >
+      <span class="text-gray-500">10th July, 2020</span>
+    </li>
+  </ul>
+</main>

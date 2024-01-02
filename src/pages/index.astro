@@ -1,53 +1,38 @@
 ---
 import Base from "../layouts/Base.astro";
-import Header from "../components/Header.astro";
-import Icons from "../components/Icons.astro";
-import Posts from "../components/Posts.astro";
-import Projects from "../components/Projects.astro";
-import Spacer from "../components/Spacer.astro";
-
-import projects2018 from "../data/projects-2018.json";
-import projects2019 from "../data/projects-2019.json";
-import projects2020 from "../data/projects-2020.json";
-import projects2021 from "../data/projects-2021.json";
-import projects2022 from "../data/projects-2022.json";
-import projects2023 from "../data/projects-2023.json";
+import FeaturedPosts from "../components/FeaturedPosts.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
+import Contact from "../components/Contact.astro";
 ---
 
 <Base>
-  <Header />
-  <Spacer size={20} />
-  <Icons />
-  <Spacer size={20} />
-  <h2><span>🗂️</span> Recent Posts</h2>
-  <Spacer size={15} />
-  <Posts />
-  <Spacer size={30} />
-  <h2><span>🚧</span> Projects</h2>
-  <Spacer size={10} />
-  <Projects year="2023" projects={projects2023} />
-  <Spacer size={10} />
-  <Projects year="2022" projects={projects2022} />
-  <Spacer size={10} />
-  <Projects year="2021" projects={projects2021} />
-  <Spacer size={10} />
-  <Projects year="2020" projects={projects2020} />
-  <Spacer size={10} />
-  <Projects year="2019" projects={projects2019} collapse />
-  <Spacer size={10} />
-  <Projects year="2018" projects={projects2018} collapse />
+  <h1 class="text-xl mt-4 mb-6">
+    I'm Michael Esteban, a software engineer from Brisbane, Australia.
+  </h1>
+
+  <h2 class="text-xl inline-block mb-4">Featured Posts</h2>
+
+  <FeaturedPosts />
+
+  <h2 class="text-xl inline-block my-6">Featured Projects</h2>
+
+  <FeaturedProjects />
+
+  <h2 class="text-xl inline-block my-6">Contact me</h2>
+
+  <Contact />
 </Base>
 
-<style>
-  ::selection {
-    background: #ffc;
-  }
+<script type="module">
+  import { annotate } from "https://unpkg.com/rough-notation?module";
 
-  h2 {
-    color: var(--heading-color);
-  }
-
-  span {
-    margin-right: 5px;
-  }
-</style>
+  const headings = document.querySelectorAll("h2");
+  headings.forEach((item) => {
+    const annotation = annotate(item, {
+      type: "highlight",
+      animate: false,
+      color: "#ffd54f",
+    });
+    annotation.show();
+  });
+</script>
