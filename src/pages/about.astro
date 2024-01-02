@@ -1,14 +1,12 @@
 ---
-import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import greyMichael from "/public/me-grey.jpg";
 ---
 
 <Base>
   <main>
-    <Image
+    <img
       class="rounded-sm mt-4 float-right ml-6"
-      src={greyMichael}
+      src="me-grey.jpg"
       id="portrait"
       alt="Portrait of Michael"
     />
@@ -31,7 +29,7 @@ import greyMichael from "/public/me-grey.jpg";
     </p>
 
     <p class="mt-2">
-      I degrees in Computer Science and Law. I love teaching others how to
+      I have degrees in Computer Science and Law. I love teaching others how to
       program and regularly lead primary, high school, and university classes.
       When I'm not being <span class="italic">very</span> online, you can usually
       find me on a tennis court.
