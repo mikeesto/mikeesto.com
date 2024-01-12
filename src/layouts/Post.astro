@@ -1,19 +1,23 @@
 ---
-import Base from "../layouts/Base.astro";
-const { frontmatter } = Astro.props;
 import { parse, format } from "date-fns";
 import "@fontsource/fira-code";
+import Base from "../layouts/Base.astro";
+import { screenshot } from "../utils/screenshot.js";
 
-const parseDate = parse(frontmatter.date, "dd-MM-yyyy", new Date());
-const formatDate = format(parseDate, "PPP");
+const { frontmatter } = Astro.props;
+
+const parsedDate = parse(frontmatter.date, "dd-MM-yyyy", new Date());
+const formattedDate = format(parsedDate, "PPP");
+
+const slug = await screenshot(frontmatter.title);
 ---
 
-<Base title={frontmatter.title} codeStyles={true}>
+<Base title={frontmatter.title} description={frontmatter.description} {slug}>
   <article class="post mt-4">
     <h1 class="uppercase text-xl inline-block font-bold">
       {frontmatter.title}
     </h1>
-    <h2 class="font-light mt-1 mb-4">{formatDate}</h2>
+    <h2 class="font-light mt-1 mb-4">{formattedDate}</h2>
     <slot />
   </article>
 </Base>

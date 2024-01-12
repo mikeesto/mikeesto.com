@@ -1,12 +1,22 @@
 ---
-const { title, description } = Astro.props;
 import "@fontsource/inter/300.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/600.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
-const titleContent = title ? title : "Michael Esteban";
+interface Props {
+  title: string;
+  description?: string;
+  slug?: string;
+}
+
+const { title, slug } = Astro.props;
+let { description } = Astro.props;
+
+if (!description) {
+  description = "Michael Esteban's small home on the internet";
+}
 ---
 
 <html lang="en">
@@ -14,32 +24,24 @@ const titleContent = title ? title : "Michael Esteban";
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>{titleContent}</title>
-    {title ? (
-      <meta content={title} property="og:title" />
-      <meta content={title} name="twitter:title" />
-      <meta content={description} name="description" />
-      <meta content={description} property="og:description" />
-      <meta content={description} name="twitter:description" />
-    ) : (
-      <meta content="Michael Esteban" property="og:title" />
-      <meta content="Michael Esteban" name="twitter:title" />
-      <meta
-        content="Michael Esteban's small place on the internet"
-        name="description"
-      />
-      <meta
-        content="Michael Esteban's small place on the internet"
-        property="og:description"
-      />
-      <meta
-        content="Michael Esteban's small place on the internet"
-        name="twitter:description"
-      />
-    )}
+
+    <title>{title}</title>
+    <meta content={title} property="og:title" />
+    <meta content={title} name="twitter:title" />
+    <meta content={description} name="description" />
+    <meta content={description} property="og:description" />
+    <meta content={description} name="twitter:description" />
+    <meta content={Astro.url} property="og:url" />
+    <meta content={Astro.url} name="twitter:url" />
     <meta content="summary" name="twitter:card" />
-    <meta content="https://mikeesto.com/me-grey.jpg" name="twitter:image" />
-    <meta content="https://mikeesto.com/me-grey.jpg" property="og:image" />
+
+    {slug ? (
+    <meta content={`/og/${slug}.png`} name="twitter:image" />
+    <meta content={`/og/${slug}.png`} property="og:image" />
+    ) : (
+    <meta content="/og/default.png" name="twitter:image" />
+    <meta content="/og/default.png" property="og:image" />
+    )}
   </head>
   <body class="p-4 max-w-[768px] mx-auto bg-[#f6f5f1]">
     <Nav />
