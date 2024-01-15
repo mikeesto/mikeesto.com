@@ -26,22 +26,31 @@ if (!description) {
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <title>{title}</title>
+    <meta content="website" property="og:type" />
+    <meta content="Michael Esteban" property="og:site_name" />
     <meta content={title} property="og:title" />
     <meta content={title} name="twitter:title" />
+    <meta content="en_GB" property="og:locale" />
+    <meta content="index,follow" name="robots" />
+    <meta content="index,follow" name="googlebot" />
     <meta content={description} name="description" />
     <meta content={description} property="og:description" />
     <meta content={description} name="twitter:description" />
     <meta content={Astro.url} property="og:url" />
     <meta content={Astro.url} name="twitter:url" />
     <meta content="summary_large_image" name="twitter:card" />
+    <meta content="@mikeesto" name="twitter:creator" />
 
     {slug ? (
-    <meta content={`/og/${slug}.png`} name="twitter:image" />
-    <meta content={`/og/${slug}.png`} property="og:image" />
+    <meta content={`https://mikeesto.com/og/${slug}.png`} name="twitter:image" />
+    <meta content={`https://mikeesto.com/og/${slug}.png`} property="og:image" />
     ) : (
-    <meta content="/og/default.png" name="twitter:image" />
-    <meta content="/og/default.png" property="og:image" />
+    <meta content="https://mikeesto.com/og/default.png" name="twitter:image" />
+    <meta content="https://mikeesto.com/og/default.png" property="og:image" />
     )}
+
+    <meta content="1200" property="og:image:width" />
+    <meta content="630" property="og:image:height" />
   </head>
   <body class="p-4 max-w-[768px] mx-auto bg-[#f6f5f1]">
     <Nav />
