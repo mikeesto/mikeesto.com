@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Post.astro
 title: How to use @next/font globally
 description: How to use a custom font from @next/font and apply it globally in your Next.js application
 date: 20-02-2023

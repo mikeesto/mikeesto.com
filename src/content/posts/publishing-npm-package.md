@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Post.astro
 title: Publishing a Typescript package to NPM in 2023
 description: How to publish a TypeScript package to NPM in 2023 using tsup and np
 date: 13-12-2023

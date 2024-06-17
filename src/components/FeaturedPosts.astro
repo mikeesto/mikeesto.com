@@ -1,42 +1,12 @@
 ---
-import { readdirSync, readFileSync } from "fs";
-import matter from "gray-matter";
-import { compareDesc, parse, format } from "date-fns";
-import yaml from "js-yaml";
+import { getCollection } from "astro:content";
+import {filterPosts} from '../utils/filterPosts'
 
-const posts = [];
-const files = readdirSync("src/pages/posts");
-
-for (const file of files) {
-  const data = readFileSync(`src/pages/posts/${file}`, "utf8");
-  const frontmatter = matter(data, {
-    engines: {
-      yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }),
-    },
-  });
-
-  // Exclude drafts
-  if (frontmatter.data.draft) {
-    continue;
-  }
-
-  // Parse frontmatter
-  const slug = file.split(".")[0];
-  const parsedDate = parse(frontmatter.data.date, "dd-MM-yyyy", new Date());
-  const formattedDate = format(parsedDate, "do MMMM, yyyy");
-
-  posts.push({ ...frontmatter.data, slug, formattedDate });
-}
-
-posts.sort((post1, post2) =>
-  compareDesc(
-    parse(post1.date, "dd-MM-yyyy", new Date()),
-    parse(post2.date, "dd-MM-yyyy", new Date())
-  )
-);
+const posts = await getCollection("posts");
+const filteredPosts = filterPosts(posts)
 
 // Only show 3 posts
-const latestPosts = posts.splice(0, 3);
+const latestPosts = filteredPosts.splice(0, 4);
 ---
 
 <div>
@@ -47,9 +17,9 @@ const latestPosts = posts.splice(0, 3);
           class="text-blue-500 hover:text-blue-600"
           href={`/posts/${post.slug}`}
         >
-          {post.title}
+          {post.data.title}
         </a>
-        <span class="text-gray-500">{post.formattedDate}</span>
+        <span class="text-gray-500">{post.data.formattedDate}</span>
       </li>
     ))}
   </ul>

@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Post.astro
 title: How to build an AI assistant for your documentation
 description: How is everyone building an AI assistant for their documentation?  I spent several nights after work making my own AI assistant. This is a summary of everything I have learnt.
 date: 08-02-2023
