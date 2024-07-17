@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import ListProjects from "../components/ListProjects.astro";
 
+import Projects2024 from "../projects/2024.json";
 import Projects2023 from "../projects/2023.json";
 import Projects2022 from "../projects/2022.json";
 import Projects2021 from "../projects/2021.json";
@@ -18,6 +19,9 @@ import Projects2018 from "../projects/2018.json";
       worked on. Not all are complete but they should be functional. Almost all
       are open source.
     </h2>
+
+    <h3 class="text-lg mt-4 mb-2 inline-block">2024</h3>
+    <ListProjects projects={Projects2024} />
 
     <h3 class="text-lg mt-4 mb-2 inline-block">2023</h3>
     <ListProjects projects={Projects2023} />
