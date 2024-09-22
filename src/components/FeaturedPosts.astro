@@ -1,27 +1,29 @@
 ---
 import { getCollection } from "astro:content";
-import {filterPosts} from '../utils/filterPosts'
+import { filterPosts } from "../utils/filterPosts";
 
 const posts = await getCollection("posts");
-const filteredPosts = filterPosts(posts)
+const filteredPosts = filterPosts(posts);
 
-// Only show 3 posts
-const latestPosts = filteredPosts.splice(0, 4);
+// Only show 5 posts
+const latestPosts = filteredPosts.splice(0, 5);
 ---
 
 <div>
   <ul>
-    {latestPosts.map((post) => (
-      <li class="flex justify-between mb-2 md:flex-row flex-col">
-        <a
-          class="text-blue-500 hover:text-blue-600"
-          href={`/posts/${post.slug}`}
-        >
-          {post.data.title}
-        </a>
-        <span class="text-gray-500">{post.data.formattedDate}</span>
-      </li>
-    ))}
+    {
+      latestPosts.map((post) => (
+        <li class="flex justify-between mb-2 md:flex-row flex-col">
+          <a
+            class="text-blue-500 hover:text-blue-600"
+            href={`/posts/${post.slug}`}
+          >
+            {post.data.title}
+          </a>
+          <span class="text-gray-500">{post.data.formattedDate}</span>
+        </li>
+      ))
+    }
   </ul>
   <a
     href="/posts"
