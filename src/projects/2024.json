@@ -6,7 +6,7 @@
   },
   {
     "title": "Subber",
-    "description": "A small CLI tool for converting video & audio to a text transcription",
+    "description": "A small CLI tool for converting video & audio to a text transcription locally",
     "url": "https://github.com/mikeesto/subber"
   }
 ]
