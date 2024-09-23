@@ -1,5 +1,10 @@
 [
   {
+    "title": "Gemini Transcribe",
+    "description": "Transcribe audio and video files with speaker diarization and logically grouped timestamps",
+    "url": "https://gemini-transcribe.fly.dev/"
+  },
+  {
     "title": "Subber",
     "description": "A small CLI tool for converting video & audio to a text transcription",
     "url": "https://github.com/mikeesto/subber"
