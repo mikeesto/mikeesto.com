@@ -5,6 +5,11 @@
     "url": "https://gemini-transcribe.fly.dev/"
   },
   {
+    "title": "Better VOD Gallery",
+    "description": "A gallery for the Twitch 'Software and Game Development' category with better filtering and sorting options",
+    "url": "https://bettervod.netlify.app/"
+  },
+  {
     "title": "Subber",
     "description": "A small CLI tool for converting video & audio to a text transcription locally",
     "url": "https://github.com/mikeesto/subber"
