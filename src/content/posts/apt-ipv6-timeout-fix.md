@@ -26,3 +26,5 @@ Add this line:
 ```bash
 Acquire::ForceIPv4 "true";
 ```
+
+If you found this useful, I have started [collating notes](https://pifiles.netlify.app/) on working with the Raspberry Pi in a central place.

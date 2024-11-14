@@ -5,6 +5,11 @@
     "url": "https://gemini-transcribe.fly.dev/"
   },
   {
+    "title": "PiFiles",
+    "description": "A collection of notes for working with the Raspberry Pi",
+    "url": "https://pifiles.netlify.app/"
+  },
+  {
     "title": "Better VOD Gallery",
     "description": "A gallery for the Twitch 'Software and Game Development' category with better filtering and sorting options",
     "url": "https://bettervod.netlify.app/"
