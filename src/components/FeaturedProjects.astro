@@ -31,29 +31,35 @@ const images = import.meta.glob("../projects/img/*");
 
 <section>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {featuredProjects.map((project) => (
-      <div class="p-2 border group">
-        <a href={project.url}>
-          <Image
-            src={images[`../projects/img/${project.image}`]()}
-            alt={project.title}
-            class="w-[250px] h-auto mx-auto"
-          />
-          <h3 class="text-center mt-1 text-blue-500 group-hover:text-blue-600">
-            {project.title}
-          </h3>
-          <p class="mt-1 text-sm text-center">{project.description}</p>
-        </a>
-      </div>
-    ))}
+    {
+      featuredProjects.map((project) => (
+        <div class="p-2 border group">
+          <a href={project.url}>
+            <Image
+              src={images[`../projects/img/${project.image}`]()}
+              alt={project.title}
+              class="w-[250px] h-auto mx-auto"
+            />
+            <h3 class="text-center mt-1 text-blue-500 group-hover:text-blue-600">
+              {project.title}
+            </h3>
+            <p class="mt-1 text-sm text-center">{project.description}</p>
+          </a>
+        </div>
+      ))
+    }
   </div>
 
   <a
     href="/projects"
-    class="mt-2 inline-block border-black border-2 px-2 py-1 text-slate-700 group"
-    >All projects <span
-      class="transition-transform transform group-hover:translate-x-1 inline-block"
-      >→</span
-    ></a
+    class="mt-2 inline-flex items-center border-black border-2 gap-2 px-4 py-2 rounded-md group"
   >
+    <span class="text-blue-500 hover:text-blue-600">All projects</span>
+    <span
+      class="transition-transform duration-200 transform group-hover:translate-x-1"
+      aria-hidden="true"
+    >
+      →
+    </span>
+  </a>
 </section>

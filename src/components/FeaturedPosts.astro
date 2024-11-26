@@ -27,10 +27,14 @@ const latestPosts = filteredPosts.splice(0, 5);
   </ul>
   <a
     href="/posts"
-    class="mt-2 inline-block border-black border-2 px-2 py-1 text-slate-700 group"
-    >All posts <span
-      class="transition-transform transform group-hover:translate-x-1 inline-block"
-      >→</span
-    ></a
+    class="mt-2 inline-flex items-center border-black border-2 gap-2 px-4 py-2 rounded-md group"
   >
+    <span class="text-blue-500 hover:text-blue-600">All posts</span>
+    <span
+      class="transition-transform duration-200 transform group-hover:translate-x-1"
+      aria-hidden="true"
+    >
+      →
+    </span>
+  </a>
 </div>
