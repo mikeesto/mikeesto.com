@@ -1,38 +1,48 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import FeaturedPosts from "../components/FeaturedPosts.astro";
 import FeaturedProjects from "../components/FeaturedProjects.astro";
 import Contact from "../components/Contact.astro";
+import greyMichael from "/public/me-grey.jpg";
 ---
 
 <Base title="Michael Esteban">
-  <h1 class="text-xl mb-6">
-    Hi! I'm Michael Esteban, a software engineer from Brisbane, Australia.
-  </h1>
+  <main>
+    <h2 class="text-xl inline-block mb-2 border-b-[3px] border-b-[gold]">
+      Hi!
+    </h2>
 
-  <h2 class="text-xl inline-block mb-4">Latest Posts</h2>
+    <div class="flex flex-col md:flex-row items-center gap-8 mb-6">
+      <p class="text-lg md:w-2/3">
+        I'm Michael Esteban, a software developer from sunny (and likely humid)
+        Brisbane, Australia. I create small, purpose-driven websites and
+        interactive tools.
+      </p>
 
-  <FeaturedPosts />
+      <Image
+        class="border-4 border-white shadow-lg rounded-lg rotate-[-2deg] w-36 h-36 object-cover"
+        src={greyMichael}
+        alt="Portrait of Michael"
+      />
+    </div>
 
-  <h2 class="text-xl inline-block my-6">Featured Projects</h2>
+    <h2 class="text-xl inline-block mb-6 border-b-[3px] border-b-[gold]">
+      Latest Posts
+    </h2>
 
-  <FeaturedProjects />
+    <FeaturedPosts />
 
-  <h2 class="text-xl inline-block my-6">Contact me</h2>
+    <h2 class="text-xl inline-block my-6 border-b-[3px] border-b-[gold]">
+      Featured Projects
+    </h2>
 
-  <Contact />
+    <FeaturedProjects />
+
+    <h2 class="text-xl inline-block my-6 border-b-[3px] border-b-[gold]">
+      Contact me
+    </h2>
+
+    <Contact />
+  </main>
 </Base>
-
-<script type="module">
-  import { annotate } from "https://unpkg.com/rough-notation?module";
-
-  const headings = document.querySelectorAll("h2");
-  headings.forEach((item) => {
-    const annotation = annotate(item, {
-      type: "highlight",
-      animate: false,
-      color: "#ffd54f",
-    });
-    annotation.show();
-  });
-</script>
