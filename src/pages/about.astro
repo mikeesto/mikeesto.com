@@ -5,56 +5,58 @@ import greyMichael from "/public/me-grey.jpg";
 ---
 
 <Base title="About | Michael Esteban">
-  <main>
+  <main class="space-y-4">
     <Image
-      class="rounded-sm mt-4 float-right ml-6"
+      class="rounded-md mt-4 float-right ml-6"
       src={greyMichael}
       id="portrait"
       alt="Portrait of Michael"
     />
 
-    <h1 class="text-xl mt-4">About me</h1>
+    <h1 class="text-xl mt-4 inline-block border-b-[3px] border-b-[gold] mb-4">
+      About me
+    </h1>
 
-    <div class="flex justify-between">
-      <h2 id="hi" class="text-lg mt-4 mb-4 inline-block">
-        Hi, I'm Michael Esteban!
-      </h2>
-    </div>
+    <p>
+      I'm Michael Esteban. A software engineer from Brisbane, Australia. I
+      create small, purpose-driven websites and interactive tools.
+    </p>
+
     <p>
       I currently work in the Human Computer Interaction lab at the Queensland
-      University of Technology. I'm a wearer of many hats and every day looks a
-      bit different for me. Most of my work involves creating small, interesting
-      websites that make messy datasets, like environmental observations, easier
-      to explore and share. Some of my projects also have a hardware component
-      where I put on my maker hat and write code that runs on a Raspberry Pi
-      with custom laser cut or 3D printed housing.
+      University of Technology. I'm a wearer of many hats and my days are a mix
+      of coding, soldering, 3D printing, teaching and more.
     </p>
 
-    <p class="mt-2">
-      I have degrees in Computer Science and Law. I love teaching others how to
-      program and regularly lead primary, high school, and university classes.
-      When I'm not being <span class="italic">very</span> online, you can usually
-      find me on a tennis court.
+    <p>
+      A big focus of my work is finding ways to make complex interactions more
+      accessible and engaging through visualisation and user-friendly
+      interfaces. This tends to lend itself to the JavaScript/TypeScript world,
+      although I'm very pragmatic and will use whatever tool is best for the
+      job. Some of the projects that I work on also have a hardware component
+      where I put on my maker hat and write code that runs on Raspberry Pis
+      housed in laser-cut or 3D-printed enclosures.
     </p>
 
-    <p class="mt-2">
+    <p>
+      Recently, I've been exploring how people interact with LLMs. I'm curious
+      if there are more intuitive and effective ways to use LLMs beyond a
+      chatbox interface.
+    </p>
+
+    <p>
+      With degrees in Computer Science and Law, I enjoy bridging the technical
+      and human aspects of technology. I love teaching others how to program and
+      regularly lead primary, high school, and university classes. When I'm not
+      online, you can usually find me on a tennis court.
+    </p>
+
+    <p>
       This website is primarily a collation of side projects, blog posts and
       papers that I have created or collaborated on.
     </p>
   </main>
 </Base>
-
-<script type="module">
-  import { annotate } from "https://unpkg.com/rough-notation?module";
-
-  const heading = document.querySelector("#hi");
-  const annotation = annotate(heading, {
-    type: "highlight",
-    animate: false,
-    color: "#ffd54f",
-  });
-  annotation.show();
-</script>
 
 <script>
   const portrait = document.getElementById("portrait");
