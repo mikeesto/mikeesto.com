@@ -5,6 +5,11 @@
     "url": "https://gemini-transcribe.fly.dev/"
   },
   {
+    "title": "SmolLM2 Browser",
+    "description": "Chat with SmolLM2, a 1.7B parameter LLM running entirely in your web browser",
+    "url": "https://smollm2.netlify.app/"
+  },
+  {
     "title": "PiFiles",
     "description": "A collection of notes for working with the Raspberry Pi",
     "url": "https://pifiles.netlify.app/"
