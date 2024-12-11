@@ -14,45 +14,45 @@ import Projects2018 from "../projects/2018.json";
 <Base title="Projects | Michael Esteban">
   <main>
     <h1 class="text-xl mt-4 mb-2">All projects</h1>
-    <h2 class="font-light">
+    <p class="font-light">
       Serious and not-so-serious projects, side projects and ideas that I have
       worked on. Not all are complete but they should be functional. Almost all
       are open source.
-    </h2>
+    </p>
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2024</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2024
+    </h2>
     <ListProjects projects={Projects2024} />
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2023</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2023
+    </h2>
     <ListProjects projects={Projects2023} />
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2022</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2022
+    </h2>
     <ListProjects projects={Projects2022} />
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2021</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2021
+    </h2>
     <ListProjects projects={Projects2021} />
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2020</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2020
+    </h2>
     <ListProjects projects={Projects2020} />
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2019</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2019
+    </h2>
     <ListProjects projects={Projects2019} />
 
-    <h3 class="text-lg mt-4 mb-2 inline-block">2018</h3>
+    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+      2018
+    </h2>
     <ListProjects projects={Projects2018} />
   </main>
 </Base>
-
-<script type="module">
-  import { annotate } from "https://unpkg.com/rough-notation?module";
-
-  const headings = document.querySelectorAll("h3");
-  headings.forEach((item) => {
-    const annotation = annotate(item, {
-      type: "highlight",
-      animate: false,
-      color: "#ffd54f",
-    });
-    annotation.show();
-  });
-</script>
