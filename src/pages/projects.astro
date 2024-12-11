@@ -2,13 +2,14 @@
 import Base from "../layouts/Base.astro";
 import ListProjects from "../components/ListProjects.astro";
 
-import Projects2024 from "../projects/2024.json";
-import Projects2023 from "../projects/2023.json";
-import Projects2022 from "../projects/2022.json";
-import Projects2021 from "../projects/2021.json";
-import Projects2020 from "../projects/2020.json";
-import Projects2019 from "../projects/2019.json";
-import Projects2018 from "../projects/2018.json";
+const years = [2024, 2023, 2022, 2021, 2020, 2019, 2018];
+
+const projectsData = await Promise.all(
+  years.map(async (year) => ({
+    year,
+    projects: (await import(`../projects/${year}.json`)).default,
+  }))
+);
 ---
 
 <Base title="Projects | Michael Esteban">
@@ -20,39 +21,15 @@ import Projects2018 from "../projects/2018.json";
       are open source.
     </p>
 
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2024
-    </h2>
-    <ListProjects projects={Projects2024} />
-
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2023
-    </h2>
-    <ListProjects projects={Projects2023} />
-
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2022
-    </h2>
-    <ListProjects projects={Projects2022} />
-
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2021
-    </h2>
-    <ListProjects projects={Projects2021} />
-
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2020
-    </h2>
-    <ListProjects projects={Projects2020} />
-
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2019
-    </h2>
-    <ListProjects projects={Projects2019} />
-
-    <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
-      2018
-    </h2>
-    <ListProjects projects={Projects2018} />
+    {
+      projectsData.map(({ year, projects }) => (
+        <>
+          <h2 class="text-lg mt-4 mb-2 inline-block border-b-[3px] border-b-[gold]">
+            {year}
+          </h2>
+          <ListProjects projects={projects} />
+        </>
+      ))
+    }
   </main>
 </Base>
