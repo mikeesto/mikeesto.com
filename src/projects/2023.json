@@ -2,8 +2,7 @@
   {
     "title": "YouTube Summariser",
     "description": "Summarise YouTube videos with AI",
-    "url": "https://yt-summary.vercel.app/",
-    "image": "youtube-summariser.png"
+    "url": "https://yt-summary.vercel.app/"
   },
   {
     "title": "YouTube Subtitle Transcript",

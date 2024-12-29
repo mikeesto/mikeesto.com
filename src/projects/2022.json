@@ -2,8 +2,7 @@
   {
     "title": "Tailwind to CSS",
     "description": "Convert tailwind utilities to CSS",
-    "url": "https://tailwindtocss.vercel.app/",
-    "image": "tailwind-to-css.png"
+    "url": "https://tailwindtocss.vercel.app/"
   },
   {
     "title": "Googly Eyes Generator",
@@ -13,8 +12,7 @@
   {
     "title": "Kind Wordle",
     "description": "A kinder version of Wordle that gives you all vowels",
-    "url": "https://kindwordle.netlify.app/",
-    "image": "kind-wordle.jpg"
+    "url": "https://kindwordle.netlify.app/"
   },
   {
     "title": "Ditto",
