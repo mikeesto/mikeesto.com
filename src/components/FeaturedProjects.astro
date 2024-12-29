@@ -1,5 +1,13 @@
 ---
-import IconComponent from "./IconComponent.jsx";
+import IconComponent from "./Icon.astro";
+import { Play, Heart, Smile, Headphones } from "lucide";
+
+const icons = {
+  Heart,
+  Play,
+  Smile,
+  Headphones,
+};
 
 const projects = [
   {
@@ -8,7 +16,7 @@ const projects = [
     color: "bg-blue-50",
     textColor: "text-blue-900",
     icon: "Heart",
-    link: "https://yt-summary.vercel.app/",
+    link: "https://kindwordle.netlify.app/",
   },
   {
     title: "Gemini Transcribe",
@@ -25,7 +33,7 @@ const projects = [
     color: "bg-amber-50",
     textColor: "text-amber-900",
     icon: "Play",
-    link: "https://kindwordle.netlify.app/",
+    link: "https://yt-summary.vercel.app/",
   },
   {
     title: "Emoji Maker",
@@ -42,10 +50,12 @@ const projects = [
   <div class="w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {
-        projects.map((project) => (
-          <a
-            href={project.link}
-            class={`
+        projects.map((project) => {
+          const Icon = icons[project.icon];
+          return (
+            <a
+              href={project.link}
+              class={`
               block relative rounded-xl p-6
               ${project.color}
               border border-black/20
@@ -54,21 +64,24 @@ const projects = [
               hover:shadow-md hover:-translate-y-0.5
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/5
             `}
-            aria-label={`${project.title} - ${project.description}`}
-          >
-            <div class={`${project.textColor} flex justify-center`}>
-              <IconComponent iconName={project.icon} />
-            </div>
+              aria-label={`${project.title} - ${project.description}`}
+            >
+              <div class={`${project.textColor} flex justify-center`}>
+                <IconComponent icon={Icon} />
+              </div>
 
-            <h3 class={`text-xl font-semibold ${project.textColor} mt-4 mb-2`}>
-              {project.title}
-            </h3>
+              <h3
+                class={`text-xl font-semibold ${project.textColor} mt-4 mb-2`}
+              >
+                {project.title}
+              </h3>
 
-            <p class={`${project.textColor} text-sm opacity-75`}>
-              {project.description}
-            </p>
-          </a>
-        ))
+              <p class={`${project.textColor} text-sm opacity-75`}>
+                {project.description}
+              </p>
+            </a>
+          );
+        })
       }
     </div>
   </div>

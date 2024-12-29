@@ -1,0 +1,22 @@
+---
+const { icon, ...props } = Astro.props;
+
+const [, attributes, children] = icon;
+
+const componentChildren = children
+  ?.map(
+    ([shape, shapeAttributes]) =>
+      `<${shape} ${Object.entries(shapeAttributes)
+        .map(([k, v]) => `${k}="${v}"`)
+        .join(" ")} />`
+  )
+  .join("");
+
+const componentAttributes = { ...attributes, ...props };
+---
+
+<svg
+  {...componentAttributes}
+  set:html={componentChildren}
+  class="w-12 h-12 mb-4 relative z-10 transform transition-transform duration-300 group-hover:scale-110"
+/>
