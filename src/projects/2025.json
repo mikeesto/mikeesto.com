@@ -1,0 +1,7 @@
+[
+  {
+    "title": "SAM2 with CoreML",
+    "description": "A python script for running Segment Anything 2 on macOS using Core ML models",
+    "url": "https://github.com/mikeesto/sam2-coreml-python"
+  }
+]
