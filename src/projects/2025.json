@@ -3,5 +3,10 @@
     "title": "SAM2 with CoreML",
     "description": "A python script for running Segment Anything 2 on macOS using Core ML models",
     "url": "https://github.com/mikeesto/sam2-coreml-python"
+  },
+  {
+    "title": "Kokoro Web",
+    "description": "Text-to-speech generated locally in your browser",
+    "url": "https://kokoro-web.netlify.app/"
   }
 ]
