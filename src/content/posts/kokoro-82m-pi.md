@@ -5,9 +5,9 @@ date: 10-03-2025
 draft: false
 ---
 
-[Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) is an efficient text-to-speech model capable of running on resource constrained devices like the Raspberry Pi. The quantized model weighs in at only ~80MB. Previously, I've used [eSpeak](https://espeak.sourceforge.net/) and [Piper](https://github.com/rhasspy/piper) for text-to-speech projects. Comparatively I prefer Kokoro's more natural sounding human voice. However, on my Raspberry Pi 4 (2GB) the inference speed is certainly less than real time so these older tts options still have their place. I imagine the inference speed would be faster on a Raspberry Pi 5.
+[Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) is a small text-to-speech model capable of running on resource constrained devices like the Raspberry Pi. The quantized model weighs in at only ~80MB. Prior to Kokoro's release I usually used [eSpeak](https://espeak.sourceforge.net/) or [Piper](https://github.com/rhasspy/piper) for TTS. I prefer Kokoro's more natural sounding human voice. However, on my Raspberry Pi 4 (2GB) the inference speed is less than real time so these older TTS options still have their place.
 
-As a brief side-note: if you're interested in trying out Kokoro without having to install anything, I made a [web version here](https://kokoro-web.netlify.app/) that runs in your browser (Chrome only at this stage).
+If you're curious to try Kokoro without having to install anything, I made a [web version here](https://kokoro-web.netlify.app/) that runs completely in your web browser (Chrome only).
 
 For Python on the Pi, the [kokoro-onnx](https://github.com/thewh1teagle/kokoro-onnx) package simplifies the process of using Kokoro.
 
@@ -55,7 +55,7 @@ For direct audio playback without saving to a file, install `sounddevice`:
 pip install sounddevice
 ```
 
-The modify your Python script to this:
+Then modify your Python script to this:
 
 ```python
 import sounddevice as sd
