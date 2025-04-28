@@ -1,5 +1,10 @@
 [
   {
+    "title": "Gemini Segment",
+    "description": "Segment objects from images using natural language",
+    "url": "https://gemini-segment.fly.dev/"
+  },
+  {
     "title": "SAM2 with CoreML",
     "description": "A python script for running Segment Anything 2 on macOS using Core ML models",
     "url": "https://github.com/mikeesto/sam2-coreml-python"
