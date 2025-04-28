@@ -27,6 +27,12 @@ So, I spent a weekend building a small tool to test it out: [Gemini Segment](htt
 
 It turns out, yes, Gemini can generate segmentation masks for objects specified in a prompt. From an image input, the model is quite capable of isolating a requested object. The quality can vary, and this particular capability is clearly marked as experimental, but the fact it can perform this kind of task directly is fascinating to me.
 
+The magic prompt, which I took straight from the Colab notebook, is:
+
+```js
+`Give the segmentation mask for the ${object}. Output a JSON list of segmentation masks where each entry contains the 2D bounding box in the key "box_2d", and the segmentation mask in key "mask".`;
+```
+
 What I would really like to see is a friendlier output from the model. As currently...
 
 <i>The model outputs a list, where each item represents a segmentation mask. Each item has a bounding box ("box_2d") in the format [y0, x0, y1, x1] with normalized coordinates between 0 and 1000, a label ("label") that identifies the object, and lastly the segmentation mask inside the bounding box, as base64 encoded png.
