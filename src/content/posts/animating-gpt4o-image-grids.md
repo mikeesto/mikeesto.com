@@ -65,7 +65,7 @@ A square image containing a 3 row by 4 column grid. Each cell in the grid is a s
 
 This phrasing worked much more consistently - I'd estimate an 85-90% success rate across my admittedly small sample of tests. Occasionally it doesn't, and unfortunately I haven't found a way to improve this.
 
-I also experimented with image dimensions. I found that a 1024 x 1536 dimension for a 3 x 4 grid worked best, using the "medium" quality setting via the API. This produced 12 individual frames, each roughly 1024/4 = 256 by 1536/3 = 512 pixels. The cost for this single generation, producing 12 frames, was around $0.06. That's $0.005 per frame, a significant improvement compared to $0.04 per frame with my initial naive sequential approach!
+I also experimented with image dimensions. I found that a 1024 x 1536 dimension for a 3 x 4 grid worked best, using the "medium" quality setting via the API. This produced 12 individual frames, each roughly 1024/3 = 341.33 by 1536/4 = 384 pixels. The cost for this single generation, producing 12 frames, was around $0.06. That's $0.005 per frame, a significant improvement compared to $0.04 per frame with my initial naive sequential approach!
 
 Here's an example of a generated grid:
 
