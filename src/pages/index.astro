@@ -18,8 +18,9 @@ import greyMichael from "/public/me-grey.jpg";
     <div class="flex flex-col md:flex-row items-center gap-8 mb-6">
       <p class="text-lg md:w-2/3">
         I'm Michael Esteban, a software developer from sunny (and likely humid)
-        Brisbane, Australia. I create small, purpose-driven websites and
-        interactive tools.
+        Brisbane, Australia where it is{" "}
+        <span data-timestamp-text="currently {time}">loading time...</span>. I
+        create small, purpose-driven websites and interactive tools.
       </p>
 
       <Image
@@ -48,3 +49,54 @@ import greyMichael from "/public/me-grey.jpg";
     <Contact />
   </main>
 </Base>
+
+<style is:global>
+  .timestamp-colon {
+    display: inline-block;
+    animation: blink 3s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script is:inline>
+  function settime() {
+    const timestamp = document.querySelector("[data-timestamp-text]");
+    if (!timestamp || !("Intl" in window)) return;
+
+    const prefix = timestamp
+      .getAttribute("data-timestamp-text")
+      .replace("{time}", "");
+    timestamp.innerHTML = `${prefix}<span class="time-container"><span class="hours"></span><span class="timestamp-colon">:</span><span class="minutes"></span></span>`;
+
+    const [hoursEl, minutesEl] = [
+      timestamp.querySelector(".hours"),
+      timestamp.querySelector(".minutes"),
+    ];
+
+    function updateTime() {
+      const [hours, minutes] = new Intl.DateTimeFormat(
+        navigator.language || "en-AU",
+        {
+          timeZone: "Australia/Brisbane",
+          timeStyle: "short",
+          hour12: false,
+        }
+      )
+        .format(new Date())
+        .split(":");
+
+      hoursEl.textContent = hours;
+      minutesEl.textContent = minutes;
+    }
+
+    updateTime();
+    setInterval(updateTime, 60000);
+  }
+
+  settime();
+</script>
