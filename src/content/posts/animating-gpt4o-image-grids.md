@@ -210,4 +210,4 @@ You can run this Python script on your own computer. Generate your grid image us
 
 To make it even more accessible, I've spun up a [small web app](https://gif4o.fly.dev/) where you can try generating these animations directly. It's built with Flask, with Preact and Twind for the frontend (no build step bliss!). I've loaded it with some API credits to get you started, though they may run out depending on how popular this gets. If so, the code is [all on GitHub](https://github.com/mikeesto/gif4o) if you want to run it locally with your own OpenAI API key.
 
-This was a fun little project. It's imperfect, but for me that's what gives it its charm. It's a surprisingly effective way to generate short animation quickly, relatively cheaply, and to share a little joy.
+This was a fun little project. It's imperfect, but for me that's what gives it its charm. It's a surprisingly effective way to generate a short animation quickly, relatively cheaply, and to share a little joy.
