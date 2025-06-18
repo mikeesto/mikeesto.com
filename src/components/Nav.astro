@@ -14,6 +14,17 @@ import Home from "./Home.astro";
   </ul>
 </nav>
 
+<style>
+  a[href^="https://github.com"]::after
+  {
+    content: "┓";
+    font-size: 0.6em;
+    position: absolute;
+    margin-top: calc(1rem - 1.7em);
+    line-height: 1em;
+  }
+</style>
+
 <script type="module">
   import { annotate } from "https://unpkg.com/rough-notation?module";
   const listItems = document.querySelectorAll("nav ul li a");
