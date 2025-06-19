@@ -1,78 +1,79 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import greyMichael from "/public/me-grey.jpg";
+import michaelImg from "/public/me-2025-2.jpg";
 ---
 
 <Base title="About | Michael Esteban">
-  <main class="space-y-4">
-    <Image
-      class="rounded-md mt-4 float-right ml-6"
-      src={greyMichael}
-      id="portrait"
-      alt="Portrait of Michael"
-    />
+  <main>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div class="lg:col-span-2 space-y-6">
+        <h1 class="text-xl border-b-[3px] border-b-[gold] inline-block">
+          About me
+        </h1>
 
-    <h1 class="text-xl mt-4 inline-block border-b-[3px] border-b-[gold] mb-4">
-      About me
-    </h1>
+        <div class="prose prose-lg text-gray-700 space-y-4">
+          <p>
+            I'm Michael Esteban. A software engineer from Brisbane, Australia. I
+            create small, purpose-driven websites and interactive tools.
+          </p>
 
-    <p>
-      I'm Michael Esteban. A software engineer from Brisbane, Australia. I
-      create small, purpose-driven websites and interactive tools.
-    </p>
+          <p>
+            I currently work at the University of Queensland where I am helping
+            build the <a
+              class="text-blue-500 hover:text-blue-600"
+              href="https://internetobservatory.org.au/"
+              >Australian Internet Observatory</a
+            >.
+          </p>
 
-    <p>
-      I currently work at the University of Queensland where I am helping build
-      the <a
-        class="text-blue-500 hover:text-blue-600"
-        href="https://internetobservatory.org.au/"
-        >Australian Internet Observatory</a
-      >.
-    </p>
+          <p>
+            Previously, I spent seven years in the Human Computer Interaction
+            lab at the Queensland University of Technology. I was a wearer of
+            many hats and my days were a mix of coding, soldering, 3D printing,
+            teaching and more.
+          </p>
 
-    <p>
-      Previously, I spent seven years in the Human Computer Interaction lab at
-      the Queensland University of Technology. I was a wearer of many hats and
-      my days were a mix of coding, soldering, 3D printing, teaching and more.
-    </p>
+          <p>
+            Much of my work involves building end-to-end systems to support
+            research. I'm particularly proficient in web development and cloud
+            deployment. This often means working within the
+            JavaScript/TypeScript world, although I'm very pragmatic and often
+            need to swap between languages and frameworks. My current passion
+            lies in exploring multimodal large language models capable of
+            processing and understanding diverse data types beyond just text.
+          </p>
 
-    <p>
-      Much of my work involves building end-to-end systems to support research.
-      I'm particularly proficient in web development and cloud deployment. This
-      often means working within the JavaScript/TypeScript world, although I'm
-      very pragmatic and often need to swap between languages and frameworks. My
-      current passion lies in exploring multimodal large language models capable
-      of processing and understanding diverse data types beyond just text.
-    </p>
+          <p>
+            With degrees in Computer Science and Law, I enjoy bridging the
+            technical and human aspects of technology. I love teaching others
+            how to program and regularly lead primary, high school, and
+            university classes. When I'm not online, you can usually find me on
+            a tennis court.
+          </p>
 
-    <p>
-      With degrees in Computer Science and Law, I enjoy bridging the technical
-      and human aspects of technology. I love teaching others how to program and
-      regularly lead primary, high school, and university classes. When I'm not
-      online, you can usually find me on a tennis court.
-    </p>
+          <p>
+            This website is primarily a collation of side projects, blog posts
+            and papers that I have created or collaborated on.
+          </p>
+        </div>
+      </div>
 
-    <p>
-      This website is primarily a collation of side projects, blog posts and
-      papers that I have created or collaborated on.
-    </p>
+      <div class="lg:col-span-1 flex justify-center lg:justify-end">
+        <div class="relative group">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-yellow-400 via-orange-400 to-red-400 rounded-2xl transform rotate-6 group-hover:rotate-3 transition-all duration-500 ease-out opacity-80 group-hover:opacity-100"
+          >
+          </div>
+
+          <Image
+            class="relative rounded-2xl w-72 h-72 object-cover shadow-2xl transform -rotate-2 group-hover:rotate-0 transition-all duration-500 ease-out hover:scale-105 border-4 border-white/90"
+            src={michaelImg}
+            id="portrait"
+            alt="Portrait of Michael"
+          />
+        </div>
+      </div>
+    </div>
   </main>
 </Base>
-
-<script>
-  const portrait = document.getElementById("portrait");
-
-  const swapImage = () => {
-    if (portrait.src.includes("grey")) {
-      portrait.src = "/me.jpg";
-      portrait.style.transform = "rotate(180deg)";
-    } else {
-      portrait.src = "/me-grey.jpg";
-      portrait.style.transform = "rotate(0deg)";
-    }
-  };
-
-  portrait.addEventListener("mouseover", swapImage);
-  portrait.addEventListener("mouseout", swapImage);
-</script>

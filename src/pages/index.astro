@@ -5,7 +5,7 @@ import FeaturedPosts from "../components/FeaturedPosts.astro";
 import FeaturedProjects from "../components/FeaturedProjects.astro";
 import Contact from "../components/Contact.astro";
 import NewYearCelebration from "../components/NewYearCelebration.astro";
-import greyMichael from "/public/me-grey.jpg";
+import michaelImg from "/public/me-2025.jpg";
 ---
 
 <Base title="Michael Esteban">
@@ -23,11 +23,17 @@ import greyMichael from "/public/me-grey.jpg";
         create small, purpose-driven websites and interactive tools.
       </p>
 
-      <Image
-        class="border-4 border-white shadow-lg rounded-lg rotate-[-2deg] w-36 h-36 object-cover"
-        src={greyMichael}
-        alt="Portrait of Michael"
-      />
+      <div class="relative group">
+        <Image
+          class="border-4 border-white shadow-xl rounded-2xl rotate-[-2deg] h-60 w-60 object-cover transition-all duration-300 ease-in-out group-hover:rotate-0 group-hover:scale-105 group-hover:shadow-2xl"
+          src={michaelImg}
+          alt="Portrait of Michael"
+        />
+        <div
+          class="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+        </div>
+      </div>
     </div>
 
     <h2 class="text-xl inline-block mb-6 border-b-[3px] border-b-[gold]">
