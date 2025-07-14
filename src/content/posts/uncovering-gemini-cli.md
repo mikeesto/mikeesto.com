@@ -2,7 +2,7 @@
 title: Uncovering Gemini CLI
 description: TODO:...
 date: 15-07-2025
-draft: false
+draft: true
 ---
 
 The terminal-based AI coding agent wars have well and truly begun. Claude Code (Anthropic), Codex CLI (OpenAI), Amp (SourceGraph) and most recently Gemini CLI (Google) all operate directly in your shell and are capable of reading files, writing new code, and executing commands to build and test their own work. These tools represent a shift from chat-based/code-completion programming assistance that was popularised through GitHub Copilot to now agents that can directly manipulate codebases and development environments.
