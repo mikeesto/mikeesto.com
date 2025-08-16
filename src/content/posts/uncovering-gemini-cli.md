@@ -1,30 +1,27 @@
 ---
 title: Uncovering Gemini CLI
 description: TODO:...
-date: 03-08-2025
+date: 17-08-2025
 draft: true
 ---
 
-The terminal-based AI coding agent wars have well and truly begun. Claude Code (Anthropic), Codex CLI (OpenAI), Amp (SourceGraph) and most recently Gemini CLI (Google) all operate directly in your shell and are capable of reading files, writing new code, and executing commands to build and test their own work. These tools represent a shift from chat based/code completion programming assistance that was popularised through GitHub Copilot to now agents that can directly manipulate codebases and development environments.
+The terminal-based AI coding agent wars have well and truly begun. Claude Code (Anthropic), Codex CLI (OpenAI), Amp (SourceGraph) and most recently Gemini CLI (Google) all operate directly in your shell and are capable of reading files, writing new code, and executing commands to build and test their own work. These tools represent a shift from chat-based/code-completion programming assistance that was popularised through GitHub Copilot to now agents that can directly manipulate codebases and development environments.
 
-The pricing models suggest these companies see significant value in the space. Claude Code's max tier is $200 USD per month, a price point that some speculate is actually a loss-leader, while Amp unashamedly markets itself as having unconstrained token usage (and therefore cost). For enterprise these costs are perhaps justifiable. For hobby/side-project development, I imagine these "unlimited" usage price points are prohibitive for most.
+The pricing models suggest these companies see significant value in the space. Claude Code's max tier is $200 USD per month, a price point that some speculate is actually a loss-leader, while Amp unashamedly markets itself as having unconstrained token usage (and therefore cost). For enterprise these costs are perhaps justifiable. For hobby and side-project development, I imagine these "unlimited" usage prices are prohibitive for most.
 
-The hype around programming agents is at an all time high. Many developers anecdotally report significant productivity boosts. Personally, I have also found value in using them although I would describe my experience as a bit more mixed. It can feel magical one moment and unhinged the next. Some tasks I would have completed in half the time had I read the documentation and written the code myself.
+The hype around programming agents is at an all time high. I recently attended a conference where AI and agentic coding dominated most of the talks, despite not being the explicit focus. Some developers say it makes them significantly more productive. I've heard claims ranging from 2x to 10x, and even 100x. Other developers say it provides no benefit and in some cases actually slows them down. As with most things, I think the reality is more nuanced. For certain tasks agents clearly can be a productivity force multiplier. However, software engineering has never really been about churning out lines of code per hour, and agentic coding won't magically solve all the other friction points that we as developers face day to day.
 
-A recent paper from METR questions whether these productivity claims hold up. Their study, [Measuring the Impact of Early-2025 AI on
-Experienced Open-Source Developer Productivity](https://metr.org/Early_2025_AI_Experienced_OS_Devs_Study.pdf), suggests that for experienced developers working on tasks within mature open source projects, current AI performance doesn't yet match the hype. In fact, they found that AI tooling on average slowed their study participants down by 19%. I'm curious to see if similar studies will corroborate these findings.
+A recent paper from METR questions whether AI assisted programming makes experienced developers more productive. Their study, [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://metr.org/Early_2025_AI_Experienced_OS_Devs_Study.pdf), suggests that for experienced developers working on tasks within mature open source projects, current AI performance doesn't yet match the hype. In fact, they found that AI tooling on average slowed their study participants down by 19%. There are some peculiar aspects to this study, and I'm curious to see if similar studies will corroborate these findings.
 
 ### Gemini CLI
 
-Google's [Gemini CLI](https://github.com/google-gemini/gemini-cli) is the latest entrant in the arena, released on June 25. Like Codex CLI, it's also open source, while Claude Code and Amp remain closed.
+Google's [Gemini CLI](https://github.com/google-gemini/gemini-cli) is the latest entrant into the AI agent coding arena, released on June 25. Like Codex CLI, it's also open source, while Claude Code and Amp remain closed.
 
-I must have been distracted when Codex CLI launched because it didn't really catch my attention, but Gemini CLI's release did. Perhaps that was partly due to its generous free tier of 1,000 requests per day. Since Gemini CLI is still very early in its product lifecycle and I haven't used it extensively, I don't feel well positioned to offer a review. The general consensus seems to be that it's still somewhat rough around the edges, particularly when compared to Claude Code.
+Gemini CLI is still very early in its product lifecycle. At the time of writing, the general consensus online seems to be that it's still rough around the edges, particularly when compared to Claude Code. A few factors likely contribute to this gap. While Gemini 2.5 Pro is undoubtedly a strong model, it doesn't appear to be as proficient at tool calling as Anthropic's models are, which is a key component of what makes agents excel. Additionally, Gemini CLI uses a mix of Pro and Flash models depending on the task - a deliberate [efficiency trade-off](https://github.com/google-gemini/gemini-cli/discussions/3064).
 
-A few factors likely contribute to this gap: while Gemini 2.5 Pro is undoubtedly a strong model, it doesn't appear to be as good at tool calling as Claude Sonnet and Opus 4 which, as I will explain below, is a key part of what makes these agents excel. Additionally, Gemini CLI uses a mix of Pro and Flash models depending on the task, a deliberate [efficiency trade-off](https://github.com/google-gemini/gemini-cli/discussions/3064). While Flash is excellent, it's clearly not as capable as these larger models.
+That said, there's no doubt that Gemini CLI continues to improve. Hundreds of PRs are being merged into the repository every week. It also offers a very generous free tier of 1,000 requests per day if you'd like to try it out.
 
-That said, there's no doubt that Gemini CLI is continuing to improve. A lot of improvements have been merged since I started drafting this post.
-
-Soon after its release, I took the opportunity to explore the codebase. The CLI has been built with Node.js and TypeScript [need to verify]. I was particularly interested in two things: how it determines which files to use as context for the LLM, and how it makes edits to files.
+Since it's open source, soon after its release I decided to spend a Saturday exploring the codebase. The CLI has been built with Node.js and TypeScript [need to verify]. I was particularly interested in two things: how it determines which files to use as context for the LLM, and how it makes edits to files.
 
 ### Context discussion [better title needed]
 
@@ -75,15 +72,13 @@ The model doesn't need you to point it to the right file. Instead, it can execut
 
 Only then, with the necessary information gathered and placed into its working context, does the LLM formulate the final answer to your question. This agentic workflow allows the model to independently navigate your project to solve complex problems.
 
-One of the main issues with popular agentic tools is that they are often "context-starved" to save on tokens and therefore API costs, which can significantly impact their effectiveness and reasoning ability. Gemini's large context window (up to 1 million tokens) and Google's dual role as both tool developer and inference provider position it well to compete in this space.
+One of the main issues with popular agentic tools is that they are often "context starved" to save on tokens and therefore API costs, which can significantly impact their effectiveness and reasoning ability. I think Gemini's large context window (up to 1 million tokens) and Google's dual role as both tool developer and inference provider position it well to compete in this space.
 
 ### Editing discussion [better title needed]
 
 The LLM generates precise replacement commands, and the CLI tool calculates and displays a diff for your confirmation before making any changes. [need a better intro for this section]
 
-Imagine you issue a command like: "In src/components/Button.tsx, change the variant prop to secondary."
-
-Of course, it would probably be quicker for you to just make this change yourself but alas.
+Imagine you issue a command like: <i>In src/components/Button.tsx, change the variant prop to secondary.</i> (and also pretend that it would be quicker to use the agent than make this one-line change yourself!)
 
 The model understands your intent and formulates a call to the replace tool. It doesn't think in terms of diffs; it thinks in terms of search-and-replace. Its output will be a structured tool call like this:
 
@@ -138,6 +133,10 @@ If the file is new, the diff will show all lines being added.
 If the file exists, the diff will be against the old content.
 Upon confirmation, it simply writes the provided content to the file_path. Like the EditTool, it also has a self-correction mechanism (ensureCorrectFileContent) to fix potential formatting or escaping issues in the content provided by the LLM before writing.
 
-### Importance of tool usage
+### The models yearn for tools
 
 It turns out that both of these rely on tool calling, and Thorsten's Ball's viral article on XYZ is great background reading here.
+
+### Loose Ends
+
+I started drafting this post X weeks ago but with a healthy dose of procrastination and life didn't get around to posting it until today. Dangerous to wait this long in a space that is moving at breakneck speed. Cursor has released a terminal agent and GPT5 has also come out.
