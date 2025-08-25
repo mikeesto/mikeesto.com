@@ -1,6 +1,6 @@
 ---
 title: Kitten TTS 15M
-description: A tiny 15M parameter text-to-speech model that runs anywhere
+description: A tiny 15M parameter text-to-speech model that runs anywhere.
 date: 06-08-2025
 draft: false
 ---

@@ -1,6 +1,6 @@
 ---
 title: Qwen-Image
-description: A 20B parameter image generation model with exceptional text rendering
+description: A 20B parameter image generation model with exceptional text rendering.
 date: 07-08-2025
 draft: false
 ---
