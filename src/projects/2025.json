@@ -1,5 +1,10 @@
 [
   {
+    "title": "Ministral Vision",
+    "description": "Image analysis in the browser using Ministral 3B",
+    "url": "https://ministralvision.netlify.app/"
+  },
+  {
     "title": "GIF4o",
     "description": "Create animated GIFs from GPT-4o generated image grids",
     "url": "https://gif4o.fly.dev/"
