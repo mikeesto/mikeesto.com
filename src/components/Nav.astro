@@ -1,13 +1,19 @@
 ---
 import Home from "./Home.astro";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="mt-2 mb-8">
   <ul class="flex gap-3">
-    <li><a href="/"><Home /></a></li>
-    <li class="ml-auto self-end"><a href="/about">About</a></li>
-    <li class="self-end"><a href="/posts">Posts</a></li>
-    <li class="self-end"><a href="/projects">Projects</a></li>
+    <li><a href="/" data-path="/"><Home /></a></li>
+    <li class="ml-auto self-end">
+      <a href="/about" data-path="/about">About</a>
+    </li>
+    <li class="self-end"><a href="/posts" data-path="/posts">Posts</a></li>
+    <li class="self-end">
+      <a href="/projects" data-path="/projects">Projects</a>
+    </li>
     <li class="self-end">
       <a href="https://github.com/mikeesto">GitHub</a>
     </li>
@@ -25,16 +31,51 @@ import Home from "./Home.astro";
   }
 </style>
 
-<script type="module">
+<script type="module" define:vars={{ currentPath }}>
   import { annotate } from "https://unpkg.com/rough-notation?module";
-  const listItems = document.querySelectorAll("nav ul li a");
-  listItems.forEach((item) => {
-    const annotation = annotate(item, {
+
+  const navLinks = document.querySelectorAll("nav ul li a[data-path]");
+
+  navLinks.forEach((link) => {
+    const linkPath = link.getAttribute("data-path");
+    const isCurrentPage =
+      currentPath === linkPath ||
+      (linkPath !== "/" && currentPath.startsWith(linkPath));
+
+    // Circle annotation for current page, except home
+    if (isCurrentPage && linkPath !== "/") {
+      const circleAnnotation = annotate(link, {
+        type: "circle",
+        animate: true,
+        animationDuration: 800,
+        color: "#e10000",
+        padding: 5,
+        strokeWidth: 2,
+      });
+      circleAnnotation.show();
+    } else {
+      // Underline on hover for other pages
+      const underlineAnnotation = annotate(link, {
+        type: "underline",
+        animate: false,
+        color: "#e10000",
+      });
+      link.addEventListener("mouseenter", () => underlineAnnotation.show());
+      link.addEventListener("mouseleave", () => underlineAnnotation.hide());
+    }
+  });
+
+  // GitHub link still gets hover underline
+  const githubLink = document.querySelector(
+    'nav ul li a[href^="https://github.com"]'
+  );
+  if (githubLink) {
+    const githubAnnotation = annotate(githubLink, {
       type: "underline",
       animate: false,
       color: "#e10000",
     });
-    item.addEventListener("mouseenter", () => annotation.show());
-    item.addEventListener("mouseleave", () => annotation.hide());
-  });
+    githubLink.addEventListener("mouseenter", () => githubAnnotation.show());
+    githubLink.addEventListener("mouseleave", () => githubAnnotation.hide());
+  }
 </script>
