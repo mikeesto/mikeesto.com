@@ -7,6 +7,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
+        mono: ["Fira Code", ...defaultTheme.fontFamily.mono],
       },
     },
     plugins: [],
