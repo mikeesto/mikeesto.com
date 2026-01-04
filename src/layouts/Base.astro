@@ -4,7 +4,6 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/600.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import ChristmasLights from "../components/ChristmasLights.astro";
 
 interface Props {
   title: string;
@@ -54,7 +53,6 @@ if (!description) {
     <meta content="630" property="og:image:height" />
   </head>
   <body class="bg-[#f6f5f1]">
-    <ChristmasLights />
     <div class="p-4 max-w-[768px] mx-auto">
       <Nav />
       <slot />
