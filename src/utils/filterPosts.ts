@@ -1,6 +1,19 @@
 import { compareDesc, parse, format } from "date-fns";
 
-export function filterPosts(posts) {
+interface PostData {
+  date: string;
+  draft?: boolean;
+  formattedDate?: string;
+  title: string;
+  description: string;
+}
+
+interface Post {
+  slug: string;
+  data: PostData;
+}
+
+export function filterPosts(posts: Post[]): Post[] {
   // Exclude drafts
   let filteredPosts = posts.filter((post) => !post.data.draft);
 
