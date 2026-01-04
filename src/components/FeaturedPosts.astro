@@ -1,21 +1,35 @@
 ---
+import { Redis } from "@upstash/redis";
 import { getCollection } from "astro:content";
 import { filterPosts } from "../utils/filterPosts";
 
-const posts = await getCollection("posts");
-const filteredPosts = filterPosts(posts);
+const redis = new Redis({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
-// Only show 5 posts
-const latestPosts = filteredPosts.splice(0, 5);
+const posts = await getCollection("posts");
+const latestPosts = filterPosts(posts).splice(0, 5);
+
+// Batch fetch stars for latest 5 posts
+const pipeline = redis.pipeline();
+latestPosts.forEach((post) => pipeline.get(`stars:${post.slug}`));
+const starCounts = await pipeline.exec();
+
+const postsWithStars = latestPosts.map((post, i) => ({
+  ...post,
+  stars: Number(starCounts[i]) || 0,
+}));
 ---
 
 <div class="space-y-6">
   <ul class="space-y-4">
     {
-      latestPosts.map((post) => (
+      postsWithStars.map((post) => (
         <li class="group">
           <div class="flex justify-between items-start gap-6 md:gap-8">
             <div class="flex-1 min-w-0">
+              {post.stars >= 10 && <span class="text-gray-400 text-sm">★</span>}
               <a
                 class="text-blue-500 hover:text-blue-600 font-medium text-base leading-6 transition-colors duration-150"
                 href={`/posts/${post.slug}`}

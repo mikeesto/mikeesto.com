@@ -1,0 +1,136 @@
+---
+import { Star } from "@lucide/astro";
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<star-button data-slug={slug} class="mt-4 block relative group">
+  <div class="relative inline-flex flex-col items-center">
+    <span
+      class="thank-you-message absolute bottom-full mb-2 right-0 whitespace-nowrap text-[11px] font-bold text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-full border border-yellow-200 shadow-sm opacity-0 translate-y-2 pointer-events-none transition-all duration-500 ease-out z-10"
+    >
+      Thank you!
+    </span>
+
+    <button
+      class="group flex items-center justify-center gap-0 min-w-[36px] h-[36px] rounded-full border border-gray-300 bg-white text-gray-400 transition-all duration-300 hover:border-yellow-400 hover:text-yellow-500 hover:bg-yellow-50 active:scale-95 disabled:cursor-default shadow-sm hover:shadow-md"
+      aria-label="Star this post"
+    >
+      <div
+        class="icon-wrapper p-1.5 transition-transform duration-500 group-hover:rotate-[15deg] group-hover:scale-110"
+      >
+        <Star class="w-4 h-4" />
+      </div>
+
+      <span
+        class="count-display overflow-hidden max-w-0 opacity-0 transition-all duration-500 ease-out font-medium text-xs pr-0"
+      >
+        <!-- Count injected here -->
+      </span>
+    </button>
+  </div>
+</star-button>
+
+<script>
+  interface StarData {
+    count: number;
+  }
+
+  class StarButton extends HTMLElement {
+    constructor() {
+      super();
+      const btn = this.querySelector("button") as HTMLButtonElement;
+      const countDisplay = this.querySelector(
+        ".count-display"
+      ) as HTMLSpanElement;
+      const thankYouMessage = this.querySelector(
+        ".thank-you-message"
+      ) as HTMLSpanElement;
+      const icon = this.querySelector(".w-4") as SVGElement;
+      const slug = this.dataset.slug as string;
+
+      const storageKey = `starred:${slug}`;
+      let hasStarred = localStorage.getItem(storageKey);
+
+      // Helper to expand the button from Circle -> Pill
+      const showCount = (val: number) => {
+        countDisplay.textContent = val.toString();
+        countDisplay.classList.remove("max-w-0", "opacity-0", "pr-0");
+        countDisplay.classList.add("max-w-[45px]", "opacity-100", "pr-2.5");
+      };
+
+      // 1. Initial State
+      if (hasStarred) {
+        this.setStarredState(btn, icon);
+      }
+
+      // 2. Fetch current count
+      fetch(`/api/stars/${slug}`)
+        .then((res) => res.json())
+        .then((data: StarData) => {
+          if (data.count >= 10) {
+            showCount(data.count);
+          }
+        })
+        .catch(() => {});
+
+      // 3. Handle Click
+      btn.addEventListener("click", async () => {
+        if (hasStarred) return;
+
+        // Optimistic UI Logic
+        const currentText = countDisplay.textContent || "0";
+        let currentVal = parseInt(currentText) || 0;
+
+        const newVal = currentVal + 1;
+
+        // If threshold crossed, expand the button
+        if (newVal >= 10) {
+          showCount(newVal);
+        }
+
+        this.setStarredState(btn, icon);
+
+        // Animation: Button Pop
+        btn.style.transform = "scale(1.15)";
+        setTimeout(() => (btn.style.transform = "scale(1)"), 150);
+
+        // Animation: Floating Bubble
+        thankYouMessage.classList.remove("opacity-0", "translate-y-2");
+        thankYouMessage.classList.add("opacity-100", "-translate-y-1");
+
+        setTimeout(() => {
+          thankYouMessage.classList.remove("opacity-100", "-translate-y-1");
+          thankYouMessage.classList.add("opacity-0", "-translate-y-4");
+
+          // Reset position after fade out
+          setTimeout(() => {
+            thankYouMessage.classList.remove("-translate-y-4");
+            thankYouMessage.classList.add("translate-y-2");
+          }, 300);
+        }, 2000);
+
+        localStorage.setItem(storageKey, "true");
+        hasStarred = "true";
+
+        try {
+          await fetch(`/api/stars/${slug}`, { method: "POST" });
+        } catch (e) {
+          console.error("Failed to star", e);
+        }
+      });
+    }
+
+    setStarredState(btn: HTMLButtonElement, icon: SVGElement): void {
+      btn.classList.add("border-yellow-400", "text-yellow-600", "bg-yellow-50");
+      btn.classList.remove("border-gray-300", "bg-white", "text-gray-400");
+      icon.setAttribute("fill", "currentColor");
+    }
+  }
+
+  customElements.define("star-button", StarButton);
+</script>

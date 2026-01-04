@@ -3,6 +3,7 @@ import { parse, format } from "date-fns";
 import "@fontsource/fira-code";
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
+import StarButton from "../components/StarButton.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -27,6 +28,9 @@ const formattedDate = format(parsedDate, "PPP");
     </h1>
     <h2 class="font-light mt-1 mb-4">{formattedDate}</h2>
     <slot />
+    <div class="border-t border-gray-200 flex justify-end">
+      <StarButton slug={post.slug} />
+    </div>
   </article>
 </Base>
 

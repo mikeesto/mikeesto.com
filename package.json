@@ -19,7 +19,9 @@
     "@astrojs/tailwind": "^5.1.1",
     "@fontsource/fira-code": "^5.1.0",
     "@fontsource/inter": "^5.1.0",
+    "@lucide/astro": "^0.562.0",
     "@resvg/resvg-js": "^2.6.2",
+    "@upstash/redis": "^1.36.0",
     "lucide": "^0.469.0",
     "satori": "^0.18.3",
     "tailwindcss": "^3.4.12"
