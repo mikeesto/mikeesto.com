@@ -1,0 +1,210 @@
+---
+const presets = [
+  { label: "10 TPS", value: 10, description: "Slow" },
+  { label: "50 TPS", value: 50, description: "Medium" },
+  { label: "150 TPS", value: 150, description: "Fast" },
+  { label: "1000 TPS", value: 1000, description: "Very fast" },
+];
+---
+
+<div
+  class="stream-sim not-post my-6 rounded-lg overflow-hidden border border-gray-200 bg-[#1e1e2e] text-[#f8f8f2] font-mono text-sm"
+>
+  <div
+    class="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-[#44475a]"
+  >
+    <span class="text-xs text-[#6272a4] mr-1 font-sans">Speed:</span>
+    {
+      presets.map((p) => (
+        <button
+          class="stream-preset px-3 py-1 rounded-full text-xs font-sans font-semibold border border-[#44475a] bg-transparent text-[#f8f8f2] cursor-pointer transition-colors hover:border-[#bd93f9] hover:text-[#bd93f9]"
+          data-tps={p.value}
+        >
+          {p.label}
+          <span class="hidden sm:inline text-[#6272a4] font-normal ml-1">
+            – {p.description}
+          </span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div
+    class="stream-output px-4 py-3 min-h-[120px] max-h-[350px] overflow-y-auto leading-relaxed text-sm whitespace-pre-wrap"
+  >
+    <span class="stream-text"></span><span class="stream-cursor"></span>
+  </div>
+
+  <div
+    class="flex justify-between items-center px-4 py-2 border-t border-[#44475a] text-[10px] text-[#6272a4] font-sans"
+  >
+    <span class="stream-token-count">Click a speed to start</span>
+    <span class="stream-avg-tps"></span>
+  </div>
+</div>
+
+<style>
+  .stream-cursor {
+    display: inline-block;
+    width: 7px;
+    height: 1.1em;
+    background-color: #f8f8f2;
+    vertical-align: middle;
+    animation: stream-blink 1s step-end infinite;
+  }
+
+  .stream-cursor.typing {
+    animation: none;
+    opacity: 1;
+  }
+
+  @keyframes stream-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .stream-preset.active {
+    border-color: #bd93f9;
+    background-color: #bd93f9;
+    color: #282a36;
+  }
+
+  .stream-output {
+    scrollbar-width: thin;
+    scrollbar-color: #44475a transparent;
+  }
+
+  .stream-output::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .stream-output::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .stream-output::-webkit-scrollbar-thumb {
+    background-color: #44475a;
+    border-radius: 3px;
+  }
+
+  .stream-output::-webkit-scrollbar-thumb:hover {
+    background-color: #6272a4;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".stream-sim").forEach((widget) => {
+    const buttons =
+      widget.querySelectorAll<HTMLButtonElement>(".stream-preset");
+    const textEl = widget.querySelector(".stream-text")!;
+    const cursorEl = widget.querySelector(".stream-cursor")!;
+    const tokenCountEl = widget.querySelector(".stream-token-count")!;
+    const avgTpsEl = widget.querySelector(".stream-avg-tps")!;
+
+    const sampleText = `
+    The Owl and the Pussy-cat went to sea
+    In a beautiful pea-green boat,
+    They took some honey, and plenty of money,
+    Wrapped up in a five-pound note.
+    The Owl looked up to the stars above,
+    And sang to a small guitar,
+    “O lovely Pussy! O Pussy, my love,
+    What a beautiful Pussy you are,
+    You are,
+    You are!
+    What a beautiful Pussy you are!”
+
+    Pussy said to the Owl, “You elegant fowl!
+    How charmingly sweet you sing!
+    O let us be married! Too long we have tarried:
+    But what shall we do for a ring?”
+    They sailed away, for a year and a day,
+    To the land where the Bong-tree grows
+    And there in a wood a Piggy-wig stood
+    With a ring at the end of his nose,
+    His nose,
+    His nose,
+    With a ring at the end of his nose.
+
+    “Dear Pig, are you willing to sell for one shilling
+    Your ring?” Said the Piggy, “I will.”
+    So they took it away, and were married next day
+    By the Turkey who lives on the hill.
+    They dined on mince, and slices of quince,
+    Which they ate with a runcible spoon;
+    And hand in hand, on the edge of the sand,
+    They danced by the light of the moon,
+    The moon,
+    The moon,
+    They danced by the light of the moon.`;
+
+    let animationId: number | null = null;
+
+    function tokenize(text: string): string[] {
+      return text.match(/\s*\S+|\s+/g) || [];
+    }
+
+    function startStreaming(tps: number) {
+      if (animationId) cancelAnimationFrame(animationId);
+
+      const tokens = tokenize(sampleText);
+      let currentIndex = 0;
+
+      textEl.textContent = "";
+      cursorEl.classList.add("typing");
+      tokenCountEl.textContent = `Tokens: 0 / ${tokens.length}`;
+      avgTpsEl.textContent = "";
+
+      const startTime = performance.now();
+
+      function loop(now: number) {
+        if (currentIndex >= tokens.length) {
+          cursorEl.classList.remove("typing");
+          return;
+        }
+
+        const elapsed = (now - startTime) / 1000;
+        const expected = Math.floor(elapsed * tps);
+        let toAdd = Math.min(
+          expected - currentIndex,
+          tokens.length - currentIndex,
+        );
+
+        if (toAdd > 0) {
+          let chunk = "";
+          for (let i = 0; i < toAdd; i++) {
+            chunk += tokens[currentIndex++];
+          }
+          textEl.textContent += chunk;
+
+          const outputEl = textEl.closest(".stream-output");
+          if (outputEl) outputEl.scrollTop = outputEl.scrollHeight;
+
+          tokenCountEl.textContent = `Tokens: ${currentIndex} / ${tokens.length}`;
+          avgTpsEl.textContent = `Avg: ${(currentIndex / elapsed).toFixed(1)} TPS`;
+        }
+
+        if (currentIndex < tokens.length) {
+          animationId = requestAnimationFrame(loop);
+        } else {
+          cursorEl.classList.remove("typing");
+        }
+      }
+
+      animationId = requestAnimationFrame(loop);
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        startStreaming(parseInt(btn.dataset.tps!, 10));
+      });
+    });
+  });
+</script>

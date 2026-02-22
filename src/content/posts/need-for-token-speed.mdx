@@ -1,0 +1,147 @@
+---
+title: The need for (token) speed
+description:
+  Exploring LLM token generation speed — latency, throughput, and what faster
+  inference unlocks.
+date: 22-02-2026
+draft: true
+---
+
+import TokenSpeedSimulator from "../../components/TokenSpeedSimulator.astro";
+
+If you've ever browsed an AI routing platform like
+[OpenRouter](https://openrouter.ai), you'll notice that every model listed comes
+with two critical data points: latency and throughput.
+
+When you send a request to a model, latency is how long you wait before anything
+happens. Throughput, measured in tokens per second (TPS), is how fast the tokens
+flow once the inference starts [better phrasing needed here overall].
+
+What even is a token?
+
+A token is roughly a word. Not quite a word, not quite a syllable, somewhere in
+between. "Unbelievable" might be two or three tokens. "The" is one. As a rough
+rule of thumb, 100 tokens ≈ 75 words. If someone says a model does 50 TPS, they
+mean about 37–38 words per second. That's faster than almost anyone reads, but
+you can still immediately tell the difference between 10 TPS and 200 TPS. [does
+this sentence even flow from the last?] I made this small demo so you can see for
+yourself!
+
+<TokenSpeedSimulator />
+
+So, ultimately, latency and throughput are related, but they're not the same
+thing. A model, being offered by a particular provider, could have very low
+latency (starts fast) but modest throughput (plods along). Another might make
+you wait a beat, then respond almost instantly. Low latency and high throughput
+is the dream, but it is easier said than done at scale.
+
+[should i put latency and tps of chatgpt 5.2 here somewhere as a
+reference point?]
+
+### Throughput is becoming a product
+
+Something is shifting right now in how the industry thinks about inference
+throughput. For a long time, the implicit assumption was that intelligence and
+speed trade off against each other: smarter models are slower, faster models are
+dumber. That's starting to crack - and more interestingly, both OpenAI and
+Anthropic seem to have arrived at the same conclusion at almost the same moment.
+Speed at the frontier may be a market in and of itself, and people may be
+willing to pay (substantially) for it.
+
+Here's what's happened in just the last two weeks. OpenAI released
+GPT-5.3-Codex-Spark, a coding model designed to feel near instant. It is running
+on hardware from [Cerebras](https://www.cerebras.ai), a chipmaker whose
+Wafer-Scale Engine 3 is essentially a single chip the size of a dinner plate,
+with 4 trillion transistors, built specifically for low latency inference.
+Codex-Spark delivers over 1,000 tokens per second. It's currently in preview for
+ChatGPT Pro subscribers, that's the $200/month USD tier, so no, I haven't tried
+it yet!
+
+Anthropic meanwhile has been even more explicit about the premium angle. A week
+ago they shipped
+[Fast Mode for Claude Opus 4.6](https://platform.claude.com/docs/en/build-with-claude/fast-mode).
+It's the same model, same weights, same intelligence, just faster. About 2.5x
+faster in terms of output tokens per second. And the price for that extra speed
+is 6x the standard rate. Standard Opus 4.6 runs $5/$25 per million tokens
+(input/output). Fast Mode is $30/$150. If you stack Fast Mode with the new 1M
+token long context option, you can end up paying $60/$225 per million tokens —
+which is, to put it gently [better phrasing needed], a lot.
+
+Both of these releases tell the same story. OpenAI and Anthropic are betting
+that a subset of users will be willing to pay more, a lot more, for the "faster
+frontier". How big this market segment is, I genuinely don't know.
+
+And then, slightly further from the mainstream spotlight, we also saw a 25
+person startup called [Taalas](https://chatjimmy.ai) unveil a chip they've named
+the HC1, which runs Llama 3.1 8B at around 15,000 – 17,000 tokens per second.
+That's not a typo. They achieved this feat by literally hardwiring [is
+that right word?] the model's weights into the silicon itself, so inference becomes
+a matter of electrical signals flowing through physical transistors rather than loading
+weights from memory. The big catch is, well, the chip is capable of only running
+Llama 3.1 8B. If they want to use a different model, they need to design a completely
+new chip. It's an extreme trade-off, but it shows just how fast these models can
+run when the design for speed is done from the ground up.
+
+### But Is faster always better?
+
+For a lot of what people actually do with chat based AI, there's probably a
+speed ceiling beyond which extra TPS stops mattering for the human on the other
+end.
+
+The average person reads somewhere around 250 words per minute. Let's say
+roughly 330 tokens per minute, or about 5–6 tokens per second. At 50 TPS, the
+model is already outrunning your eyes by nearly 10x. At 1,000 TPS, the response
+essentially teleports [can we use harry potter phrase here?] in. This isn't a
+complaint — it's genuinely nice when things are fast — but it raises a question:
+who actually benefits from 15,000 tokens per second?
+
+The answer, I think, is _not_ the person watching the chat window. It's the
+**agent**.
+
+This is the thread connecting Codex-Spark and Opus 4.6 Fast Mode. Both are
+explicitly aimed at agentic coding workflows — you're watching, directing,
+redirecting, catching mistakes in real-time rather than waiting ten minutes for
+an autonomous run to finish. At 1,000 TPS the feedback cycle gets tight enough
+to feel like collaboration rather than delegation. The impulse to pick up your
+phone and scroll while you wait is removed.
+
+But push further — to Taalas-scale speeds — and you're not designing for
+human-readable output anymore. You're designing for AI-readable output. Agents
+calling other agents, pipelines doing multi-step reasoning where intermediate
+results feed forward, tasks that currently take an hour dropping to minutes
+because every step is near instant.
+
+### What faster inference might unlock
+
+[from here on needs a lot of work]
+
+A few things feel plausible to me, though I hold all of this loosely:
+
+**Tighter human-AI loops in creative and coding work.** There's a real
+difference between "paste my whole file in and wait" and "here, watch me think
+through this line by line and stop me if I go wrong." Speed enables the second
+mode in ways that latency-heavy models can't.
+
+**Cheaper agentic pipelines.** Multi-step AI workflows burn a lot of tokens
+waiting. If inference gets cheap _and_ fast enough, the economics of chaining
+together ten model calls improve dramatically.
+
+**New interaction modalities.** Real-time voice and video AI already push on
+inference limits. As models get faster, you start to wonder what's possible when
+the latency drops below the threshold of human perception entirely — where the
+AI isn't streaming an answer so much as _being present_ in a conversation.
+
+**The small-model renaissance.** Taalas runs a quantized 8B model, not a
+frontier giant. There's an interesting counterpoint emerging to the "bigger is
+always better" assumption: a well-optimized small model running at absurd speed
+on purpose-built hardware might be more useful for many tasks than a 400B model
+that takes two seconds to start talking. [Apparently they are aiming to
+support much larger models soon so not sure this is a great point]
+
+---
+
+What I keep coming back to is that **speed is infrastructure**. We don't usually
+praise electricity for being fast, but we notice immediately when it isn't.
+Inference speed might be heading in the same direction — less of a feature, more
+of a foundation that makes other things possible. The labs building for it now
+are betting on that future arriving sooner than most people expect.
