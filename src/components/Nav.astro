@@ -4,8 +4,17 @@ import Home from "./Home.astro";
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="mt-2 mb-8">
-  <ul class="flex gap-3">
+<nav class="mt-2 mb-8 relative">
+  <!-- Easter Rabbit 🐇 -->
+  <div class="rabbit-track">
+    <div class="rabbit-mover">
+      <div class="rabbit-hopper" aria-hidden="true">
+        <span class="rabbit-emoji">🐇</span>
+      </div>
+    </div>
+  </div>
+
+  <ul class="flex gap-3 relative z-20">
     <li><a href="/" data-path="/"><Home /></a></li>
     <li class="ml-auto self-end">
       <a href="/about" data-path="/about">About</a>
@@ -28,6 +37,69 @@ const currentPath = Astro.url.pathname;
     position: absolute;
     margin-top: calc(1rem - 1.7em);
     line-height: 1em;
+  }
+
+  /* --- Easter Rabbit Animations --- */
+  .rabbit-track {
+    position: relative;
+    width: 100%;
+    border-bottom: 1.5px dashed transparent;
+    border-image: linear-gradient(to right, #c8dfc3, #a8d5a0, #c8dfc3, #b5d4a8, #c8dfc3) 1;
+    margin-bottom: 12px;
+    padding-bottom: 2px;
+    pointer-events: none;
+  }
+
+  .rabbit-mover {
+    position: relative;
+    bottom: -2px;
+    width: 30px;
+    animation: runX 12s ease-in-out infinite;
+  }
+
+  .rabbit-hopper {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .rabbit-emoji {
+    display: inline-block;
+    animation: hop 0.35s cubic-bezier(0.2, 0, 0.3, 1) infinite alternate;
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.15));
+  }
+
+  @keyframes runX {
+    0% {
+      left: 0%;
+      transform: scaleX(-1);
+    }
+    /* Pause briefly at the right side */
+    45% {
+      left: calc(100% - 30px);
+      transform: scaleX(-1);
+    }
+    50% {
+      left: calc(100% - 30px);
+      transform: scaleX(1);
+    }
+    /* Pause briefly at the left side */
+    95% {
+      left: 0%;
+      transform: scaleX(1);
+    }
+    100% {
+      left: 0%;
+      transform: scaleX(-1);
+    }
+  }
+
+  @keyframes hop {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      transform: translateY(-10px) rotate(-3deg);
+    }
   }
 </style>
 
@@ -67,7 +139,7 @@ const currentPath = Astro.url.pathname;
 
   // GitHub link still gets hover underline
   const githubLink = document.querySelector(
-    'nav ul li a[href^="https://github.com"]'
+    'nav ul li a[href^="https://github.com"]',
   );
   if (githubLink) {
     const githubAnnotation = annotate(githubLink, {
