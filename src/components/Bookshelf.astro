@@ -1,0 +1,57 @@
+---
+const books = [
+  {
+    title: "Dallergut Dream Department Store",
+    author: "Miye Lee",
+    cover: "https://covers.openlibrary.org/b/isbn/9781335081179-L.jpg",
+    rotate: "-rotate-[2deg]",
+  },
+  {
+    title: "The Mythical Man-Month",
+    author: "Frederick P. Brooks Jr.",
+    cover: "https://covers.openlibrary.org/b/isbn/9780201835953-L.jpg",
+    rotate: "-rotate-[3deg]",
+  },
+  {
+    title: "The Idea Factory",
+    author: "Jon Gertner",
+    cover: "https://covers.openlibrary.org/b/isbn/9780143122791-L.jpg",
+    rotate: "rotate-[1deg]",
+  },
+];
+---
+
+<section>
+  <p class="text-sm mb-6">
+    I'm trying to get back into the habit of reading for fun. Thanks to everyone
+    who has recommended books to me!
+  </p>
+
+  <div class="relative">
+    <div class="flex justify-center items-end gap-6 md:gap-10 pb-1">
+      {
+        books.map((book) => (
+          <div class="group relative flex flex-col items-center">
+            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+              <span class="font-medium">{book.title}</span>
+              <br />
+              <span class="text-gray-300">{book.author}</span>
+            </div>
+            <div
+              class={`relative ${book.rotate} transition-all duration-300 ease-out group-hover:rotate-0 group-hover:-translate-y-2 group-hover:scale-105`}
+            >
+              <img
+                src={book.cover}
+                alt={`${book.title} by ${book.author}`}
+                class="w-24 md:w-28 rounded-sm shadow-lg border border-black/10"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="h-2 bg-amber-900/80 rounded-sm shadow-md"></div>
+    <div class="h-1 bg-amber-950/60 rounded-b-sm"></div>
+  </div>
+</section>
