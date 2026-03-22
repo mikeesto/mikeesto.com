@@ -1,5 +1,5 @@
 ---
-import { Star } from "@lucide/astro";
+import { Heart } from "@lucide/astro";
 
 interface Props {
   slug: string;
@@ -8,22 +8,22 @@ interface Props {
 const { slug } = Astro.props;
 ---
 
-<star-button data-slug={slug} class="mt-4 block relative group">
+<like-button data-slug={slug} class="mt-4 block relative group">
   <div class="relative inline-flex flex-col items-center">
     <span
-      class="thank-you-message absolute bottom-full mb-2 right-0 whitespace-nowrap text-[11px] font-bold text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-full border border-yellow-200 shadow-sm opacity-0 translate-y-2 pointer-events-none transition-all duration-500 ease-out z-10"
+      class="thank-you-message absolute bottom-full mb-2 right-0 whitespace-nowrap text-[11px] font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200 shadow-sm opacity-0 translate-y-2 pointer-events-none transition-all duration-500 ease-out z-10"
     >
       Thank you!
     </span>
 
     <button
-      class="group flex items-center justify-center gap-0 min-w-[36px] h-[36px] rounded-full border border-gray-300 bg-white text-gray-400 transition-all duration-300 hover:border-yellow-400 hover:text-yellow-500 hover:bg-yellow-50 active:scale-95 disabled:cursor-default shadow-sm hover:shadow-md"
-      aria-label="Star this post"
+      class="group flex items-center justify-center gap-0 min-w-[36px] h-[36px] rounded-full border border-gray-300 bg-white text-gray-400 transition-all duration-300 hover:border-rose-400 hover:text-rose-500 hover:bg-rose-50 active:scale-95 disabled:cursor-default shadow-sm hover:shadow-md"
+      aria-label="Like this post"
     >
       <div
         class="icon-wrapper p-1.5 transition-transform duration-500 group-hover:rotate-[15deg] group-hover:scale-110"
       >
-        <Star class="w-4 h-4" />
+        <Heart class="w-4 h-4" />
       </div>
 
       <span
@@ -33,14 +33,14 @@ const { slug } = Astro.props;
       </span>
     </button>
   </div>
-</star-button>
+</like-button>
 
 <script>
   interface StarData {
     count: number;
   }
 
-  class StarButton extends HTMLElement {
+  class LikeButton extends HTMLElement {
     constructor() {
       super();
       const btn = this.querySelector("button") as HTMLButtonElement;
@@ -65,7 +65,7 @@ const { slug } = Astro.props;
 
       // 1. Initial State
       if (hasStarred) {
-        this.setStarredState(btn, icon);
+        this.setLikedState(btn, icon);
       }
 
       // 2. Fetch current count
@@ -93,7 +93,7 @@ const { slug } = Astro.props;
           showCount(newVal);
         }
 
-        this.setStarredState(btn, icon);
+        this.setLikedState(btn, icon);
 
         // Animation: Button Pop
         btn.style.transform = "scale(1.15)";
@@ -120,17 +120,17 @@ const { slug } = Astro.props;
         try {
           await fetch(`/api/stars/${slug}`, { method: "POST" });
         } catch (e) {
-          console.error("Failed to star", e);
+          console.error("Failed to like", e);
         }
       });
     }
 
-    setStarredState(btn: HTMLButtonElement, icon: SVGElement): void {
-      btn.classList.add("border-yellow-400", "text-yellow-600", "bg-yellow-50");
+    setLikedState(btn: HTMLButtonElement, icon: SVGElement): void {
+      btn.classList.add("border-rose-400", "text-rose-500", "bg-rose-50");
       btn.classList.remove("border-gray-300", "bg-white", "text-gray-400");
       icon.setAttribute("fill", "currentColor");
     }
   }
 
-  customElements.define("star-button", StarButton);
+  customElements.define("like-button", LikeButton);
 </script>
