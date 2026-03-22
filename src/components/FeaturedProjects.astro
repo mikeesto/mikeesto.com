@@ -1,12 +1,12 @@
 ---
 import IconComponent from "./Icon.astro";
-import { Play, Heart, Smile, Headphones } from "lucide";
+import { Youtube, Grid2x2, Mic, Palette } from "lucide";
 
 const icons = {
-  Heart,
-  Play,
-  Smile,
-  Headphones,
+  Grid2x2,
+  Mic,
+  Youtube,
+  Palette,
 };
 
 const projects = [
@@ -15,7 +15,7 @@ const projects = [
     description: "A kinder version of Wordle that hands you the vowels.",
     color: "bg-blue-50",
     textColor: "text-blue-900",
-    icon: "Heart",
+    icon: "Grid2x2",
     link: "https://kindwordle.netlify.app/",
   },
   {
@@ -24,7 +24,7 @@ const projects = [
       "Transcribe audio and video files with speaker diarization. People have told me that it's particularly good where the audio contains multiple languages.",
     color: "bg-green-50",
     textColor: "text-emerald-900",
-    icon: "Headphones",
+    icon: "Mic",
     link: "https://gemini-transcribe.fly.dev/",
   },
   {
@@ -33,7 +33,7 @@ const projects = [
       "Generate YouTube video summaries. Useful when a video catches your attention but you don't want to sit through 7 minutes to hear two useful things.",
     color: "bg-amber-50",
     textColor: "text-amber-900",
-    icon: "Play",
+    icon: "Youtube",
     link: "https://yt-summary.vercel.app/",
   },
   {
@@ -42,7 +42,7 @@ const projects = [
       "Create and download custom emoji. I think the main users are my friends' kids.",
     color: "bg-purple-50",
     textColor: "text-purple-900",
-    icon: "Smile",
+    icon: "Palette",
     link: "https://emojimakers.netlify.app/",
   },
 ];
@@ -52,35 +52,54 @@ const projects = [
   <div class="w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {
-        projects.map((project) => {
+        projects.map((project, index) => {
           const Icon = icons[project.icon];
+          const number = String(index + 1).padStart(3, "0");
           return (
             <a
               href={project.link}
-              class={`
-              block relative rounded-xl p-6
-              ${project.color}
-              border border-black/20
-              text-center
-              transition-all duration-300 ease-out
-              hover:shadow-md hover:-translate-y-0.5
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/5
-            `}
+              class={`rounded-xl p-5 ${project.color} border border-black/10 text-left transition-all duration-300 ease-out hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/5 flex flex-col`}
               aria-label={`${project.title} - ${project.description}`}
             >
-              <div class={`${project.textColor} flex justify-center`}>
-                <IconComponent icon={Icon} />
+              <div class="flex items-center justify-between mb-4">
+                <span class={`${project.textColor} opacity-40`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <>
+                      <path d="M7 7h10v10" />
+                      <path d="M7 17 17 7" />
+                    </>
+                  </svg>
+                </span>
+                <span
+                  class={`text-xs ${project.textColor} opacity-60 border border-current rounded px-2 py-0.5`}
+                >
+                  {number}
+                </span>
               </div>
 
-              <h3
-                class={`text-xl font-semibold ${project.textColor} mt-4 mb-2`}
-              >
+              <hr class="border-current opacity-20 mb-4" />
+
+              <h3 class={`text-lg font-bold ${project.textColor} mb-2`}>
                 {project.title}
               </h3>
 
-              <p class={`${project.textColor} text-sm opacity-75`}>
+              <p class={`${project.textColor} opacity-75 text-sm mb-4`}>
                 {project.description}
               </p>
+
+              <div class={`mt-auto ${project.textColor} opacity-50`}>
+                <IconComponent icon={Icon} />
+              </div>
             </a>
           );
         })
