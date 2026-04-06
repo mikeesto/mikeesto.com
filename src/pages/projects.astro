@@ -2,13 +2,13 @@
 import Base from "../layouts/Base.astro";
 import ListProjects from "../components/ListProjects.astro";
 
-const years = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
+const years = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
 
 const projectsData = await Promise.all(
   years.map(async (year) => ({
     year,
     projects: (await import(`../projects/${year}.json`)).default,
-  }))
+  })),
 );
 ---
 

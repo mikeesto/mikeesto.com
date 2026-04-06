@@ -1,0 +1,7 @@
+[
+  {
+    "title": "Whimscribe",
+    "description": "Private audio transcription with Cohere Transcribe and transformers.js",
+    "url": "https://whimscribe.netlify.app/"
+  }
+]
