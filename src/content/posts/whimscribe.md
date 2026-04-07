@@ -1,6 +1,6 @@
 ---
 title: Whimscribe
-description: Notes on Gemma 4, Cohere Transcribe, and a new local audio transcription app
+description: Notes on Gemma 4, Cohere Transcribe, and a new local audio transcription app.
 date: 07-04-2026
 draft: false
 ---
@@ -11,7 +11,7 @@ I spent most of Easter doing the important things — eating chocolate, seeing f
 
 Google released [Gemma 4](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/) last week, four open weight models under an Apache 2.0 license. The lineup is: E2B and E4B (designed for edge devices and phones), a 26B Mixture-of-Experts model (activating only 3.8B parameters at inference for speed), and a 31B dense model. The bigger two are available through Google AI Studio with a generous free quota each of 1,500 requests per day.
 
-I was mostly interested in E2B and E4B for audio/speech use cases. [mlx-vlm](https://github.com/Blaizzy/mlx-vlm) shipped day-zero Gemma 4 support for Apple silicon. When I tried it, though, it was hallucinating quite a bit on audio. There were clearly some early bugs in the encoder implementation, with some PRs already open. I ended up falling back to transformers.js which worked reasonably well. I've always had a soft spot for small multimodal models. Note that you won't get timestamps or speaker diarization though, if those matter to you.
+I was mostly interested in E2B and E4B for audio/speech use cases. [mlx-vlm](https://github.com/Blaizzy/mlx-vlm) shipped day-zero Gemma 4 support for Apple silicon. When I tried it, though, it was hallucinating quite a bit on audio. There were clearly some early bugs in the encoder implementation, with some PRs already open. I ended up falling back to transformers, which worked reasonably well. I've always had a soft spot for small multimodal models. Note that you won't get timestamps or speaker diarization though, if those matter to you.
 
 ### Cohere Transcribe
 
