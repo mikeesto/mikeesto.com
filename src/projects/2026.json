@@ -1,5 +1,10 @@
 [
   {
+    "title": "JSON PII Sanitiser MLX",
+    "description": "Local first personal identifiable information (PII) sanitiser for JSON files, with structure preserving redaction and stable placeholders",
+    "url": "https://github.com/mikeesto/json-pii-sanitiser-mlx"
+  },
+  {
     "title": "Whimscribe",
     "description": "Private audio transcription with Cohere Transcribe and transformers.js",
     "url": "https://whimscribe.netlify.app/"
