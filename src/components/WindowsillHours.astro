@@ -1,0 +1,247 @@
+<div class="time-sketch" data-time-sketch></div>
+
+<script is:inline>
+  (() => {
+    const mount = document.querySelector("[data-time-sketch]");
+
+    if (!mount) {
+      return;
+    }
+
+    const startSketch = () => {
+      if (!window.p5 || mount.dataset.timeSketchStarted === "true") {
+        return;
+      }
+
+      mount.dataset.timeSketchStarted = "true";
+
+      new window.p5((p) => {
+        const offsetX = -75;
+        const offsetY = 75;
+        const artworkScale = 1.2;
+        let cloudLayer;
+        const stars = [];
+
+        const drawWindow = () => {
+          // Day -> night cycle (slow oscillation)
+          const dayColor = p.color("#bfe3ec");
+          const nightColor = p.color("#0f1a3a");
+          const wallDay = p.color(255, 255, 255);
+          const wallNight = p.color("#1c2540");
+          const strokeDay = p.color(0, 0, 0);
+          const strokeNight = p.color("#aab4c8");
+          const cycle = p.millis() / 8000;
+          const t = (p.sin(cycle + p.HALF_PI) + 1) / 2; // 0 = night, 1 = day
+          const dayProgress = t * t * (3 - 2 * t);
+          const skyColor = p.lerpColor(nightColor, dayColor, dayProgress);
+          const wallColor = p.lerpColor(wallNight, wallDay, dayProgress);
+          const strokeColor = p.lerpColor(strokeNight, strokeDay, dayProgress);
+          const sunAlpha = p.constrain(
+            p.map(dayProgress, 0.42, 0.78, 0, 255),
+            0,
+            255,
+          );
+          const cloudAlpha = p.constrain(
+            p.map(dayProgress, 0.48, 0.82, 0, 255),
+            0,
+            255,
+          );
+          const starAlpha = p.constrain(
+            p.map(dayProgress, 0.08, 0.42, 255, 0),
+            0,
+            255,
+          );
+
+          p.background(wallColor);
+          p.noFill();
+          p.stroke(strokeColor);
+          p.strokeWeight(1);
+
+          p.push();
+          p.translate(p.width / 2, p.height / 2);
+          p.scale(artworkScale);
+          p.translate(-p.width / 2, -p.height / 2);
+          p.translate(offsetX, offsetY);
+
+          p.fill(skyColor);
+          p.noStroke();
+          p.rect(331, 75, 144, 300);
+          p.quad(282, 75, 306, 75, 306, 357, 282, 370);
+          p.quad(306, 75, 328, 75, 328, 346, 306, 357);
+          p.quad(282, 230, 327, 208, 328, 346, 282, 370);
+          p.triangle(282, 375, 331, 350, 331, 375);
+
+          // Masonry strip behind the hatching tracks the wall tone.
+          p.fill(wallColor);
+          p.noStroke();
+          p.rect(275, 75, 7, 300);
+
+          // Stars (visible at night) - clipped across all sky panes
+          if (starAlpha > 0) {
+            p.drawingContext.save();
+            p.drawingContext.beginPath();
+            p.drawingContext.rect(331, 75, 144, 300);
+            p.drawingContext.moveTo(282, 75);
+            p.drawingContext.lineTo(306, 75);
+            p.drawingContext.lineTo(306, 357);
+            p.drawingContext.lineTo(282, 370);
+            p.drawingContext.closePath();
+            p.drawingContext.moveTo(306, 75);
+            p.drawingContext.lineTo(328, 75);
+            p.drawingContext.lineTo(328, 346);
+            p.drawingContext.lineTo(306, 357);
+            p.drawingContext.closePath();
+            p.drawingContext.clip();
+
+            p.noStroke();
+            for (const star of stars) {
+              const twinkle =
+                (p.sin(p.millis() / star.speed + star.phase) + 1) / 2;
+              const alpha = starAlpha * (0.3 + 0.7 * twinkle);
+              p.fill(255, 255, 230, alpha);
+              p.ellipse(star.x, star.y, star.size, star.size);
+            }
+            p.drawingContext.restore();
+          }
+
+          // Clip sun and cloud across all sky panes (main + angled)
+          p.drawingContext.save();
+          p.drawingContext.beginPath();
+          p.drawingContext.rect(331, 75, 144, 300);
+          p.drawingContext.moveTo(282, 75);
+          p.drawingContext.lineTo(306, 75);
+          p.drawingContext.lineTo(306, 357);
+          p.drawingContext.lineTo(282, 370);
+          p.drawingContext.closePath();
+          p.drawingContext.moveTo(306, 75);
+          p.drawingContext.lineTo(328, 75);
+          p.drawingContext.lineTo(328, 346);
+          p.drawingContext.lineTo(306, 357);
+          p.drawingContext.closePath();
+          p.drawingContext.clip();
+
+          // Sun (top right of sky pane)
+          p.fill(252, 211, 77, sunAlpha);
+          p.noStroke();
+          p.ellipse(465, 85, 38, 38);
+
+          // Cloud - drifts gently across the sky and bobs up and down.
+          // Position is tied to the day cycle so the cloud always begins
+          // off the left edge at the start of each day.
+          if (cloudLayer) {
+            const cloudWidth = 70;
+            const skyLeft = 282;
+            const skyRight = 475;
+            const driftRange = skyRight - skyLeft + cloudWidth;
+            // dayPhase = 0 at deepest night (cloud invisible, off-left),
+            //          = 1 at the next deepest night (cloud invisible, off-right)
+            const dayPhase =
+              ((((cycle - p.PI) % p.TWO_PI) + p.TWO_PI) % p.TWO_PI) / p.TWO_PI;
+            const cloudX = skyLeft - cloudWidth + dayPhase * driftRange;
+            const cloudY = 90 + p.sin(p.millis() / 1400) * 3;
+            p.tint(255, cloudAlpha);
+            p.image(cloudLayer, cloudX, cloudY);
+            p.noTint();
+          }
+
+          p.drawingContext.restore();
+
+          p.noFill();
+          p.stroke(strokeColor);
+          p.rect(275, 75, 200, 300);
+
+          // Ledge
+          p.rect(255, 385, 240, 10, 5);
+          p.line(258, 386, 258, 394);
+          p.line(492, 386, 492, 394);
+          for (let x = 261; x < 492; x += 4) {
+            p.line(x, 385, x, 395);
+          }
+          p.line(258, 385, 275, 375);
+          p.line(492, 385, 475, 375);
+
+          p.line(282, 375, 282, 75);
+          for (let y = 75; y < 375; y += 3) {
+            p.line(282, y, 275, y);
+          }
+
+          // Window frame
+          p.line(282, 375, 331, 350);
+          p.line(282, 370, 328, 346);
+          p.line(328, 346, 328, 75);
+          p.line(331, 350, 331, 75);
+          p.line(306, 357, 306, 75);
+          p.line(327, 208, 282, 230);
+
+          p.pop();
+        };
+
+        p.setup = () => {
+          const canvas = p.createCanvas(600, 600);
+          canvas.parent(mount);
+          p.pixelDensity(Math.min(window.devicePixelRatio || 1, 2));
+          p.frameRate(30);
+
+          cloudLayer = p.createGraphics(70, 42);
+          cloudLayer.pixelDensity(Math.min(window.devicePixelRatio || 1, 2));
+          cloudLayer.clear();
+          cloudLayer.noStroke();
+          cloudLayer.fill(255);
+          cloudLayer.ellipse(18, 20, 36, 20);
+          cloudLayer.ellipse(32, 13, 32, 26);
+          cloudLayer.ellipse(48, 21, 34, 20);
+          cloudLayer.ellipse(35, 27, 50, 16);
+
+          // Pre generate twinkling stars within the sky pane bounds
+          stars.length = 0;
+          for (let i = 0; i < 36; i++) {
+            stars.push({
+              x: p.random(285, 471),
+              y: p.random(79, 175),
+              size: p.random(1, 2.6),
+              phase: p.random(p.TWO_PI),
+              speed: p.random(400, 1200),
+            });
+          }
+        };
+
+        p.draw = drawWindow;
+
+        p.windowResized = () => {
+          const width = Math.min(600, mount.clientWidth);
+          const canvas = mount.querySelector("canvas");
+          if (canvas) {
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${width}px`;
+          }
+        };
+      }, mount);
+    };
+
+    if (window.p5) {
+      startSketch();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js";
+    script.onload = startSketch;
+    document.head.append(script);
+  })();
+</script>
+
+<style>
+  .time-sketch {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    width: 100%;
+  }
+
+  .time-sketch :global(canvas) {
+    aspect-ratio: 1;
+    height: auto !important;
+    max-width: 100%;
+    width: min(100%, 600px) !important;
+  }
+</style>
