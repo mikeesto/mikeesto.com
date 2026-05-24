@@ -1,7 +1,7 @@
 [
   {
-    "title": "JSON PII Sanitiser MLX",
-    "description": "Local first personal identifiable information (PII) sanitiser for JSON files, with structure preserving redaction and stable placeholders",
+    "title": "JSON PII Sanitiser",
+    "description": "MLX powered personal identifiable information (PII) sanitiser for JSON files with stable placeholders",
     "url": "https://github.com/mikeesto/json-pii-sanitiser-mlx"
   },
   {
