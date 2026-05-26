@@ -73,6 +73,31 @@ const formattedDate = format(parsedDate, "PPP");
     @apply inline;
   }
 
+  .post table {
+    @apply my-6 w-full border-collapse text-sm leading-6;
+  }
+
+  .post th,
+  .post td {
+    @apply border-b border-gray-300 px-3 py-2 align-top;
+  }
+
+  .post th {
+    @apply font-semibold text-left;
+  }
+
+  .post th:first-child,
+  .post td:first-child,
+  .post th:nth-child(n + 3),
+  .post td:nth-child(n + 3) {
+    @apply text-right whitespace-nowrap;
+  }
+
+  .post th:nth-child(2),
+  .post td:nth-child(2) {
+    @apply whitespace-nowrap;
+  }
+
   .post p {
     @apply has-[img]:flex justify-center;
   }

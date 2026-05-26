@@ -1,0 +1,206 @@
+<div
+  class="testing-time not-post my-6 flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-[#fdf6ec] py-8"
+>
+  <svg
+    viewBox="-140 0 360 220"
+    width="320"
+    height="195"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A llama saying testing time"
+    role="img"
+  >
+    <!-- ground shadow -->
+    <ellipse cx="118" cy="205" rx="64" ry="6" fill="#e6d4b8"></ellipse>
+
+    <!-- llama -->
+    <g class="llama">
+      <!-- back legs-->
+      <g class="background-legs">
+        <rect
+          x="85"
+          y="155"
+          width="11"
+          height="48"
+          rx="4"
+          fill="#ebdcd0"
+          stroke="#6b4f3a"
+          stroke-width="2"></rect>
+        <rect
+          x="132"
+          y="155"
+          width="11"
+          height="48"
+          rx="4"
+          fill="#ebdcd0"
+          stroke="#6b4f3a"
+          stroke-width="2"></rect>
+        <!-- hooves -->
+        <rect x="84" y="198" width="13" height="5" rx="1.5" fill="#6b4f3a"
+        ></rect>
+        <rect x="131" y="198" width="13" height="5" rx="1.5" fill="#6b4f3a"
+        ></rect>
+      </g>
+
+      <!-- tail (placed behind body to hide inner stroke) -->
+      <path
+        d="M 160 148 C 176 151, 184 140, 168 132 Z"
+        fill="#fffaf0"
+        stroke="#6b4f3a"
+        stroke-width="2"
+        stroke-linejoin="round"></path>
+
+      <!-- front legs (midground layer, behind body) -->
+      <g class="foreground-legs">
+        <rect
+          x="98"
+          y="158"
+          width="11"
+          height="45"
+          rx="4"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="2.5"></rect>
+        <rect
+          x="145"
+          y="158"
+          width="11"
+          height="45"
+          rx="4"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="2.5"></rect>
+        <!-- hooves -->
+        <rect x="97" y="198" width="13" height="5" rx="1.5" fill="#6b4f3a"
+        ></rect>
+        <rect x="144" y="198" width="13" height="5" rx="1.5" fill="#6b4f3a"
+        ></rect>
+      </g>
+
+      <!-- integrated body + neck + fluff -->
+      <path
+        d="M 72 80 
+           Q 76 115 72 135 
+           Q 67 155 85 170 
+           Q 120 185 155 170 
+           Q 175 155 168 135
+           Q 160 120 148 128
+           Q 138 114 128 122
+           Q 118 114 108 123
+           Q 98 118 90 132
+           Q 88 108 88 80
+           Z"
+        fill="#fffaf0"
+        stroke="#6b4f3a"
+        stroke-width="2.5"
+        stroke-linejoin="round"></path>
+
+      <!-- head and face details -->
+      <g class="head">
+        <!-- ears  -->
+        <path
+          d="M 64 56 C 61 40, 70 38, 72 54 Z"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="2"
+          stroke-linejoin="round"></path>
+        <path d="M 66 53 C 64 44, 69 43, 70 52 Z" fill="#f4b9b9"></path>
+
+        <path
+          d="M 76 56 C 73 40, 82 38, 84 54 Z"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="2"
+          stroke-linejoin="round"></path>
+        <path d="M 78 53 C 76 44, 81 43, 82 52 Z" fill="#f4b9b9"></path>
+
+        <!-- head base -->
+        <ellipse
+          cx="75"
+          cy="70"
+          rx="22"
+          ry="18"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="2.5"></ellipse>
+
+        <!-- head fluff tuft -->
+        <circle
+          cx="70"
+          cy="51"
+          r="4.5"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="1.5"></circle>
+        <circle
+          cx="76"
+          cy="51"
+          r="4"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="1.5"></circle>
+
+        <!-- snout -->
+        <ellipse
+          cx="58"
+          cy="76"
+          rx="10"
+          ry="8"
+          fill="#fffaf0"
+          stroke="#6b4f3a"
+          stroke-width="2"></ellipse>
+        <path
+          d="M 56 78 Q 59 81 61 77"
+          fill="none"
+          stroke="#6b4f3a"
+          stroke-width="1.5"
+          stroke-linecap="round"></path>
+
+        <!-- eye -->
+        <circle cx="78" cy="66" r="3" fill="#2b2b2b"></circle>
+        <circle cx="79" cy="65" r="1" fill="#fff"></circle>
+
+        <!-- eyelashes -->
+        <path
+          d="M 74 62 L 72 58 M 77 62 L 77 57 M 80 62 L 82 58"
+          stroke="#2b2b2b"
+          stroke-width="1"
+          stroke-linecap="round"></path>
+
+        <!-- cheek blush -->
+        <circle cx="87" cy="74" r="3.5" fill="#f4b9b9" opacity="0.8"></circle>
+      </g>
+    </g>
+
+    <!-- speech bubble -->
+    <g class="bubble">
+      <path
+        d="M -118 20 
+           Q -118 8 -106 8 
+           H -2 
+           Q 10 8 10 20 
+           V 44 
+           Q 10 56 -2 56 
+           H -5 
+           L 42 70 
+           L -12 56 
+           H -106 
+           Q -118 56 -118 44 
+           Z"
+        fill="#fffaf0"
+        stroke="#6b4f3a"
+        stroke-width="2"
+        stroke-linejoin="round"></path>
+      <text
+        x="-54"
+        y="32"
+        font-size="13"
+        font-weight="700"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        fill="#6b4f3a"
+        font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+        >testing time!</text
+      >
+    </g>
+  </svg>
+</div>

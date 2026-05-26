@@ -1,0 +1,79 @@
+---
+title: Wllama
+description: Running llama.cpp models in the browser.
+date: 26-05-2026
+draft: false
+---
+
+import TestingTime from "../../components/TestingTime.astro";
+
+[Transformers.js](https://github.com/huggingface/transformers.js) provides a JavaScript API for running machine learning models in the browser. It's super cool, and it has worked well for a few side quests I've built, most recently [Whimscribe](https://whimscribe.netlify.app/). Under the hood, Transformers.js uses [ONNX Runtime](https://onnxruntime.ai/), which means models generally need to be available in ONNX form. Recently, I came across [wllama](https://github.com/ngxson/wllama), which takes a different route. It is a WebAssembly binding for [llama.cpp](https://github.com/ggml-org/llama.cpp), with support for running inference directly in the browser using WebAssembly SIMD, and more recently optional WebGPU support.
+
+The key difference, at least for my use cases, is model format. wllama accepts GGUF models, which is the same broad model ecosystem used by llama.cpp. That opens up the possibility of using a large number of small, quantized LLMs that may not have ready to use ONNX equivalents.
+
+I wanted to understand where wllama sits in practice. If roughly the same model is available in both ONNX and GGUF form, are the browser runtimes in the same performance ballpark?
+
+The recently published [Llamas on the Web: Memory-Efficient, Performance-Portable, and Multi-Precision LLM Inference with WebGPU](https://arxiv.org/abs/2605.20706) paper was a useful starting point. It provides a number of benchmarks and argues that browser LLM inference is becoming increasingly practical, while still acknowledging that it is constrained by memory, hardware variability, model formats, and browser support.
+
+I decided to run a small scale test.
+
+<TestingTime/>
+
+This is by no means a definitive benchmark! I used one machine, one model, one prompt, one browser, and a tiny number of runs. I mainly wanted to get a feel for the rough runtime characteristics.
+
+### Test setup: Bonsai 1.7B q1
+
+For this test I used Bonsai 1.7B, a small 1-bit language model. I ran the GGUF version through wllama ([prism-ml/Bonsai-1.7B-gguf](https://huggingface.co/prism-ml/Bonsai-1.7B-gguf)) and an ONNX version through Transformers.js ([onnx-community/Bonsai-1.7B-ONNX](https://huggingface.co/onnx-community/Bonsai-1.7B-ONNX)).
+
+I tested each runtime with the same short prompt and the same output lengths:
+
+```txt
+64 tokens
+128 tokens
+256 tokens
+512 tokens
+```
+
+For each output length I ran five samples and reported the median.
+
+The benchmark recorded:
+
+```txt
+load/init time
+time to first emitted token
+decode tokens/sec
+generation time
+```
+
+All runs were performed after the model files were already cached by the browser. Load/init time measures runtime/model initialisation after page load, not network download time. Each sample created a fresh runtime instance. Generation timing starts immediately before calling the generation API and ends after the final streamed token.
+
+I ran this on my MacBook Pro M3 Pro (36GB RAM) using Google Chrome (Version 148.0.7778.179 (arm64)) with WebGPU enabled for both runtimes.
+
+### Results
+
+Here is the summary from this run, using Bonsai 1.7B q1 with WebGPU and a short 18 token prompt:
+
+| Output tokens | Runtime         | Load/init | First emit |      Decode | Generation |
+| ------------: | --------------- | --------: | ---------: | ----------: | ---------: |
+|            64 | Transformers.js |   2538 ms |     135 ms | 66.24 tok/s |    1085 ms |
+|            64 | wllama          |    800 ms |     155 ms | 60.26 tok/s |    1201 ms |
+|           128 | Transformers.js |   2505 ms |     134 ms | 66.27 tok/s |    2051 ms |
+|           128 | wllama          |    753 ms |     156 ms | 60.14 tok/s |    2268 ms |
+|           256 | Transformers.js |   2523 ms |     134 ms | 65.29 tok/s |    4041 ms |
+|           256 | wllama          |    737 ms |     157 ms | 58.75 tok/s |    4499 ms |
+|           512 | Transformers.js |   2523 ms |     134 ms | 61.75 tok/s |    8409 ms |
+|           512 | wllama          |    734 ms |     155 ms | 58.00 tok/s |    8965 ms |
+
+Off the bat, I would not read this as “Transformers.js is faster than wllama”. This only says that for this model, on my machine, with my browser and prompt, Transformers.js had slightly better sustained decode while wllama initialised much faster.
+
+Transformers.js decoded at around 62–66 tokens/sec, compared with wllama at around 58–60 tokens/sec. It also reached the first emitted token slightly sooner: around 134–135 ms versus 155–157 ms.
+
+The biggest difference was load/init time. wllama stayed between 734 ms and 800 ms, while Transformers.js was between 2505 ms and 2538 ms, roughly three times slower to get ready. That gap matters more than it might seem. In a lot of browser ML applications, the model isn't sitting warm and ready; it gets initialised in response to something the user does. Think of a transcription app that loads a model on first upload. In these cases, the user is waiting. 800 ms can still feel fairly responsive. 2.5 seconds is much more noticeable, and long enough that you would likely add a loading state.
+
+There are ways to mitigate a slow init: load eagerly in the background, show a progress state, or warm the model on page load rather than on first use. But a faster cold start removes much of the problem. This gives wllama's init time an interesting and meaningful practical advantage.
+
+It's worth noting that both init times were measured after model files were already cached by the browser. This is runtime initialisation, not download time. The Llamas on the Web paper also discusses optimisations around browser model loading for wllama, including OPFS caching and avoiding redundant memory copies.
+
+### Where wllama fits
+
+Transformers.js is still the library I would reach for first for a lot of browser ML work, mostly because it has a mature API and I am reasonably familiar with it. But wllama is now very much on my radar. GGUF support is a big deal. A lot of local LLM experimentation already happens in the llama.cpp/GGUF world, especially with small quantized models. wllama has now opened the door to that ecosystem in the browser.
