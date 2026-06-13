@@ -105,4 +105,13 @@ const formattedDate = format(parsedDate, "PPP");
   .post img {
     @apply my-2;
   }
+
+  .post .video-embed {
+    @apply my-6 overflow-hidden;
+    aspect-ratio: 16 / 9;
+  }
+
+  .post .video-embed iframe {
+    @apply h-full w-full border-0;
+  }
 </style>
