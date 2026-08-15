@@ -1,6 +1,8 @@
 <div class="time-sketch" data-time-sketch></div>
 
-<script is:inline>
+<script>
+  import { loadP5 } from "../utils/loadP5.js";
+
   (() => {
     const mount = document.querySelector("[data-time-sketch]");
 
@@ -218,15 +220,7 @@
       }, mount);
     };
 
-    if (window.p5) {
-      startSketch();
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js";
-    script.onload = startSketch;
-    document.head.append(script);
+    loadP5().then(startSketch).catch((error) => console.error(error));
   })();
 </script>
 
