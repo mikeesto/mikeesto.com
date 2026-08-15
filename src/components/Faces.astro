@@ -1,0 +1,171 @@
+<div class="faces-sketch" data-faces-sketch></div>
+
+<script>
+  import { loadP5 } from "../utils/loadP5.js";
+
+  const mount = document.querySelector("[data-faces-sketch]");
+
+  if (mount) {
+    loadP5()
+      .then(() => {
+        if (mount.dataset.facesSketchStarted === "true") {
+          return;
+        }
+
+        mount.dataset.facesSketchStarted = "true";
+
+        new window.p5((p) => {
+          const faces = [];
+          const maxCanvasSize = 600;
+          const facesPerPixel = 600 / (600 * 600);
+          const mobileAspectRatio = 4 / 3;
+
+          const getCanvasDimensions = () => {
+            const width = Math.min(maxCanvasSize, mount.clientWidth);
+            const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
+            return {
+              width,
+              height: isMobile ? p.round(width * mobileAspectRatio) : width,
+            };
+          };
+
+          const makeFaces = () => {
+            faces.length = 0;
+
+            const faceCount = p.round(p.width * p.height * facesPerPixel);
+
+            const padding = Math.min(50, p.width / 2, p.height / 2);
+
+            for (let i = 0; i < faceCount; i++) {
+              faces.push({
+                x: p.random(padding, p.width - padding),
+                y: p.random(padding, p.height - padding),
+                size: p.random(30, 80),
+                color: p.color(p.random(255), p.random(255), p.random(255)),
+              });
+            }
+          };
+
+          const drawFace = (face) => {
+            p.push();
+            p.translate(face.x, face.y);
+
+            // Head
+            p.fill(face.color);
+            p.ellipse(0, 0, face.size, face.size);
+
+            // Eyes
+            p.fill(255);
+            p.ellipse(
+              -face.size * 0.15,
+              -face.size * 0.1,
+              face.size * 0.2,
+              face.size * 0.2,
+            );
+            p.ellipse(
+              face.size * 0.15,
+              -face.size * 0.1,
+              face.size * 0.2,
+              face.size * 0.2,
+            );
+
+            // Pupils
+            p.fill(0);
+            p.ellipse(
+              -face.size * 0.15,
+              -face.size * 0.1,
+              face.size * 0.05,
+              face.size * 0.05,
+            );
+            p.ellipse(
+              face.size * 0.15,
+              -face.size * 0.1,
+              face.size * 0.05,
+              face.size * 0.05,
+            );
+
+            // Mouth
+            p.arc(
+              0,
+              face.size * 0.15,
+              face.size * 0.45,
+              face.size * 0.25,
+              0,
+              p.PI,
+            );
+            p.line(
+              -face.size * 0.225,
+              face.size * 0.15,
+              face.size * 0.225,
+              face.size * 0.15,
+            );
+            p.pop();
+          };
+
+          const faceAtPointer = () => {
+            for (let i = faces.length - 1; i >= 0; i--) {
+              const face = faces[i];
+
+              if (p.dist(p.mouseX, p.mouseY, face.x, face.y) < face.size / 2) {
+                return i;
+              }
+            }
+
+            return -1;
+          };
+
+          p.setup = () => {
+            const { width, height } = getCanvasDimensions();
+            const canvas = p.createCanvas(width, height);
+            canvas.parent(mount);
+            p.pixelDensity(Math.min(window.devicePixelRatio || 1, 2));
+            makeFaces();
+          };
+
+          p.draw = () => {
+            p.background("#f6f5f1");
+
+            for (const face of faces) {
+              drawFace(face);
+            }
+
+            p.cursor(faceAtPointer() === -1 ? p.ARROW : p.HAND);
+          };
+
+          p.mousePressed = () => {
+            const faceIndex = faceAtPointer();
+
+            if (faceIndex !== -1) {
+              faces.splice(faceIndex, 1);
+              return false;
+            }
+          };
+
+          p.windowResized = () => {
+            const { width, height } = getCanvasDimensions();
+
+            if (width !== p.width || height !== p.height) {
+              p.resizeCanvas(width, height);
+              makeFaces();
+            }
+          };
+        }, mount);
+      })
+      .catch((error) => console.error(error));
+  }
+</script>
+
+<style>
+  .faces-sketch {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    width: 100%;
+  }
+
+  .faces-sketch :global(canvas) {
+    display: block;
+    max-width: 100%;
+  }
+</style>
