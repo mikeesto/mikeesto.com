@@ -1,12 +1,17 @@
 [
   {
+    "title": "Fly.io log exporter",
+    "description": "A Go utility for extracting Fly.io application logs into a compact .txt file",
+    "url": "https://github.com/mikeesto/flyio-log-export"
+  },
+  {
     "title": "JSON PII Sanitiser",
-    "description": "MLX powered personal identifiable information (PII) sanitiser for JSON files with stable placeholders",
+    "description": "Sanitise personally identifiable information from JSON files",
     "url": "https://github.com/mikeesto/json-pii-sanitiser-mlx"
   },
   {
     "title": "Whimscribe",
-    "description": "Private audio transcription with Cohere Transcribe and transformers.js",
+    "description": "Transcribe audio in your browser with Cohere Transcribe, a highly accurate automatic speech recognition model ",
     "url": "https://whimscribe.netlify.app/"
   }
 ]
