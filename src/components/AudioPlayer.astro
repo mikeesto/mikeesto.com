@@ -61,24 +61,8 @@ const { src, title } = Astro.props;
     padding: 1.1rem 1.2rem;
     border: 1px solid #e3c764;
     border-radius: 1.25rem 1.25rem 1.25rem 0.45rem;
-    background: radial-gradient(
-        circle at 92% 18%,
-        rgb(255 255 255 / 75%) 0 4px,
-        transparent 5px
-      ),
-      linear-gradient(135deg, #fffdf4, #fff7d5);
+    background: linear-gradient(135deg, #fffdf4, #fff7d5);
     box-shadow: 0 8px 24px rgb(113 86 8 / 8%);
-  }
-
-  .player-shell::after {
-    position: absolute;
-    right: -1.3rem;
-    bottom: -1.6rem;
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid rgb(202 158 20 / 16%);
-    border-radius: 50%;
-    content: "";
   }
 
   .play-toggle {
