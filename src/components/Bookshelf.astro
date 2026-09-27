@@ -33,7 +33,7 @@ const books = [
       {
         books.map((book) => (
           <div class="group relative flex flex-col items-center">
-            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+            <div class="hidden md:block absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
               <span class="font-medium">{book.title}</span>
               <br />
               <span class="text-gray-300">{book.author}</span>
