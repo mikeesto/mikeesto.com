@@ -1,0 +1,53 @@
+---
+title: Gemini 3.8 text to speech
+description:
+  "Google's new Gemini 3.8 Flash text to speech model is the first tts model I
+  actually enjoy listening to"
+date: 27-09-2026
+draft: false
+---
+
+import AudioPlayer from "../../components/AudioPlayer.astro";
+import sampleAudio from "../../audio/gemini-3.8-tts-sample.wav?url";
+
+<AudioPlayer src={sampleAudio} title="Gemini 3.8 Flash TTS sample" />
+
+This actually sounds kinda... good? I generated it with Google's new
+[Gemini 3.8 Flash](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-text-to-speech/)
+text to speech model. It's narrating the first paragraph from Kenneth Grahame's
+"Wind in the Willows" (one of my childhood favourites). I have a never ending
+list of things to read, and a morning and afternoon commute where the last thing
+I feel like doing is looking at yet another screen. I think I could actually
+listen to this.
+
+---
+
+<b>Voice:</b> Algenib
+
+<b>Prompt</b>
+
+<i>
+  Read this as a polished nonfiction audiobook narrated by a warm, intelligent
+  British speaker. Use a natural contemporary neutral southern English accent -
+  clear, elegant, and authentic, never theatrical, exaggerated, or caricatured.
+</i>
+
+<i>
+  Speak with calm confidence and a conversational tone, as though explaining the
+  subject to an interested listener. Use measured pacing, clear articulation,
+  and natural variation in pitch and emphasis. Slow slightly for important
+  ideas, definitions, figures, and transitions. Add brief pauses between
+  sections and after major points.
+</i>
+
+<i>
+  Pronounce names and place names carefully and consistently. Use British
+  pronunciation and vocabulary where appropriate, but do not rewrite the
+  author's wording unnecessarily.
+</i>
+
+<i>
+  The overall result should sound like a professionally produced British
+  nonfiction audiobook: engaging, thoughtful, accessible, and easy to follow
+  over a long listening session.
+</i>

@@ -1,0 +1,312 @@
+---
+interface Props {
+  src: string;
+  title: string;
+}
+
+const { src, title } = Astro.props;
+---
+
+<audio-player class="audio-player" data-state="paused">
+  <div class="player-shell">
+    <button class="play-toggle" type="button" aria-label={`Play ${title}`}>
+      <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M8.4 5.7a1 1 0 0 1 1.5-.85l10 6.3a1 1 0 0 1 0 1.7l-10 6.3a1 1 0 0 1-1.5-.85V5.7Z"
+        ></path>
+      </svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="6.5" y="5" width="4" height="14" rx="1"></rect>
+        <rect x="13.5" y="5" width="4" height="14" rx="1"></rect>
+      </svg>
+    </button>
+
+    <div class="player-body">
+      <div class="timeline-row">
+        <span class="current-time">0:00</span>
+        <input
+          class="timeline"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label={`Seek through ${title}`}
+        />
+        <span class="duration">-:--</span>
+      </div>
+    </div>
+
+    <audio src={src} preload="metadata"></audio>
+    <noscript>
+      <audio src={src} controls preload="metadata">
+        Your browser does not support embedded audio.
+      </audio>
+    </noscript>
+  </div>
+</audio-player>
+
+<style>
+  .audio-player {
+    display: block;
+    margin: 1.75rem 0;
+  }
+
+  .player-shell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid #e3c764;
+    border-radius: 1.25rem 1.25rem 1.25rem 0.45rem;
+    background: radial-gradient(
+        circle at 92% 18%,
+        rgb(255 255 255 / 75%) 0 4px,
+        transparent 5px
+      ),
+      linear-gradient(135deg, #fffdf4, #fff7d5);
+    box-shadow: 0 8px 24px rgb(113 86 8 / 8%);
+  }
+
+  .player-shell::after {
+    position: absolute;
+    right: -1.3rem;
+    bottom: -1.6rem;
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid rgb(202 158 20 / 16%);
+    border-radius: 50%;
+    content: "";
+  }
+
+  .play-toggle {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    flex: 0 0 auto;
+    width: 3.6rem;
+    height: 3.6rem;
+    place-items: center;
+    border: 2px solid #27231a;
+    border-radius: 50% 46% 52% 44%;
+    background: #f6c945;
+    color: #27231a;
+    cursor: pointer;
+    box-shadow: 3px 4px 0 #27231a;
+    transform: rotate(-2deg);
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      background 160ms ease;
+  }
+
+  .play-toggle:hover {
+    background: #ffd75d;
+    box-shadow: 2px 3px 0 #27231a;
+    transform: translate(1px, 1px) rotate(2deg);
+  }
+
+  .play-toggle:active {
+    box-shadow: 0 1px 0 #27231a;
+    transform: translate(3px, 3px);
+  }
+
+  .play-toggle:focus-visible,
+  .timeline:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+  }
+
+  .play-toggle svg {
+    width: 1.45rem;
+    height: 1.45rem;
+    fill: currentColor;
+  }
+
+  .play-icon {
+    margin-left: 0.16rem;
+  }
+
+  .pause-icon {
+    display: none;
+  }
+
+  .audio-player[data-state="playing"] .play-icon {
+    display: none;
+  }
+
+  .audio-player[data-state="playing"] .pause-icon {
+    display: block;
+  }
+
+  .player-body {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(4rem, 1fr) 2.25rem;
+    align-items: center;
+    gap: 0.5rem;
+    color: #756943;
+    font-family: "Fira Code", monospace;
+    font-size: 0.64rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .duration {
+    text-align: right;
+  }
+
+  .timeline {
+    width: 100%;
+    height: 4px;
+    margin: 0;
+    border-radius: 999px;
+    appearance: none;
+    background: linear-gradient(
+      to right,
+      #8d6b08 0 var(--progress, 0%),
+      rgb(141 107 8 / 22%) var(--progress, 0%) 100%
+    );
+    cursor: pointer;
+  }
+
+  .timeline::-webkit-slider-thumb {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fffdf4;
+    border-radius: 50%;
+    appearance: none;
+    background: #8d6b08;
+    box-shadow: 0 0 0 1px #8d6b08;
+  }
+
+  .timeline::-moz-range-thumb {
+    width: 9px;
+    height: 9px;
+    border: 2px solid #fffdf4;
+    border-radius: 50%;
+    background: #8d6b08;
+    box-shadow: 0 0 0 1px #8d6b08;
+  }
+
+  audio {
+    display: none;
+  }
+
+  noscript audio {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    .player-shell {
+      gap: 0.8rem;
+      padding: 1rem;
+    }
+
+    .play-toggle {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .play-toggle {
+      animation: none !important;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  class AudioPlayer extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready === "true") return;
+      this.dataset.ready = "true";
+
+      const audio = this.querySelector("audio");
+      const toggle = this.querySelector<HTMLButtonElement>(".play-toggle");
+      const timeline = this.querySelector<HTMLInputElement>(".timeline");
+      const currentTime = this.querySelector<HTMLElement>(".current-time");
+      const duration = this.querySelector<HTMLElement>(".duration");
+
+      if (!audio || !toggle || !timeline || !currentTime || !duration) {
+        return;
+      }
+
+      const title =
+        toggle.getAttribute("aria-label")?.replace(/^Play /, "") ?? "audio";
+
+      const formatTime = (seconds: number) => {
+        if (!Number.isFinite(seconds)) return "-:--";
+        const minutes = Math.floor(seconds / 60);
+        const remainder = Math.floor(seconds % 60);
+        return `${minutes}:${remainder.toString().padStart(2, "0")}`;
+      };
+
+      const updateProgress = () => {
+        const progress = audio.duration
+          ? (audio.currentTime / audio.duration) * 100
+          : 0;
+        timeline.value = progress.toString();
+        timeline.style.setProperty("--progress", `${progress}%`);
+        currentTime.textContent = formatTime(audio.currentTime);
+      };
+
+      const updateDuration = () => {
+        duration.textContent = formatTime(audio.duration);
+      };
+
+      toggle.addEventListener("click", async () => {
+        if (audio.paused) {
+          document
+            .querySelectorAll<HTMLAudioElement>("audio-player audio")
+            .forEach((item) => {
+              if (item !== audio) item.pause();
+            });
+
+          try {
+            await audio.play();
+          } catch {}
+        } else {
+          audio.pause();
+        }
+      });
+
+      timeline.addEventListener("input", () => {
+        if (!audio.duration) return;
+        audio.currentTime = (Number(timeline.value) / 100) * audio.duration;
+        updateProgress();
+      });
+
+      audio.addEventListener("loadedmetadata", updateDuration);
+      audio.addEventListener("durationchange", updateDuration);
+      audio.addEventListener("timeupdate", updateProgress);
+      audio.addEventListener("play", () => {
+        this.dataset.state = "playing";
+        toggle.setAttribute("aria-label", `Pause ${title}`);
+      });
+      audio.addEventListener("pause", () => {
+        this.dataset.state = "paused";
+        toggle.setAttribute("aria-label", `Play ${title}`);
+      });
+      audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        updateProgress();
+      });
+
+      if (audio.readyState >= 1) updateDuration();
+    }
+  }
+
+  if (!customElements.get("audio-player")) {
+    customElements.define("audio-player", AudioPlayer);
+  }
+</script>
