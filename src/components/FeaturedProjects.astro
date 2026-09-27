@@ -9,29 +9,41 @@ const icons = {
   Palette,
 };
 
+type Project = {
+  title: string;
+  description: string;
+  color: string;
+  hoverColor: string;
+  textColor: string;
+  icon: keyof typeof icons;
+  link: string;
+};
+
 const projects = [
   {
     title: "Kind Wordle",
-    description: "A kinder version of Wordle that hands you the vowels.",
-    color: "bg-blue-50",
+    description:
+      "A kinder version of Wordle that reveals the vowels from the start.",
+    color: "bg-blue-100/70",
+    hoverColor: "group-hover:bg-blue-50/70",
     textColor: "text-blue-900",
     icon: "Grid2x2",
     link: "https://kindwordle.netlify.app/",
   },
   {
     title: "Gemini Transcribe",
-    description:
-      "Transcribe audio and video files with speaker diarization. I've been told it's particularly good when the audio contains multiple languages.",
-    color: "bg-green-50",
+    description: "Transcribe audio and video files with speaker diarisation.",
+    color: "bg-emerald-100/70",
+    hoverColor: "group-hover:bg-emerald-50/70",
     textColor: "text-emerald-900",
     icon: "Mic",
     link: "https://gemini-transcribe.fly.dev/",
   },
   {
     title: "YouTube Summariser",
-    description:
-      "Generate YouTube video summaries. Useful when a video catches your attention but you don't want to sit through 7 minutes to hear two useful things.",
-    color: "bg-amber-50",
+    description: "Generate a summary of a YouTube video.",
+    color: "bg-amber-100/70",
+    hoverColor: "group-hover:bg-amber-50/70",
     textColor: "text-amber-900",
     icon: "Youtube",
     link: "https://yt-summary.vercel.app/",
@@ -39,82 +51,64 @@ const projects = [
   {
     title: "Emoji Maker",
     description:
-      "Create and download custom emoji. I think the main users are my friends' kids.",
-    color: "bg-purple-50",
+      "Design your own silly custom emoji. Very popular with my friends' kids.",
+    color: "bg-purple-100/70",
+    hoverColor: "group-hover:bg-purple-50/70",
     textColor: "text-purple-900",
     icon: "Palette",
     link: "https://emojimakers.netlify.app/",
   },
-];
+] satisfies Project[];
 ---
 
-<section class="py-2">
-  <div class="w-full max-w-5xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {
-        projects.map((project, index) => {
-          const Icon = icons[project.icon];
-          const number = String(index + 1).padStart(3, "0");
-          return (
-            <a
-              href={project.link}
-              class={`rounded-xl p-5 ${project.color} border border-black/10 text-left transition-all duration-300 ease-out hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/5 flex flex-col`}
-              aria-label={`${project.title} - ${project.description}`}
+<section aria-label="Selected projects">
+  <div
+    class="relative grid grid-cols-1 gap-x-8 md:grid-cols-2 md:before:pointer-events-none md:before:absolute md:before:inset-y-0 md:before:left-1/2 md:before:z-10 md:before:w-px md:before:-translate-x-1/2 md:before:bg-black/15 md:after:pointer-events-none md:after:absolute md:after:inset-x-0 md:after:top-1/2 md:after:z-10 md:after:h-px md:after:-translate-y-1/2 md:after:bg-black/15"
+  >
+    {
+      projects.map((project, index) => {
+        const Icon = icons[project.icon];
+        return (
+          <a
+            href={project.link}
+            class={`group relative flex gap-4 rounded-xl px-3 py-5 transition-colors duration-200 md:-mx-3 md:border-0 ${index > 0 ? "border-t border-black/15" : ""} ${project.hoverColor} focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+            aria-label={`${project.title} - ${project.description}`}
+          >
+            <div
+              class={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg [&>svg]:!mb-0 [&>svg]:!h-5 [&>svg]:!w-5 ${project.color} ${project.textColor}`}
+              aria-hidden="true"
             >
-              <div class="flex items-center justify-between mb-4">
-                <span class={`${project.textColor} opacity-40`}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <>
-                      <path d="M7 7h10v10" />
-                      <path d="M7 17 17 7" />
-                    </>
-                  </svg>
-                </span>
-                <span
-                  class={`text-xs ${project.textColor} opacity-60 border border-current rounded px-2 py-0.5`}
-                >
-                  {number}
-                </span>
-              </div>
+              <IconComponent icon={Icon} stroke-width={1.75} />
+            </div>
 
-              <hr class="border-current opacity-20 mb-4" />
-
-              <h3 class={`text-lg font-bold ${project.textColor} mb-2`}>
+            <div class="min-w-0">
+              <h3
+                class={`mb-1 text-base font-semibold leading-6 ${project.textColor} decoration-2 underline-offset-4 group-hover:underline`}
+              >
                 {project.title}
               </h3>
-
-              <p class={`${project.textColor} opacity-75 text-sm mb-4`}>
+              <p class="text-sm leading-6 text-gray-600">
                 {project.description}
               </p>
-
-              <div class={`mt-auto ${project.textColor} opacity-50`}>
-                <IconComponent icon={Icon} />
-              </div>
-            </a>
-          );
-        })
-      }
-    </div>
+            </div>
+          </a>
+        );
+      })
+    }
   </div>
 
-  <div class="mt-6">
+  <div class="mt-4">
     <a
       href="/projects"
-      class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-300 hover:border-gray-400 transition-all duration-200 group text-sm font-medium"
+      class="group inline-flex items-center gap-2 text-sm font-medium text-blue-500 transition-colors hover:text-blue-600"
     >
-      <span class="text-gray-700">All projects</span>
       <span
-        class="transition-transform duration-200 transform group-hover:translate-x-1 text-gray-500"
+        class="underline decoration-blue-200 decoration-2 underline-offset-4 group-hover:decoration-blue-500"
+      >
+        Browse all projects
+      </span>
+      <span
+        class="transition-transform duration-200 group-hover:translate-x-1"
         aria-hidden="true"
       >
         →
