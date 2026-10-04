@@ -1,0 +1,447 @@
+<div class="lucky-sketch" data-lucky-sketch>
+  <div class="lucky-canvas" data-lucky-canvas></div>
+  <button type="button" disabled>PLAY</button>
+  <span class="lucky-result" role="status" aria-live="polite"></span>
+</div>
+
+<script>
+  import { loadP5 } from "../utils/loadP5.js";
+
+  (() => {
+    const mount = document.querySelector("[data-lucky-sketch]");
+    if (!mount) return;
+    const canvasMount = mount.querySelector("[data-lucky-canvas]");
+    const button = mount.querySelector("button");
+    const result = mount.querySelector("[role='status']");
+    if (!canvasMount || !button || !result) return;
+
+    const startSketch = () => {
+      if (!window.p5 || mount.dataset.luckySketchStarted === "true") return;
+      mount.dataset.luckySketchStarted = "true";
+
+      new window.p5((p) => {
+        const balls = [];
+        const winners = [];
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const word = "LUCKY";
+        // Bright coral, golden yellow, mint, sky blue, and lilac.
+        const winnerPalette = [
+          "#FF8A80",
+          "#FFD166",
+          "#75DDB0",
+          "#79C7F2",
+          "#BEA1F5",
+        ];
+        const radius = 12;
+        const resultScale = 1.8;
+        const resultY = 900;
+        const resultSpacing = 56;
+        const domainRadius = 360;
+        const centerX = 400;
+        const centerY = 480;
+        const openingAngle = 0.09;
+        const openingHalfWidth = Math.sin(openingAngle) * domainRadius;
+        const top = centerY - domainRadius;
+        const cellSize = radius * 2;
+        const grid = new Map();
+        const neighbors = [-1, 0, 1];
+        let running = false;
+        let elapsed = 0;
+        let accumulator = 0;
+        let selected = null;
+        let nextExitAt = 3;
+        let finishedAt = null;
+        let mixing = 0;
+        let rollStartedAt = null;
+
+        class Ball {
+          constructor(x, y, letter) {
+            this.x = x;
+            this.y = y;
+            this.vx = 0;
+            this.vy = 0;
+            this.letter = letter;
+            this.color = p.color(
+              p.random(100, 240),
+              p.random(100, 240),
+              p.random(100, 240),
+            );
+            this.exit = null;
+            this.guiding = false;
+            this.phase = p.random(p.TWO_PI);
+            this.arrived = false;
+            this.scale = 1;
+            this.hidden = false;
+            this.rotation = 0;
+          }
+
+          draw() {
+            if (this.hidden) return;
+            p.push();
+            p.translate(this.x, this.y);
+            p.rotate(this.rotation);
+            p.noStroke();
+            p.fill(this.color);
+            p.circle(0, 0, radius * 2 * this.scale);
+            p.fill(20);
+            p.textSize(16 * this.scale);
+            p.text(this.letter, 0, 0);
+            p.pop();
+          }
+        }
+
+        function resolveCollisions() {
+          grid.clear();
+          for (const ball of balls) {
+            if (ball.exit) continue;
+            const cx = Math.floor(ball.x / cellSize);
+            const cy = Math.floor(ball.y / cellSize);
+            const key = `${cx},${cy}`;
+            if (!grid.has(key)) grid.set(key, []);
+            grid.get(key).push(ball);
+          }
+
+          for (const [key, group] of grid) {
+            const [cx, cy] = key.split(",").map(Number);
+            for (const ox of neighbors) {
+              for (const oy of neighbors) {
+                const otherKey = `${cx + ox},${cy + oy}`;
+                // Visit each cell pair once.
+                if (otherKey < key) continue;
+                const others = grid.get(otherKey);
+                if (!others) continue;
+                for (let i = 0; i < group.length; i++) {
+                  for (let j = 0; j < others.length; j++) {
+                    if (otherKey === key && j <= i) continue;
+                    const a = group[i];
+                    const b = others[j];
+                    let dx = b.x - a.x;
+                    let dy = b.y - a.y;
+                    let distance = Math.hypot(dx, dy);
+                    if (distance >= radius * 2) continue;
+                    if (distance < 0.0001) {
+                      dx = 1;
+                      dy = 0;
+                      distance = 1;
+                    }
+                    const nx = dx / distance;
+                    const ny = dy / distance;
+                    const overlap = (radius * 2 - distance) / 2;
+                    a.x -= nx * overlap;
+                    a.y -= ny * overlap;
+                    b.x += nx * overlap;
+                    b.y += ny * overlap;
+                    const approach = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+                    if (approach < 0) {
+                      const restitution = mixing > 0 ? 0.94 : 0.25;
+                      const impulse = (-approach * (1 + restitution)) / 2;
+                      a.vx -= nx * impulse;
+                      a.vy -= ny * impulse;
+                      b.vx += nx * impulse;
+                      b.vy += ny * impulse;
+                    }
+                    if (mixing === 0) {
+                      a.vx *= 0.85;
+                      a.vy *= 0.85;
+                      b.vx *= 0.85;
+                      b.vy *= 0.85;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        function physicsStep() {
+          const dt = 1 / 180;
+          const gravity = 620;
+          for (let step = 0; step < 3; step++) {
+            for (const ball of balls) {
+              if (ball.exit) continue;
+              const dy = ball.y - centerY;
+              const jetX = centerX + Math.sin(elapsed * 1.8) * 155;
+              const jet = Math.exp(-(((ball.x - jetX) / 125) ** 2));
+              const lowerBowl = Math.max(0, Math.min(1, (dy + 100) / 220));
+              ball.vx +=
+                mixing * Math.sin(elapsed * 2.4 + ball.phase) * 320 * dt;
+              ball.vy += (gravity + mixing * (-jet * lowerBowl * 4200)) * dt;
+              const drag = Math.exp(-(mixing > 0 ? 0.08 : 1.4) * dt);
+              ball.vx *= drag;
+              ball.vy *= drag;
+              if (ball.guiding) {
+                const tx = centerX - ball.x;
+                const blend = 1 - Math.exp(-10 * dt);
+                const targetVX = Math.max(-650, Math.min(650, tx * 12));
+                ball.vx += (targetVX - ball.vx) * blend;
+                ball.vy += (-500 - ball.vy) * blend;
+              }
+              const speed = Math.hypot(ball.vx, ball.vy);
+              if (speed > 1050) {
+                ball.vx *= 1050 / speed;
+                ball.vy *= 1050 / speed;
+              }
+              ball.x += ball.vx * dt;
+              ball.y += ball.vy * dt;
+            }
+            resolveCollisions();
+            for (const ball of balls) {
+              if (ball.exit) continue;
+              const dx = ball.x - centerX;
+              const dy = ball.y - centerY;
+              const distance = Math.hypot(dx, dy);
+              const limit = domainRadius - radius;
+              const inOpening =
+                ball.guiding &&
+                dy < 0 &&
+                Math.abs(dx) < openingHalfWidth - radius - 2;
+              if (inOpening || distance <= limit) continue;
+              const nx = dx / distance;
+              const ny = dy / distance;
+              ball.x = centerX + nx * limit;
+              ball.y = centerY + ny * limit;
+              const outward = ball.vx * nx + ball.vy * ny;
+              if (outward > 0) {
+                const restitution = mixing > 0 ? 0.9 : 0.3;
+                ball.vx -= (1 + restitution) * outward * nx;
+                ball.vy -= (1 + restitution) * outward * ny;
+              }
+            }
+          }
+        }
+
+        function resetBalls() {
+          balls.length = 0;
+          winners.length = 0;
+          mixing = 0;
+          for (let i = 0; i < 160; i++) {
+            const x = centerX + ((i % 20) - 9.5) * 25;
+            const y = centerY - 180 + Math.floor(i / 20) * 25;
+            const ball = new Ball(
+              x,
+              y,
+              i < 5 ? word[i] : letters[Math.floor(p.random(26))],
+            );
+            balls.push(ball);
+            if (i < 5) {
+              ball.color = p.color(winnerPalette[i]);
+              winners.push(ball);
+            }
+          }
+          for (let i = 0; i < 600; i++) {
+            physicsStep();
+          }
+          for (const ball of balls) {
+            ball.vx = 0;
+            ball.vy = 0;
+          }
+        }
+
+        function startRun() {
+          if (running) return;
+          if (winners.some((ball) => ball.exit)) resetBalls();
+          result.textContent = "";
+          elapsed = 0;
+          accumulator = 0;
+          selected = null;
+          nextExitAt = 3;
+          finishedAt = null;
+          rollStartedAt = null;
+          mixing = 1;
+          running = true;
+          button.disabled = true;
+          for (const ball of balls) {
+            const angle = p.random(-Math.PI + 0.15, -0.15);
+            const speed = p.random(380, 1000);
+            ball.vx = Math.cos(angle) * speed;
+            ball.vy = Math.sin(angle) * speed;
+          }
+        }
+
+        function updateWinners() {
+          if (!selected && elapsed >= nextExitAt) {
+            const candidates = winners.filter((ball) => !ball.exit);
+            candidates.sort(
+              (a, b) =>
+                Math.hypot(a.x - centerX, a.y - top) -
+                Math.hypot(b.x - centerX, b.y - top),
+            );
+            const candidate = candidates[0];
+            if (
+              candidate &&
+              (candidate.y < centerY - 60 || elapsed > nextExitAt + 2)
+            ) {
+              selected = candidate;
+              selected.guiding = true;
+            }
+          }
+          if (selected && selected.y < top - radius - 4) {
+            selected.guiding = false;
+            selected.exit = {
+              x: selected.x,
+              y: selected.y,
+              vx: selected.vx,
+              vy: selected.vy,
+              time: elapsed,
+            };
+            selected = null;
+            nextExitAt = elapsed + p.random(0.4, 0.65);
+          }
+          for (const ball of winners) {
+            if (!ball.exit || ball.hidden) continue;
+            const flightTime = elapsed - ball.exit.time;
+            ball.x = ball.exit.x + ball.exit.vx * flightTime;
+            ball.y = ball.exit.y + ball.exit.vy * flightTime;
+            if (ball.y < -radius) ball.hidden = true;
+          }
+          if (winners.every((ball) => ball.exit) && finishedAt === null) {
+            finishedAt = elapsed;
+          }
+        }
+
+        function updateRollIn() {
+          const speed = 400;
+          const brakingTime = 0.5;
+          const startX = -radius * resultScale - 4;
+          winners.forEach((ball, index) => {
+            // Y leads, then K, C, U, L: each stops to the left of its predecessor.
+            const time = elapsed - rollStartedAt - (4 - index) * 0.32;
+            if (time < 0) return;
+            const targetX = centerX + (index - 2) * resultSpacing;
+            const cruiseTime = (targetX - startX) / speed - brakingTime / 2;
+            const brake = Math.min(Math.max(time - cruiseTime, 0), brakingTime);
+            const distance =
+              speed * Math.min(time, cruiseTime) +
+              speed * brake -
+              (speed * brake * brake) / (2 * brakingTime);
+            ball.hidden = false;
+            ball.scale = resultScale;
+            ball.x = Math.min(startX + distance, targetX);
+            ball.y = resultY;
+            ball.rotation = (ball.x - targetX) / (radius * resultScale);
+            ball.arrived = time >= cruiseTime + brakingTime;
+            if (ball.arrived) {
+              ball.x = targetX;
+              ball.rotation = 0;
+            }
+          });
+          if (winners.every((ball) => ball.arrived)) {
+            running = false;
+            button.disabled = false;
+            result.textContent = "LUCKY";
+          }
+        }
+
+        p.setup = () => {
+          p.createCanvas(800, 960);
+          p.pixelDensity(Math.min(window.devicePixelRatio || 1, 2));
+          p.textAlign(p.CENTER, p.CENTER);
+          p.textSize(16);
+          p.textStyle(p.BOLD);
+          resetBalls();
+          button.disabled = false;
+          button.addEventListener("click", startRun);
+        };
+
+        p.draw = () => {
+          accumulator += Math.min(p.deltaTime / 1000, 0.05);
+          while (accumulator >= 1 / 60) {
+            accumulator -= 1 / 60;
+            if (running) {
+              elapsed += 1 / 60;
+              if (rollStartedAt === null) {
+                updateWinners();
+                mixing =
+                  finishedAt === null
+                    ? 1
+                    : Math.max(0, 1 - (elapsed - finishedAt) / 0.8);
+                physicsStep();
+                if (
+                  finishedAt !== null &&
+                  elapsed >= finishedAt + 4 &&
+                  balls.every(
+                    (ball) => ball.exit || Math.hypot(ball.vx, ball.vy) < 25,
+                  )
+                ) {
+                  rollStartedAt = elapsed;
+                }
+              } else {
+                updateRollIn();
+              }
+            }
+          }
+          p.background(255);
+          p.noFill();
+          p.stroke(0);
+          p.strokeWeight(2);
+          p.arc(
+            centerX,
+            centerY,
+            domainRadius * 2,
+            domainRadius * 2,
+            -p.HALF_PI + openingAngle,
+            p.PI + p.HALF_PI - openingAngle,
+          );
+          for (const ball of balls) {
+            ball.draw();
+          }
+        };
+      }, canvasMount);
+    };
+
+    loadP5()
+      .then(startSketch)
+      .catch((error) => console.error(error));
+  })();
+</script>
+
+<style>
+  .lucky-sketch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    width: 100%;
+  }
+
+  .lucky-canvas {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .lucky-canvas :global(canvas) {
+    display: block;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  button {
+    border: 2px solid currentColor;
+    border-radius: 0.35rem;
+    padding: 0.65rem 2.5rem;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    background: white;
+    color: black;
+    margin-top: 10px;
+  }
+
+  button:disabled {
+    cursor: default;
+    opacity: 0.45;
+  }
+
+  button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  .lucky-result {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+</style>
