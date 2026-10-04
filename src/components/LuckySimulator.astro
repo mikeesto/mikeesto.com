@@ -54,6 +54,7 @@
         let mixing = 0;
         let rollStartedAt = null;
         let settlingSample = null;
+        let settlingAccumulator = 0;
 
         class Ball {
           constructor(x, y, letter) {
@@ -245,6 +246,7 @@
           finishedAt = null;
           rollStartedAt = null;
           settlingSample = null;
+          settlingAccumulator = 0;
           mixing = 1;
           running = true;
           button.disabled = true;
@@ -354,7 +356,14 @@
                     ? 1
                     : Math.max(0, 1 - (elapsed - finishedAt) / 0.8);
                 physicsStep();
-                if (finishedAt !== null && elapsed >= finishedAt + 4) {
+                if (finishedAt !== null && mixing === 0) {
+                  settlingAccumulator += 0.5;
+                  if (settlingAccumulator >= 1) {
+                    physicsStep();
+                    settlingAccumulator -= 1;
+                  }
+                }
+                if (finishedAt !== null && elapsed >= finishedAt + 2) {
                   const remaining = balls.filter((ball) => !ball.exit);
                   if (settlingSample === null) {
                     settlingSample = {
@@ -364,7 +373,7 @@
                         y: ball.y,
                       })),
                     };
-                  } else if (elapsed - settlingSample.time >= 0.75) {
+                  } else if (elapsed - settlingSample.time >= 0.5) {
                     const settled = remaining.every(
                       (ball, index) =>
                         Math.hypot(
