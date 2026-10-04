@@ -53,6 +53,7 @@
         let finishedAt = null;
         let mixing = 0;
         let rollStartedAt = null;
+        let settlingSample = null;
 
         class Ball {
           constructor(x, y, letter) {
@@ -133,18 +134,12 @@
                     b.y += ny * overlap;
                     const approach = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
                     if (approach < 0) {
-                      const restitution = mixing > 0 ? 0.94 : 0.25;
+                      const restitution = mixing > 0 ? 0.94 : 0;
                       const impulse = (-approach * (1 + restitution)) / 2;
                       a.vx -= nx * impulse;
                       a.vy -= ny * impulse;
                       b.vx += nx * impulse;
                       b.vy += ny * impulse;
-                    }
-                    if (mixing === 0) {
-                      a.vx *= 0.85;
-                      a.vy *= 0.85;
-                      b.vx *= 0.85;
-                      b.vy *= 0.85;
                     }
                   }
                 }
@@ -184,27 +179,29 @@
               ball.x += ball.vx * dt;
               ball.y += ball.vy * dt;
             }
-            resolveCollisions();
-            for (const ball of balls) {
-              if (ball.exit) continue;
-              const dx = ball.x - centerX;
-              const dy = ball.y - centerY;
-              const distance = Math.hypot(dx, dy);
-              const limit = domainRadius - radius;
-              const inOpening =
-                ball.guiding &&
-                dy < 0 &&
-                Math.abs(dx) < openingHalfWidth - radius - 2;
-              if (inOpening || distance <= limit) continue;
-              const nx = dx / distance;
-              const ny = dy / distance;
-              ball.x = centerX + nx * limit;
-              ball.y = centerY + ny * limit;
-              const outward = ball.vx * nx + ball.vy * ny;
-              if (outward > 0) {
-                const restitution = mixing > 0 ? 0.9 : 0.3;
-                ball.vx -= (1 + restitution) * outward * nx;
-                ball.vy -= (1 + restitution) * outward * ny;
+            for (let pass = 0; pass < (mixing > 0 ? 1 : 6); pass++) {
+              resolveCollisions();
+              for (const ball of balls) {
+                if (ball.exit) continue;
+                const dx = ball.x - centerX;
+                const dy = ball.y - centerY;
+                const distance = Math.hypot(dx, dy);
+                const limit = domainRadius - radius;
+                const inOpening =
+                  ball.guiding &&
+                  dy < 0 &&
+                  Math.abs(dx) < openingHalfWidth - radius - 2;
+                if (inOpening || distance <= limit) continue;
+                const nx = dx / distance;
+                const ny = dy / distance;
+                ball.x = centerX + nx * limit;
+                ball.y = centerY + ny * limit;
+                const outward = ball.vx * nx + ball.vy * ny;
+                if (outward > 0) {
+                  const restitution = mixing > 0 ? 0.9 : 0;
+                  ball.vx -= (1 + restitution) * outward * nx;
+                  ball.vy -= (1 + restitution) * outward * ny;
+                }
               }
             }
           }
@@ -247,6 +244,7 @@
           nextExitAt = 3;
           finishedAt = null;
           rollStartedAt = null;
+          settlingSample = null;
           mixing = 1;
           running = true;
           button.disabled = true;
@@ -356,14 +354,27 @@
                     ? 1
                     : Math.max(0, 1 - (elapsed - finishedAt) / 0.8);
                 physicsStep();
-                if (
-                  finishedAt !== null &&
-                  elapsed >= finishedAt + 4 &&
-                  balls.every(
-                    (ball) => ball.exit || Math.hypot(ball.vx, ball.vy) < 25,
-                  )
-                ) {
-                  rollStartedAt = elapsed;
+                if (finishedAt !== null && elapsed >= finishedAt + 4) {
+                  const remaining = balls.filter((ball) => !ball.exit);
+                  if (settlingSample === null) {
+                    settlingSample = {
+                      time: elapsed,
+                      positions: remaining.map((ball) => ({
+                        x: ball.x,
+                        y: ball.y,
+                      })),
+                    };
+                  } else if (elapsed - settlingSample.time >= 0.75) {
+                    const settled = remaining.every(
+                      (ball, index) =>
+                        Math.hypot(
+                          ball.x - settlingSample.positions[index].x,
+                          ball.y - settlingSample.positions[index].y,
+                        ) < 0.5,
+                    );
+                    settlingSample = null;
+                    if (settled) rollStartedAt = elapsed;
+                  }
                 }
               } else {
                 updateRollIn();
