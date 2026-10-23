@@ -1,0 +1,274 @@
+<div class="spider-overlay" data-spider-overlay>
+  <svg class="spider-thread" aria-hidden="true">
+    <line data-spider-thread x1="60" y1="0" x2="60" y2="0"></line>
+  </svg>
+  <div class="spider" data-spider title="Give me a tug!">
+    <svg
+      viewBox="0 0 120 90"
+      role="img"
+      aria-label="A friendly Halloween spider"
+    >
+      <g fill="none" stroke="#262322" stroke-width="3.5" stroke-linecap="round">
+        <path
+          d="M35 35 Q23 9 17 23 L5 38 M30 45 Q17 34 4 51 M31 55 Q16 51 10 69 M37 62 Q27 65 25 81"
+        ></path>
+        <path
+          d="M85 35 Q97 9 103 23 L115 38 M90 45 Q103 34 116 51 M89 55 Q104 51 110 69 M83 62 Q93 65 95 81"
+        ></path>
+      </g>
+      <path
+        d="M24 45 C24 7 96 7 96 45 C99 78 79 80 60 80 C41 80 21 78 24 45Z"
+        fill="#262322"></path>
+      <ellipse
+        cx="45"
+        cy="43"
+        rx="12"
+        ry="15"
+        fill="#fffdf7"
+        transform="rotate(12 45 43)"></ellipse>
+      <ellipse
+        cx="75"
+        cy="43"
+        rx="12"
+        ry="15"
+        fill="#fffdf7"
+        transform="rotate(-12 75 43)"></ellipse>
+      <ellipse cx="49" cy="42" rx="6" ry="8" fill="#262322"></ellipse>
+      <ellipse cx="71" cy="42" rx="6" ry="8" fill="#262322"></ellipse>
+      <circle cx="51" cy="39" r="2" fill="white"></circle>
+      <circle cx="73" cy="39" r="2" fill="white"></circle>
+      <path
+        d="M54 58 Q60 69 66 58"
+        fill="none"
+        stroke="#fffdf7"
+        stroke-width="1.6"
+        stroke-linecap="round"></path>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .spider-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .spider-thread {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .spider-thread line {
+    stroke: #76716a;
+    stroke-width: 1;
+  }
+  .spider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 60px;
+    cursor: grab;
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    transform-origin: 50% 15%;
+  }
+  .spider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .spider.dragging {
+    cursor: grabbing;
+  }
+  @media (min-width: 768px) and (pointer: fine) {
+    .spider-overlay.active {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const overlay = document.querySelector<HTMLElement>("[data-spider-overlay]");
+  const spider = overlay?.querySelector<HTMLElement>("[data-spider]");
+  const thread = overlay?.querySelector<SVGLineElement>("[data-spider-thread]");
+
+  if (overlay && spider && thread) {
+    const desktop = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let homeX = 60;
+    const homeY = 145;
+    let x = homeX,
+      y = -65,
+      vx = 0,
+      vy = 0;
+    let rotation = 0;
+    let frame = 0,
+      lastTime = 0;
+    let entranceTimer = 0;
+    let pointer: number | null = null;
+    let offsetX = 0,
+      offsetY = 0,
+      lastPointerTime = 0;
+
+    function paint() {
+      spider!.style.transform = `translate(${x - 40}px, ${y - 9}px) rotate(${rotation}deg)`;
+      thread!.setAttribute("x1", String(homeX));
+      thread!.setAttribute("x2", String(x));
+      thread!.setAttribute("y2", String(y + 3));
+    }
+
+    function stop() {
+      window.clearTimeout(entranceTimer);
+      entranceTimer = 0;
+      cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = 0;
+    }
+
+    function tick(time: number) {
+      const dt = Math.min((time - (lastTime || time - 16)) / 1000, 0.032);
+      lastTime = time;
+      const steps = Math.ceil(dt / 0.008);
+      const step = dt / steps;
+      for (let i = 0; i < steps; i++) {
+        vx += ((homeX - x) * 24 - vx * 1.5) * step;
+        vy += ((homeY - y) * 24 - vy * 1.5) * step;
+        x += vx * step;
+        y += vy * step;
+        if (x < 42) {
+          x = 42;
+          vx = Math.abs(vx) * 0.88;
+        }
+        if (x > innerWidth - 42) {
+          x = innerWidth - 42;
+          vx = -Math.abs(vx) * 0.88;
+        }
+        if (y > innerHeight - 52) {
+          y = innerHeight - 52;
+          vy = -Math.abs(vy) * 0.88;
+        }
+        if (y < -65) {
+          y = -65;
+          vy = Math.abs(vy) * 0.88;
+        }
+      }
+      const targetRotation = Math.max(
+        -28,
+        Math.min(28, vx * 0.035 + (x - homeX) * 0.025),
+      );
+      rotation += (targetRotation - rotation) * Math.min(1, dt * 9);
+      if (
+        Math.hypot(x - homeX, y - homeY) < 0.3 &&
+        Math.hypot(vx, vy) < 1 &&
+        Math.abs(rotation) < 0.2
+      ) {
+        x = homeX;
+        y = homeY;
+        vx = vy = rotation = 0;
+        paint();
+        stop();
+        return;
+      }
+      paint();
+      frame = requestAnimationFrame(tick);
+    }
+
+    function release() {
+      if (pointer === null) return;
+      const releasedPointer = pointer;
+      pointer = null;
+      if (spider!.hasPointerCapture(releasedPointer))
+        spider!.releasePointerCapture(releasedPointer);
+      spider!.classList.remove("dragging");
+      if (performance.now() - lastPointerTime > 100) vx = vy = 0;
+      if (reducedMotion.matches) {
+        x = homeX;
+        y = homeY;
+        rotation = 0;
+        paint();
+      } else if (desktop.matches) {
+        stop();
+        frame = requestAnimationFrame(tick);
+      }
+    }
+
+    spider.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || pointer !== null) return;
+      stop();
+      pointer = event.pointerId;
+      offsetX = event.clientX - x;
+      offsetY = event.clientY - y;
+      vx = vy = 0;
+      lastPointerTime = performance.now();
+      spider.setPointerCapture(pointer);
+      spider.classList.add("dragging");
+      event.preventDefault();
+    });
+    spider.addEventListener("pointermove", (event) => {
+      if (event.pointerId !== pointer) return;
+      const now = performance.now();
+      const dt = Math.max((now - lastPointerTime) / 1000, 0.008);
+      const nextX = Math.max(
+        42,
+        Math.min(innerWidth - 42, event.clientX - offsetX),
+      );
+      const nextY = Math.max(
+        12,
+        Math.min(innerHeight - 52, event.clientY - offsetY),
+      );
+      vx = Math.max(-1800, Math.min(1800, (nextX - x) / dt));
+      vy = Math.max(-1800, Math.min(1800, (nextY - y) / dt));
+      x = nextX;
+      y = nextY;
+      lastPointerTime = now;
+      rotation = reducedMotion.matches
+        ? 0
+        : Math.max(-22, Math.min(22, (x - homeX) * 0.04));
+      paint();
+    });
+    spider.addEventListener("pointerup", release);
+    spider.addEventListener("pointercancel", release);
+    spider.addEventListener("lostpointercapture", release);
+
+    function initialize() {
+      release();
+      stop();
+      overlay!.classList.toggle("active", desktop.matches);
+      homeX = Math.max(58, Math.min(90, (innerWidth - 768) / 4));
+      x = homeX;
+      y = reducedMotion.matches ? homeY : -65;
+      vx = vy = rotation = 0;
+      paint();
+      if (desktop.matches && !reducedMotion.matches) {
+        entranceTimer = window.setTimeout(() => {
+          entranceTimer = 0;
+          frame = requestAnimationFrame(tick);
+        }, 650);
+      }
+    }
+    desktop.addEventListener("change", initialize);
+    reducedMotion.addEventListener("change", initialize);
+    window.addEventListener("resize", () => {
+      homeX = Math.max(58, Math.min(90, (innerWidth - 768) / 4));
+      x = Math.max(42, Math.min(innerWidth - 42, x));
+      y = Math.min(innerHeight - 52, y);
+      paint();
+      if (
+        desktop.matches &&
+        pointer === null &&
+        !frame &&
+        !entranceTimer &&
+        !reducedMotion.matches
+      )
+        frame = requestAnimationFrame(tick);
+    });
+    initialize();
+  }
+</script>
