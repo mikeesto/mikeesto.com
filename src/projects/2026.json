@@ -1,5 +1,10 @@
 [
   {
+    "title": "article2wav",
+    "description": "Turn any article into an audio file that actually sounds okay",
+    "url": "https://article2wav.fly.dev/"
+  },
+  {
     "title": "Fly.io log exporter",
     "description": "A Go utility for extracting Fly.io application logs into a compact .txt file",
     "url": "https://github.com/mikeesto/flyio-log-export"
